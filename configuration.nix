@@ -76,6 +76,8 @@
     shell = pkgs.fish;
   };
 
+  security.pam.services.shu.enableKwallet = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -86,7 +88,7 @@
     open-vm-tools
     fish bc
     okular libreoffice scribusUnstable gimp
-    vscodium git cabal-install ghc yarn
+    vscodium git cabal-install ghc yarn hugo
     anthy librime
   ];
 
