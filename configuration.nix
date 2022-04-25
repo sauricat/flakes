@@ -86,7 +86,7 @@
     open-vm-tools
     fish bc
     okular libreoffice scribusUnstable gimp
-    vscodium git cabal-install ghc
+    vscodium git cabal-install ghc yarn
     anthy librime
   ];
 
