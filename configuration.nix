@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./software.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -20,10 +21,7 @@
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
   networking.hostName = "dvm"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Set your time zone.
-  time.timeZone = "Asia/Shanghai";
+  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -31,30 +29,30 @@
   networking.useDHCP = false;
   networking.interfaces.ens33.useDHCP = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
+  networking.networkmanager.enable = true;
+  networking.proxy.default = "http://127.0.0.1:7890"; # "http://user:password@proxy:port/";
+  # networking.proxy.allProxy = "http://127.0.0.1:7890";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Select internationalisation properties.
+  # Localisation
+  time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    font = "Lat2-Terminus16";
-    keyMap = "us";
-  };
   i18n.inputMethod.enabled = "ibus";
   i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [
     anthy rime 
     typing-booster ];
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "us";
+  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
 
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   
-
   # Configure keymap in X11
   services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
@@ -78,57 +76,7 @@
 
   security.pam.services.shu.enableKwallet = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    emacs vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget ark filelight
-    firefox tdesktop
-    clash
-    bc
-    okular libreoffice scribusUnstable gimp
-    vscodium git cabal-install ghc yarn hugo
-    anthy librime
-    open-vm-tools # vmware adaption
-  ];
 
-  fonts = {
-    enableDefaultFonts = true;
-    fonts = with pkgs; [
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      fira-code
-      fira-code-symbols
-      hanazono
-      source-han-sans source-han-serif source-han-mono
-      wqy_microhei wqy_zenhei
-    ];
-    fontconfig = {
-      defaultFonts = {
-        serif = [ "Source Han Serif" ];
-        sansSerif = [ "Source Han Sans" ];
-        monospace = [ "Fira Code" ];
-      };
-    };
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-  programs.fish = {
-    enable = true;
-    shellAbbrs = {
-      l = "ls -ahl";
-      g = "git";
-      b = "bc -l";
-      t = "tar";
-    };
-  };
 
   # List services that you want to enable:
 
@@ -141,17 +89,10 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # network management
-  networking.networkmanager.enable = true;
-  
-  networking.proxy.default = "http://127.0.0.1:7890";
-  # networking.proxy.allProxy = "http://127.0.0.1:7890";
-
-
-  # vmware support
+  # Vmware support
   virtualisation.vmware.guest.enable = true;
   
-  
+  # Nix configuration
   nix = {
     package = pkgs.nixFlakes; 
     extraOptions = "experimental-features = nix-command flakes";
