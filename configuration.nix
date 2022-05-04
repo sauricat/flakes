@@ -21,7 +21,7 @@
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
   networking.hostName = "dvm"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
