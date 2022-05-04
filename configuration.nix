@@ -85,7 +85,7 @@
     wget ark filelight
     firefox tdesktop
     clash
-    fish bc
+    bc
     okular libreoffice scribusUnstable gimp
     vscodium git cabal-install ghc yarn hugo
     anthy librime
@@ -120,6 +120,15 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  programs.fish = {
+    enable = true;
+    shellAbbrs = {
+      l = "ls -ahl";
+      g = "git";
+      b = "bc -l";
+      t = "tar";
+    };
+  };
 
   # List services that you want to enable:
 
@@ -147,12 +156,12 @@
     package = pkgs.nixFlakes; 
     extraOptions = "experimental-features = nix-command flakes";
   };
-  # This value determines the NixOS release from which the default
+  # This value determines the Nad the documentation for this option
+  # (e.g. man configuration.nix oixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # Before changing this value rer on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
 
 }
