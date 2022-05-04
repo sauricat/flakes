@@ -38,13 +38,13 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-     font = "Lat2-Terminus16";
-     keyMap = "us";
-   };
+    font = "Lat2-Terminus16";
+    keyMap = "us";
+  };
   i18n.inputMethod.enabled = "ibus";
   i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [
-     anthy rime 
-     typing-booster ];
+    anthy rime 
+    typing-booster ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -81,15 +81,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
+    emacs vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    wget ark filelight
     firefox tdesktop
     clash
-    open-vm-tools
     fish bc
     okular libreoffice scribusUnstable gimp
     vscodium git cabal-install ghc yarn hugo
     anthy librime
+    open-vm-tools # vmware adaption
   ];
 
   fonts = {
@@ -103,7 +103,6 @@
       hanazono
       source-han-sans source-han-serif source-han-mono
       wqy_microhei wqy_zenhei
-      
     ];
     fontconfig = {
       defaultFonts = {
@@ -145,8 +144,8 @@
   
   
   nix = {
-   package = pkgs.nixFlakes; 
-   extraOptions = ''experimental-features = nix-command flakes'';
+    package = pkgs.nixFlakes; 
+    extraOptions = "experimental-features = nix-command flakes";
   };
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
