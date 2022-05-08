@@ -5,13 +5,12 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     emacs vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget ark filelight
-    firefox tdesktop
+    wget 
     clash
-    bc
-    okular libreoffice scribusUnstable gimp
-    vscodium git cabal-install ghc yarn hugo
+    firefox
+    git
     anthy librime
+    home-manager
     open-vm-tools # vmware adaption
   ];
 
@@ -43,13 +42,5 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-  programs.fish = {
-    enable = true;
-    shellAbbrs = {
-      l = "ls -ahl";
-      g = "git";
-      b = "bc -l";
-      t = "tar";
-    };
-  };
+
 }
