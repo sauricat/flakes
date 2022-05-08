@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./software.nix
+      <home-manager/nixos> 
     ];
 
   # Use the GRUB 2 boot loader.
@@ -73,7 +74,10 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
   };
-
+  
+  home-manager.users.shu = import ./home/home.nix;
+  home-manager.useGlobalPkgs = true;
+  
   security.pam.services.shu.enableKwallet = true;
 
 
@@ -96,6 +100,12 @@
   nix = {
     package = pkgs.nixFlakes; 
     extraOptions = "experimental-features = nix-command flakes";
+    autoOptimiseStore = true;
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+      dates = "Sun 01:00";
+    };
   };
   # This value determines the Nad the documentation for this option
   # (e.g. man configuration.nix oixOS release from which the default
