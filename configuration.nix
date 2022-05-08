@@ -3,13 +3,11 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./software.nix
-      <home-manager/nixos> 
     ];
 
   # Use the GRUB 2 boot loader.
@@ -74,10 +72,7 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
   };
-  
-  home-manager.users.shu = import ./home/home.nix;
-  home-manager.useGlobalPkgs = true;
-  
+
   security.pam.services.shu.enableKwallet = true;
 
 

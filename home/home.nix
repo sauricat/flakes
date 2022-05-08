@@ -1,6 +1,9 @@
 { config, pkgs, lib, ... }:
 
 {
+  home.username = "shu";
+  home.homeDirectory = "/home/shu";
+
   programs.home-manager.enable = true;
   programs.git = {
     enable = true;
@@ -10,6 +13,6 @@
       init.defaultBranch = "main";
     };
   };
-
+  home.stateVersion = "21.11";
   
 }
