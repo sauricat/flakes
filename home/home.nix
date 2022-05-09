@@ -46,6 +46,10 @@
       b = "bc -l";
       t = "tar";
     };
+    functions = {
+      fish_greeting = "";
+      setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
+    };
   };
 
   programs.emacs = {
