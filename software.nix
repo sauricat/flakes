@@ -9,7 +9,6 @@
     clash
     firefox
     git
-    anthy librime
     home-manager
     open-vm-tools # vmware adaption
   ];
