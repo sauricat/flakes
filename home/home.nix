@@ -50,8 +50,12 @@
 
   programs.emacs = {
     enable = true;
-
+    extraPackages = epkgs: [
+      epkgs.nix-mode
+      epkgs.magit
+    ];
   };
+
   home.stateVersion = "21.11";
   
 }
