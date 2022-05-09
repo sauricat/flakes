@@ -1,0 +1,110 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: chaizi
+  name: "拆字"
+  version: "0.5"
+  author:
+    - Sauricat
+  description: |
+    拆字
+  dependencies:
+    - luna_pinyin
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+  - name: full_shape
+    states: [ 半角, 全角 ]
+  - name: ascii_punct
+    states: [ 。，, ．， ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - reverse_lookup_translator
+    - table_translator
+
+speller:
+  alphabet: "zyxwvutsrqponmlkjihgfedcba"
+  initials: "zyxwvutsrqponmlkjihgfedcba"
+  delimiter: " '"
+  #####
+  # algebra:
+  #   - erase/\Sxx\s/
+  #   - derive/([i])n\s/$1ng/
+  #   - derive/([i])ng\s/$1n/
+  #   - derive/\S([jqxy])u\s/$1v/
+  #   - derive/\S([aoe].*)\s/o$1/
+  #   - xform/\S([ae])(.*)\s/$1$1$2/
+  #   - xform/iu\s/Q/
+  #   - xform/[iu]a\s/W/
+  #   - xform/er$|[uv]an\s/R/
+  #   - xform/[uv]e\s/T/
+  #   - xform/v$|uai\s/Y/
+  #   - xform/\Ssh/U/
+  #   - xform/\Sch/I/
+  #   - xform/\Szh/V/
+  #   - xform/uo\s/O/
+  #   - xform/[uv]n\s/P/
+  #   - xform/i?ong\s/S/
+  #   - xform/[iu]ang\s/D/
+  #   - xform/(.)en\s/$1F/
+  #   - xform/(.)eng\s/$1G/
+  #   - xform/(.)ang\s/$1H/
+  #   - xform/ian\s/M/
+  #   - xform/(.)an\s/$1J/
+  #   - xform/iao\s/C/
+  #   - xform/(.)ao\s/$1K/
+  #   - xform/(.)ai\s/$1L/
+  #   - xform/(.)ei\s/$1Z/
+  #   - xform/ie\s/X/
+  #   - xform/ui\s/V/
+  #   - derive/T\s/V/
+  #   - xform/(.)ou\s/$1B/
+  #   - xform/in\s/N/
+  #   - xform/ing\s/;/
+  #   - xlit/QWRTYUIOPSDFGHMJCKLZXVBN/qwrtyuiopsdfghmjcklzxvbn/
+    #- abbrev/\S(.).+\s/$1/
+
+
+  #####
+
+menu:
+  page_size: 9
+
+translator:
+  dictionary: chaizi
+  #  preedit_format:
+  #   - xlit/hspnz/一丨丿丶乙/
+  #  comment_format:
+  #   - xform/~//
+  #   - xlit/hspnz/一丨丿丶乙/
+
+punctuator:
+  import_preset: default
+
+key_binder:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    reverse_lookup: "`[a-z]*'?$"

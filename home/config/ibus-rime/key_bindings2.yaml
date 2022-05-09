@@ -1,0 +1,8 @@
+# Rime key bindings
+# encoding: utf-8
+
+winwin:
+  __append:
+    - { when: always, accept: Shift+space toggle: full_shape }
+    - { when: always, accept: Control+Shift+F, toggle: simplification }
+    - { when: always, accept: Control+period, toggle: ascii_punct }  

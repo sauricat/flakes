@@ -10,12 +10,23 @@
     okular libreoffice scribusUnstable gimp
     vscodium cabal-install ghc yarn hugo binutils
   ];
-
-  # home.file = 
-  # {
-  #   ".config/ibus/rime/chaizi.schema.yaml".source = config.lib.file.mkOutOfStoreSymlink ./config/ibus-rime/chaizi.schema.yaml;
-  #   ".config/ibus/rime/chaizi.dict.yaml".source = config.lib.file.mkOutOfStoreSymlink ./config/ibus-rime/chaizi.dict.yaml;
-  # }; 
+  
+  home.file = lib.attrsets.mapAttrs' (name: value: 
+      lib.attrsets.nameValuePair 
+        (".config/ibus/rime/${value}") 
+        ({ source = config.lib.file.mkOutOfStoreSymlink ./config/ibus-rime/${value}; })){ 
+    dc = "default.custom.yaml";
+    kb2 = "key_bindings2.yaml";
+    sym = "mysymbols.yaml";
+    dpys = "double_pinyin_mspy.schema.yaml";
+    cs = "chaizi.schema.yaml"; 
+    cd = "chaizi.dict.yaml"; 
+    ws = "wugniu.schema.yaml";
+    wls = "wugniu_lopha.schema.yaml";
+    wld = "wugniu_lopha.dict.yaml";
+    ls = "langjin.schema.yaml";
+    ld = "langjin.dict.yaml";
+  };
 
   programs.home-manager.enable = true;
   programs.git = {
