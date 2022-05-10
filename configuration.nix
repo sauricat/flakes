@@ -8,6 +8,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./software.nix
+      ./network.nix
     ];
 
   # Use the GRUB 2 boot loader.
@@ -20,18 +21,6 @@
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
   networking.hostName = "dvm"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-  # Per-interface useDHCP will be mandatory in the future, so this generated config
-  # replicates the default behaviour.
-  networking.useDHCP = false;
-  networking.interfaces.ens33.useDHCP = true;
-
-  networking.networkmanager.enable = true;
-  networking.proxy.default = "http://127.0.0.1:7890"; # "http://user:password@proxy:port/";
-  # networking.proxy.allProxy = "http://127.0.0.1:7890";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Localisation
   time.timeZone = "Asia/Shanghai";
@@ -78,19 +67,6 @@
   };
 
   security.pam.services.shu.enableKwallet = true;
-
-
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # Vmware support
   virtualisation.vmware.guest.enable = true;
