@@ -57,7 +57,8 @@
   
   # Configure keymap in X11
   services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
+  services.xserver.xkbVariant = "intl"; # included xkbOption "eurosign:5"
+  services.xserver.xkbOptions = "caps:none";  #/usr/share/X11/xkb/rules/evdev.lst
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
