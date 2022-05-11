@@ -20,10 +20,10 @@ echo "Please input hostname."
 read hname
 if [ "$flag" = "i" ] || [ "$flag" = "I" ]
 then
-  exec nixos-rebuild switch --flake "path:.#$hname"
+  exec nixos-install --flake "path:.#$hname"
 elif [ "$flag" = "u" ] || [ "$flag" = "U" ]
 then
-  exec nixos-install --flake "path:.#$hname"
+  exec nixos-rebuild switch --flake "path:.#$hname"
 fi
 
 echo "Invalid input! Exiting the build script..."
