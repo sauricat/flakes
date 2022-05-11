@@ -5,14 +5,15 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.url = "github:nixos/nixos-hardware/master";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: { 
+  outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, ... }: { 
     nixosConfigurations = {
       "dvm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
+          ./dvm.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -24,6 +25,24 @@
           }
         ];
       };
+
+      "dlpt" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix
+          nixos-hardware.nixosModules.dell-xps-13-7390
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.shu = import ./home/home.nix;
+
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
+        ];
+      };
+
     };
   };
 }

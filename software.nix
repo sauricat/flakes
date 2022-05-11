@@ -12,6 +12,9 @@
     home-manager
     open-vm-tools # vmware adaption
   ];
+  
+  # Flatpak
+  services.flatpak.enable = true;
 
   fonts = {
     enableDefaultFonts = true;
