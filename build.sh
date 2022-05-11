@@ -1,11 +1,29 @@
 #!/usr/bin/env bash
-if [ "$USER" = "root" ]
+cd "$(dirname "$0")"
+
+echo "Are you building a LiveCD, installing from a LiveCD, or just updating your configuration? (b/i/u)"
+read flag
+
+# build a LiveCD
+if [ "$flag" = "b" ] || [ "$flag" = "B" ]
 then
-  cd "$(dirname "$0")"
-  echo Please input hostname.
-  read hname
-  # export NIXOS_CONFIG=$PWD/configuration.nix
-  nixos-rebuild switch --flake "path:.#$hname"
-else
-  echo Please switch to root user. 
+  exec nix build path:.#nixosConfigurations.livecd.config.system.build.isoImage
 fi
+
+# normal build
+if [ "$USER" != "root" ]
+then
+  exec echo Please switch to root user. 
+fi
+
+echo "Please input hostname."
+read hname
+if [ "$flag" = "i" ] || [ "$flag" = "I" ]
+then
+  exec nixos-rebuild switch --flake "path:.#$hname"
+elif [ "$flag" = "u" ] || [ "$flag" = "U" ]
+then
+  exec nixos-install --flake "path:.#$hname"
+fi
+
+echo "Invalid input! Exiting the build script..."
