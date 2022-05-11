@@ -7,7 +7,7 @@
     ark filelight vlc bc
     firefox tdesktop
     man-pages tealdeer
-    okular libreoffice scribusUnstable gimp
+    okular libreoffice scribusUnstable gimp onlyoffice-bin
     vscodium cabal-install ghc yarn hugo binutils
   ];
   

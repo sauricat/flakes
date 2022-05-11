@@ -82,6 +82,10 @@
       dates = "Sun 01:00";
     };
   };
+
+  # Flatpak
+  services.flatpak.enable = true;
+  
   # This value determines the Nad the documentation for this option
   # (e.g. man configuration.nix oixOS release from which the default
   # settings for stateful data, like file locations and database versions
