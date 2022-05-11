@@ -10,6 +10,8 @@
     firefox
     git
     home-manager
+    p7zip
+    busybox
     open-vm-tools # vmware adaption
   ];
   
