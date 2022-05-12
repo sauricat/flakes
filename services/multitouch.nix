@@ -1,4 +1,4 @@
-{configs, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
   # Enable touchpad and touchscreen support (enabled default in most desktopManager).
