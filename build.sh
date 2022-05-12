@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")"
 
-echo "Are you building a LiveCD, installing from a LiveCD, or just updating your configuration? (b/i/u)"
+echo "Are you building a LiveCD, installing from a LiveCD, or just updating your configuration? (b/i/u)" 
 read flag
 
 # build a LiveCD

@@ -25,5 +25,8 @@
     [ { device = "/dev/disk/by-uuid/f4ded62c-26f7-4d3a-941e-8931d694549a"; }
     ];
 
+  networking.useDHCP = false;
+  networking.interfaces.ens33.useDHCP = true;
+
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

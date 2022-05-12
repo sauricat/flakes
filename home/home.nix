@@ -8,7 +8,8 @@
     firefox tdesktop
     man-pages tealdeer
     okular libreoffice scribusUnstable gimp onlyoffice-bin
-    vscodium cabal-install ghc yarn hugo binutils
+    direnv # for vscode
+    vscode cabal-install ghc yarn hugo binutils
   ];
   
   home.file = lib.attrsets.mapAttrs' (name: value: 

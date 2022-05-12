@@ -13,6 +13,7 @@
     p7zip
     busybox
     open-vm-tools # vmware adaption
+    throttled # dlpt
   ];
   
   # Flatpak
