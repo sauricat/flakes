@@ -10,7 +10,7 @@
       ../software.nix
       ../services/network.nix
       ../services/localisation.nix
-      ./user.nix
+      ../user.nix
     ];
 
   networking.hostName = "dvm"; # Define your hostname.
