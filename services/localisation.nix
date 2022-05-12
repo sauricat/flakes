@@ -40,25 +40,6 @@
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.pulseaudio.extraConfig = "load-module module-switch-on-connect";
   
-  powerManagement.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad.naturalScrolling = false;
-  services.xserver.libinput.touchpad.tapping = true;
-  services.xserver.libinput.touchpad.disableWhileTyping = true;
-  services.xserver.libinput.touchpad.horizontalScrolling = false;
-  services.touchegg.enable = true;
-
-  # Bluetooth
-  hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
-  services.dbus.packages = [ pkgs.bluez pkgs.blueman ];
-  systemd.tmpfiles.rules = [ # See https://github.com/NixOS/nixpkgs/issues/170573
-    "d /var/lib/bluetooth 700 root root - -"
-  ];
-  systemd.targets."bluetooth".after = ["systemd-tmpfiles-setup.service"];
-    
   # Nix configuration
   nix = {
     package = pkgs.nixFlakes; 

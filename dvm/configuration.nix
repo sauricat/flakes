@@ -6,14 +6,14 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration-dlpt.nix
-      ./software.nix
-      ./network.nix
-      ./localisation.nix
+      ./hardware-configuration.nix
+      ../software.nix
+      ../services/network.nix
+      ../services/localisation.nix
       ./user.nix
     ];
 
-  networking.hostName = "dlpt"; # Define your hostname.
+  networking.hostName = "dvm"; # Define your hostname.
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -24,9 +24,9 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
-  # Perform firmware updates.
-  services.fwupd.enable = true; 
-
+  # Vmware support
+  virtualisation.vmware.guest.enable = true;
+  
   # Don't change this version.
   system.stateVersion = "21.11"; 
 

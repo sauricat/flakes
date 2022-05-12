@@ -6,7 +6,8 @@
 {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-graphical-plasma5.nix")
-    ./localisation.nix
+    ./services/localisation.nix
+    ./services/network.nix
   ];
 
   isoImage = {

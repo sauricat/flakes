@@ -13,7 +13,7 @@
       "dvm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./dvm.nix
+          ./dvm/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -29,7 +29,7 @@
       "dlpt" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix
+          ./dlpt/configuration.nix
           nixos-hardware.nixosModules.dell-xps-13-7390
           home-manager.nixosModules.home-manager
           {
