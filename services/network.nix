@@ -21,6 +21,15 @@
   # networking.proxy.allProxy = "http://127.0.0.1:7890";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  programs.proxychains = {
+    enable = true;
+    proxies."clash" = {
+      enable = true;
+      type = "http";
+      host = "127.0.0.1";
+      port = 7890;
+    };
+  };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
