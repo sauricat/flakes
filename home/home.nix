@@ -8,8 +8,14 @@
     firefox tdesktop
     man-pages tealdeer
     okular libreoffice scribusUnstable gimp onlyoffice-bin
-    direnv # for vscode
-    vscode cabal-install ghc yarn hugo binutils
+    cabal-install ghc gcc gnumake yarn hugo binutils
+
+    wineWowPackages.staging winetricks samba
+
+    dpkg apt steam-run
+
+    # non-oss:
+    megasync vscode
   ];
   
   home.file = lib.attrsets.mapAttrs' (name: value: 
@@ -38,7 +44,20 @@
       init.defaultBranch = "main";
     };
   };
-  
+
+  programs.emacs = {
+    enable = true;
+    extraPackages = epkgs: [
+      epkgs.nix-mode
+      epkgs.magit
+    ];
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
   programs.fish = {
     enable = true;
     shellAbbrs = {
@@ -52,15 +71,7 @@
       setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
     };
   };
-
-  programs.emacs = {
-    enable = true;
-    extraPackages = epkgs: [
-      epkgs.nix-mode
-      epkgs.magit
-    ];
-  };
-
+  
   home.stateVersion = "21.11";
   
 }

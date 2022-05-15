@@ -4,14 +4,16 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    emacs vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    emacs #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget 
     clash
     firefox
     git
+    tree
     home-manager
+    librime
     p7zip
-    busybox
+    # busybox
     open-vm-tools # vmware adaption
     throttled # dlpt
   ];
@@ -30,12 +32,13 @@
       hanazono
       source-han-sans source-han-serif source-han-mono
       wqy_microhei wqy_zenhei
+      sarasa-gothic
     ];
     fontconfig = {
       defaultFonts = {
-        serif = [ "Source Han Serif" ];
-        sansSerif = [ "Source Han Sans" ];
-        monospace = [ "Fira Code" ];
+        serif = [ "Source Han Serif SC" ];
+        sansSerif = [ "Source Han Sans SC" ];
+        monospace = [ "Sarasa Mono SC" ];
       };
     };
   };
