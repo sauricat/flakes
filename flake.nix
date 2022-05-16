@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration";
+  description = "The Shu NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -10,6 +10,8 @@
 
   outputs = inputs@{ nixpkgs, home-manager, nixos-hardware, ... }: { 
     nixosConfigurations = {
+      
+      # dvm means Desktop Virtual Machine
       "dvm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
@@ -26,6 +28,7 @@
         ];
       };
 
+      # dlpt means Dell LaPTop
       "dlpt" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [

@@ -20,6 +20,9 @@ echo "Please input hostname."
 read hname
 if [ "$flag" = "i" ] || [ "$flag" = "I" ]
 then
+  # TODO: Use `nixos-generate-config` or some other things to automatically update hardware-configuration.nix 
+  # nixos-generate-config --root /mnt
+  # cp /mnt/etc/hardware-configuration.nix ...towhere?
   exec nixos-install --flake "path:.#$hname"
 elif [ "$flag" = "u" ] || [ "$flag" = "U" ]
 then
