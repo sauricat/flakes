@@ -1,14 +1,13 @@
 { inputs, system, config, pkgs, lib, ... }:
 
 {
-  
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
     ark filelight vlc bc procs man-pages tealdeer
     firefox tdesktop
     okular libreoffice scribusUnstable gimp onlyoffice-bin
-    cabal-install ghc gcc gnumake yarn hugo binutils xsel
+    cabal-install ghc gcc gnumake yarn hugo binutils xsel cachix
 
     # compatibility:
     wine winetricks samba
@@ -18,6 +17,8 @@
     megasync vscode
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
     wine-wechat
+  ]) ++ (with inputs.nixos-guix.packages.${system}; [
+    guix
   ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 
