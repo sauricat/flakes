@@ -1,9 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ inputs, system, config, pkgs, lib, ... }:
 
 {
+  
   home.username = "shu";
   home.homeDirectory = "/home/shu";
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     ark filelight vlc bc procs
     firefox tdesktop
     man-pages tealdeer
@@ -16,7 +17,9 @@
 
     # non-oss:
     megasync vscode
-  ];
+  ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
+    wechat-uos
+  ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 
       lib.attrsets.nameValuePair 

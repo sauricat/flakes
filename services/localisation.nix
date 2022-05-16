@@ -41,16 +41,14 @@
   hardware.pulseaudio.extraConfig = "load-module module-switch-on-connect";
   
   # Nix configuration
-  nix = {
-    package = pkgs.nixFlakes; 
-    extraOptions = "experimental-features = nix-command flakes";
-    autoOptimiseStore = true;
-    gc = {
+  nix.package = pkgs.nixFlakes; 
+  nix.extraOptions = "experimental-features = nix-command flakes";
+  nix.autoOptimiseStore = true;
+  nix.gc = {
       automatic = true;
       options = "--delete-older-than 7d";
       dates = "Sun 01:00";
     };
-  };
 
   nixpkgs.config.allowUnfree = true;
 

@@ -13,7 +13,7 @@
       ../services/bluetooth.nix
       ../services/multitouch.nix
       ../services/network.nix
-
+      # ../services/nixos-cn.nix
     ];
 
   networking.hostName = "dlpt"; # Define your hostname.
