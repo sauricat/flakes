@@ -1,6 +1,3 @@
-# Acknowledgement: oxalica
-# https://github.com/oxalica/nixos-config/blob/master/nixos/iso/configuration.nix
-
 { lib, pkgs, modulesPath, ... }:
 
 {
