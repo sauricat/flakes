@@ -5,14 +5,13 @@
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
-    ark filelight vlc bc procs
+    ark filelight vlc bc procs man-pages tealdeer
     firefox tdesktop
-    man-pages tealdeer
     okular libreoffice scribusUnstable gimp onlyoffice-bin
-    cabal-install ghc gcc gnumake yarn hugo binutils
+    cabal-install ghc gcc gnumake yarn hugo binutils xsel
 
+    # compatibility:
     wine winetricks samba
-
     dpkg apt steam-run
 
     # non-oss:
