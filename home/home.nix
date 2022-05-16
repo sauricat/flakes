@@ -11,14 +11,14 @@
     okular libreoffice scribusUnstable gimp onlyoffice-bin
     cabal-install ghc gcc gnumake yarn hugo binutils
 
-    wineWowPackages.staging winetricks samba
+    wine winetricks samba
 
     dpkg apt steam-run
 
     # non-oss:
     megasync vscode
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
-    wechat-uos
+    wine-wechat
   ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 
