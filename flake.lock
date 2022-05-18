@@ -78,15 +78,15 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1624245061,
-        "narHash": "sha256-Cgh7o4Ja+c4L7WChpOLhVP23e/dRL6B9T/G6iWeBaZE=",
-        "owner": "ethancedwards8",
+        "lastModified": 1652888914,
+        "narHash": "sha256-evmN01g9uL8KJCPKCn/UYNbVE6ba6qQUUoUR7KqmNv0=",
+        "owner": "sauricat",
         "repo": "nixos-guix",
-        "rev": "eaa10fdbba369755c9f5d2cf4cd137a684abb55c",
+        "rev": "200adf4024c299930778431253a202a0ab3fdb5b",
         "type": "github"
       },
       "original": {
-        "owner": "ethancedwards8",
+        "owner": "sauricat",
         "repo": "nixos-guix",
         "type": "github"
       }

@@ -5,16 +5,16 @@
   networking.networkmanager.enable = true;
 
   systemd.services.clashClient = {
+    description = "Clash client service";
     wantedBy = [ "multi-user.target" ]; 
     after = [ "network.target" ];
-      description = "Clash client service.";
-      serviceConfig = {
-        Type = "simple";
-        User = "shu";
-        ExecStart = "${pkgs.clash}/bin/clash -f /home/shu/clash-configuration/clash.yaml";
-        Restart = "on-failure";
-        RestartPreventExitStatus = "23";
-      };
+    serviceConfig = {
+      Type = "simple";
+      User = "shu";
+      ExecStart = "${pkgs.clash}/bin/clash -f /home/shu/clash-configuration/clash.yaml";
+      Restart = "on-failure";
+      RestartPreventExitStatus = "23";
+    };
   };
 
   networking.proxy.default = "http://127.0.0.1:7890"; 

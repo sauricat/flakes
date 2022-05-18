@@ -9,6 +9,7 @@
     clash
     firefox
     git
+    gnupg
     tree
     home-manager
     librime

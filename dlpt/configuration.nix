@@ -13,7 +13,8 @@
       ../services/bluetooth.nix
       ../services/multitouch.nix
       ../services/network.nix
-      # ../services/nixos-cn.nix
+      ../services/guix-daemon.nix
+      ../services/pacman.nix
     ];
 
   networking.hostName = "dlpt"; # Define your hostname.

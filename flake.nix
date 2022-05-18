@@ -8,7 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-cn.url = "github:nixos-cn/flakes";
     nixos-cn.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-guix.url = "github:ethancedwards8/nixos-guix";
+    nixos-guix.url = "github:sauricat/nixos-guix"; # originnally e0thancedwards8/nixos-guix
   };
 
   outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, nixos-cn, nixos-guix, ... }: let 
@@ -27,9 +27,6 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.shu = import ./home/home.nix;
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
           }
         ];
       };
@@ -52,8 +49,6 @@
             home-manager.useUserPackages = true;
             home-manager.users.shu = import ./home/home.nix;
             home-manager.extraSpecialArgs = { inherit inputs system; };
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
           }
 
           ./cache/cachix.nix

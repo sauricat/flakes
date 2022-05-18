@@ -4,21 +4,22 @@
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
-    ark filelight vlc bc procs man-pages tealdeer
+    ark filelight vlc bc procs man-pages tealdeer neofetch
     firefox tdesktop
-    okular libreoffice scribusUnstable gimp onlyoffice-bin
-    cabal-install ghc gcc gnumake yarn hugo binutils xsel cachix
+    okular libreoffice scribusUnstable gimp onlyoffice-bin kate
+    cabal-install ghc gcc gnumake yarn hugo binutils 
+    xsel cachix zlib 
 
     # compatibility:
     wine winetricks samba
-    dpkg apt steam-run
+    dpkg apt steam-run rpm pacman
 
     # non-oss:
     megasync vscode
+  ]) ++ (with inputs.nixos-guix.packages.${system}; [
+    nixos-guix
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
     wine-wechat
-  ]) ++ (with inputs.nixos-guix.packages.${system}; [
-    guix
   ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 
@@ -69,6 +70,12 @@
       b = "bc -l";
       t = "tar";
     };
+
+    interactiveShellInit = ''
+      set -x PATH $PATH /var/guix/profiles/per-user/root/current-guix/bin/
+      set GUIX_LOCPATH $HOME/.guix-profile/lib/locale
+    '';
+
     functions = {
       fish_greeting = "";
       setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
