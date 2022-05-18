@@ -69,6 +69,7 @@
       g = "git";
       b = "bc -l";
       t = "tar";
+      s = "sudo";
     };
 
     interactiveShellInit = ''
@@ -113,6 +114,14 @@
 
         echo 
         echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
+      '';
+
+      "hash --argument file" = ''
+        if test -n $file
+          command echo What are you calculating?\nUsage: hash <filepath>
+        else
+          command nix-hash --flat --base32 --type sha256 $file
+        end
       '';
     };
   };
