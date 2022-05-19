@@ -4,12 +4,12 @@
   environment.etc."pacman.conf".text = ''
     [options]
     RootDir     = /pac
-    #DBPath      = /var/lib/pacman/
-    #CacheDir    = /var/cache/pacman/pkg/
-    #LogFile     = /var/log/pacman.log
+    DBPath      = /var/lib/pacman/
+    CacheDir    = /var/cache/pacman/pkg/
+    LogFile     = /var/log/pacman.log
     #GPGDir      = /etc/pacman.d/gnupg/
     #HookDir     = /etc/pacman.d/hooks/
-    HoldPkg     = pacman #glibc
+    HoldPkg     = pacman glibc
     #XferCommand = /usr/bin/curl -L -C - -f -o %o %u
     #XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
     #CleanMethod = KeepInstalled

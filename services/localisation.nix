@@ -8,7 +8,7 @@
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_TIME = "en_SE.UTF-8"; # yyyy-MM-ddThh:mm 
+    LC_TIME = "lt_LT.UTF-8"; # Emmanuel Lévinas's hometown. 
   };
   i18n.inputMethod.enabled = "ibus";
   i18n.inputMethod.ibus.engines = with pkgs.ibus-engines; [

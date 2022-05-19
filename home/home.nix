@@ -8,18 +8,23 @@
     firefox tdesktop
     okular libreoffice scribusUnstable gimp onlyoffice-bin kate
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
-    xsel cachix zlib xorg.libX11
-
+    xsel cachix zlib 
+  ]) ++ (with pkgs; [
     # compatibility:
     wine winetricks samba
-    dpkg apt steam-run rpm pacman
-
+    dpkg apt steam-run rpm
+  ]) ++ (with pkgs; [
     # non-oss:
     megasync vscode
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
     wine-wechat
+  ]) ++ (with pkgs;  [
+    xorg.libX11 xorg.libX11.dev xorg.libX11.dev.out  
+    openssl fontconfig xorg.libXft libxml2 xorg.libXScrnSaver
+  ]) ++ (with inputs.shu.legacyPackages${system}; [
+    pacman
   ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 

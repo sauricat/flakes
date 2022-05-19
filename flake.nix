@@ -9,9 +9,10 @@
     nixos-cn.url = "github:nixos-cn/flakes";
     nixos-cn.inputs.nixpkgs.follows = "nixpkgs";
     nixos-guix.url = "github:sauricat/nguix"; # originnally e0thancedwards8/nixos-guix
+    shu.url = "github:sauricat/my-nixos-configuration";
   };
 
-  outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, nixos-cn, nixos-guix, ... }: let 
+  outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, nixos-cn, nixos-guix, shu, ... }: let 
     system = "x86_64-linux";
   in
   { 
@@ -22,12 +23,11 @@
         inherit system;
         modules = [
           ./dvm/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.shu = import ./home/home.nix;
-          }
+          # home-manager.nixosModules.home-manager {
+          #   home-manager.useGlobalPkgs = true;
+          #   home-manager.useUserPackages = true;
+          #   home-manager.users.shu = import ./home/home.nix;
+          # }
         ];
       };
 
