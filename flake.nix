@@ -1,4 +1,4 @@
-{
+{ 
   description = "The Shu NixOS configuration";
 
   inputs = {
@@ -9,7 +9,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     nixos-cn.url = "github:nixos-cn/flakes";
     nixos-cn.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-guix.url = "github:sauricat/nguix"; # originnally e0thancedwards8/nixos-guix
+    nixos-guix.url = "github:sauricat/nguix"; 
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, nixos-cn, nixos-guix, ... }: 
@@ -20,11 +20,13 @@
       overlays = builtins.attrValues self.overlays;
     };
     # packages.home-manager = home-manager.defaultPackage.${system};
-  }) // 
-    {
+  }) 
+  // 
+  { 
     overlays = {
       packages = (final: prev: import ./functions/auto-recognize-packages.nix final prev);
     };
+
     nixosConfigurations = {
       
       # dvm means Desktop Virtual Machine, an already abandoned configuration
@@ -33,11 +35,6 @@
         modules = [
           ./dvm/configuration.nix
           { nixpkgs.pkgs = self.legacyPackages."x86_64-linux"; }
-          # home-manager.nixosModules.home-manager {
-          #   home-manager.useGlobalPkgs = true;
-          #   home-manager.useUserPackages = true;
-          #   home-manager.users.shu = import ./home/home.nix;
-          # }
         ];
       };
 
@@ -47,7 +44,7 @@
         modules = [
           ./dlpt/configuration.nix
           nixos-hardware.nixosModules.dell-xps-13-7390
-          home-manager.nixosModules.home-manager
+          home-manager.nixosModules.home-manager 
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

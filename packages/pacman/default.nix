@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     start="$(pwd)"
-    ln -sf /bin/true ${coreutils}/bin/true
+    ln -sf ${coreutils}/bin/true /bin/true
     mkdir -p $out
     cd $start
     cp -R ./etc $out/etc
