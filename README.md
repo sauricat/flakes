@@ -15,7 +15,7 @@ Run `functions/build.sh` to build a liveCD, install from an arbitrary external n
 
 - Directory `dlpt`, `dvm`: These are my 2 devices, virtual or physical. 
 
-- Directory `home`: Configurations concerning [Home Manager](https://github.com/nix-community/home-manager), a necessary suite for NixOS newcomers (just as me owo) to manage their home directory. Especially, `home/config/ibus-rime/` saves my [Rime IM](https://rime.im/) configuration in yaml format, and can be directly transplanted and builded in another’s device as long as an instance of rime is equipped.  
+- Directory `home`: Configurations concerning [Home Manager](https://github.com/nix-community/home-manager), a necessary suite for NixOS newcomers (just as me owo) to manage their home directory. Especially, in `home/config/ibus-rime/` saves my [Rime IM](https://rime.im/) configuration in yaml format, and can be directly transplanted and builded in another’s device as long as an instance of rime is equipped.  
 
 - Directory `functions`: Some useful files, even separated from the main repository. 
 
