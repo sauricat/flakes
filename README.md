@@ -1,13 +1,14 @@
 # The Shu NixOS Configuration
 
-Shu’s nixos configuration files. 
+Shu’s NixOS configuration files. 
 
 
 
 ## Usage
 
-Run `functions/build.sh` to build a liveCD, install from an arbitrary external nix enviroment, or upgrade your system configuration. 
+1. Run `functions/build.sh` to build a liveCD, install from an arbitrary external nix enviroment, or upgrade your system configuration. 
 
+2. Or you can simply refer to the following Nix Flake URL `github:sauricat/my-nixos-configuration` since this is a Flaked repository. 
 
 ## Structure
 
