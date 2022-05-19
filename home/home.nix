@@ -1,5 +1,7 @@
-{ inputs, system, config, pkgs, lib, ... }:
-
+{ inputs, config, pkgs, lib, ... }:
+let
+  system = "x86_64-linux";
+in
 {
   home.username = "shu";
   home.homeDirectory = "/home/shu";
@@ -7,24 +9,26 @@
     ark filelight vlc bc procs man-pages tealdeer neofetch
     firefox tdesktop
     okular libreoffice scribusUnstable gimp onlyoffice-bin kate
+
+    # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
-    xsel cachix zlib 
-  ]) ++ (with pkgs; [
+    xsel cachix zlib cmake pkg-config libarchive 
+    glibc gpgme libarchive asciidoc doxygen meson fakechroot python3
+    bash-completion
+
     # compatibility:
     wine winetricks samba
     dpkg apt steam-run rpm
-  ]) ++ (with pkgs; [
+
     # non-oss:
     megasync vscode
+
+    # my own overlay:
+    pacman
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
     wine-wechat
-  ]) ++ (with pkgs;  [
-    xorg.libX11 xorg.libX11.dev xorg.libX11.dev.out  
-    openssl fontconfig xorg.libXft libxml2 xorg.libXScrnSaver
-  ]) ++ (with inputs.shu.legacyPackages${system}; [
-    pacman
   ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 

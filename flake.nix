@@ -6,23 +6,33 @@
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
     nixos-cn.url = "github:nixos-cn/flakes";
     nixos-cn.inputs.nixpkgs.follows = "nixpkgs";
     nixos-guix.url = "github:sauricat/nguix"; # originnally e0thancedwards8/nixos-guix
-    shu.url = "github:sauricat/my-nixos-configuration";
   };
 
-  outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, nixos-cn, nixos-guix, shu, ... }: let 
-    system = "x86_64-linux";
-  in
-  { 
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, nixos-cn, nixos-guix, ... }: 
+  flake-utils.lib.eachDefaultSystem (system: {
+    legacyPackages = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = builtins.attrValues self.overlays;
+    };
+    # packages.home-manager = home-manager.defaultPackage.${system};
+  }) // 
+    {
+    overlays = {
+      packages = (final: prev: import ./functions/auto-recognize-packages.nix final prev);
+    };
     nixosConfigurations = {
       
-      # dvm means Desktop Virtual Machine
+      # dvm means Desktop Virtual Machine, an already abandoned configuration
       "dvm" = nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";
         modules = [
           ./dvm/configuration.nix
+          { nixpkgs.pkgs = self.legacyPackages."x86_64-linux"; }
           # home-manager.nixosModules.home-manager {
           #   home-manager.useGlobalPkgs = true;
           #   home-manager.useUserPackages = true;
@@ -33,7 +43,7 @@
 
       # dlpt means Dell LaPTop
       "dlpt" = nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";
         modules = [
           ./dlpt/configuration.nix
           nixos-hardware.nixosModules.dell-xps-13-7390
@@ -42,8 +52,9 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.shu = import ./home/home.nix;
-            home-manager.extraSpecialArgs = { inherit inputs system; };
+            home-manager.extraSpecialArgs = { inherit inputs; };
           }
+          { nixpkgs.pkgs = self.legacyPackages."x86_64-linux"; }
           nixos-cn.nixosModules.nixos-cn
           nixos-cn.nixosModules.nixos-cn-registries
           ./cache/cachix.nix
@@ -52,7 +63,7 @@
       };
 
       "livecd" = nixpkgs.lib.nixosSystem {
-        inherit system;
+        system = "x86_64-linux";
         modules = [
           ./livecd.nix
         ];

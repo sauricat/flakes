@@ -14,8 +14,7 @@
     tree
     home-manager
     librime
-    p7zip
-    # busybox
+    libarchive
     open-vm-tools # vmware adaption
     throttled # dlpt
   ];

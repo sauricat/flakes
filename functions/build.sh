@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-cd "$(dirname "$0")"
+cd "$(dirname "$0")"/..
 
-echo "Are you building a LiveCD, installing from a LiveCD, or just updating your configuration? (b/i/u)" 
-read flag
+echo -e "Are you \033[1;31mbuilding a LiveCD (b)\033[0m, \033[1;34minstalling from a LiveCD (i)\033[0m, or just \033[1;32mupdating your configuration(u)\033[0m?" 
+read -p "> (b/i/u) ... " flag 
 
 # build a LiveCD
 if [ "$flag" = "b" ] || [ "$flag" = "B" ]
@@ -13,11 +13,11 @@ fi
 # normal build
 if [ "$USER" != "root" ]
 then
-  exec echo Please switch to root user. 
+  exec echo "Please switch to root user."
 fi
 
-echo "Please input hostname."
-read hname
+echo -e "Please input your \033[1mhostname\033[0m."
+read -p "> (hostname) ... " hname
 if [ "$flag" = "i" ] || [ "$flag" = "I" ]
 then
   # TODO: Use `nixos-generate-config` or some other things to automatically update hardware-configuration.nix 
@@ -29,4 +29,4 @@ then
   exec nixos-rebuild switch --flake "path:.#$hname"
 fi
 
-echo "Invalid input! Exiting the build script..."
+echo -e "\033[1,31mInvalid input!\033[0m Exiting the build script..."

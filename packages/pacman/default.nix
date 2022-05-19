@@ -1,5 +1,6 @@
-{ stdenv, lib, fetchurl, pkg-config, m4, perl, libarchive, openssl, zlib, bzip2,
-xz, curl, runtimeShell }:
+{ stdenv, lib, fetchurl, pkg-config, perl, libarchive, openssl, zlib, bzip2, xz, 
+  bash, bash-completion, curl, glibc, gpgme, asciidoc, doxygen, meson, 
+  fakechroot, python3, runtimeShell, coreutils }:
 
 stdenv.mkDerivation rec {
   pname = "pacman";
@@ -23,8 +24,23 @@ stdenv.mkDerivation rec {
 
   installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
 
-  nativeBuildInputs = [ pkg-config m4 ];
-  buildInputs = [ curl perl libarchive openssl zlib bzip2 xz ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ perl libarchive openssl zlib bzip2 xz 
+    bash bash-completion curl glibc gpgme asciidoc doxygen meson fakechroot python3 coreutils ];
+
+
+  installPhase = ''
+    start="$(pwd)"
+    ln -sf /bin/true ${coreutils}/bin/true
+    mkdir -p $out
+    cd $start
+    cp -R ./etc $out/etc
+    cp -R ./doc $out/doc
+    pkg-config --libs ${libarchive} ${bash-completion}
+    meson $out/bin
+    
+    unlink /bin/true
+  '';
 
   postFixup = ''
     substituteInPlace $out/bin/repo-add \
