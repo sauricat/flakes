@@ -11,6 +11,7 @@
       horizontalScrolling = false;
     };
   };
+  services.xserver.wacom.enable = true;
 
   # Touchégg is a multitouch gesture recognizer.
   services.touchegg.enable = true;

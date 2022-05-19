@@ -7,8 +7,8 @@
     ark filelight vlc bc procs man-pages tealdeer neofetch
     firefox tdesktop
     okular libreoffice scribusUnstable gimp onlyoffice-bin kate
-    cabal-install ghc gcc gnumake yarn hugo binutils 
-    xsel cachix zlib 
+    cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
+    xsel cachix zlib xorg.libX11
 
     # compatibility:
     wine winetricks samba

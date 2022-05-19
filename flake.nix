@@ -36,13 +36,7 @@
         inherit system;
         modules = [
           ./dlpt/configuration.nix
-
-          nixos-cn.nixosModules.nixos-cn
-          nixos-cn.nixosModules.nixos-cn-registries
-          ./services/nixos-cn.nix
-
           nixos-hardware.nixosModules.dell-xps-13-7390
-
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -50,9 +44,10 @@
             home-manager.users.shu = import ./home/home.nix;
             home-manager.extraSpecialArgs = { inherit inputs system; };
           }
-
+          nixos-cn.nixosModules.nixos-cn
+          nixos-cn.nixosModules.nixos-cn-registries
           ./cache/cachix.nix
-
+          ./cache/nixos-cn.nix
         ];
       };
 
