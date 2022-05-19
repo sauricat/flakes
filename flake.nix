@@ -8,7 +8,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nixos-cn.url = "github:nixos-cn/flakes";
     nixos-cn.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-guix.url = "github:sauricat/nixos-guix"; # originnally e0thancedwards8/nixos-guix
+    nixos-guix.url = "github:sauricat/nguix"; # originnally e0thancedwards8/nixos-guix
   };
 
   outputs = inputs@{ nixpkgs, nixos-hardware, home-manager, nixos-cn, nixos-guix, ... }: let 

@@ -81,13 +81,13 @@
         "lastModified": 1652888914,
         "narHash": "sha256-evmN01g9uL8KJCPKCn/UYNbVE6ba6qQUUoUR7KqmNv0=",
         "owner": "sauricat",
-        "repo": "nixos-guix",
+        "repo": "nguix",
         "rev": "200adf4024c299930778431253a202a0ab3fdb5b",
         "type": "github"
       },
       "original": {
         "owner": "sauricat",
-        "repo": "nixos-guix",
+        "repo": "nguix",
         "type": "github"
       }
     },
