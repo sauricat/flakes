@@ -15,7 +15,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    neofetch emacs firefox clash p7zip busybox
+    neofetch emacs firefox clash libarchive
   ];
   
   system.stateVersion = "21.11";
