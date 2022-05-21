@@ -6,8 +6,8 @@ in
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
-    ark filelight vlc bc procs man-pages tealdeer neofetch trash-cli
-    firefox tdesktop
+    ark filelight bc procs man-pages tealdeer neofetch trash-cli
+    firefox tdesktop aria2 vlc syncplay 
     okular libreoffice scribusUnstable gimp onlyoffice-bin kate xournalpp
 
     # devel:
@@ -79,7 +79,7 @@ in
       l = "ls -ahl"; lt = "ls -Ahltr";
       g = "git";
       b = "bc -l";
-      t = "tar"; 
+      t = "bsdtar"; 
 
       # Other commands
       trm = "trash"; 
