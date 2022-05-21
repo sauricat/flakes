@@ -77,12 +77,11 @@ in
     shellAbbrs = {
       # Pride commands 
       l = "ls -ahl"; lt = "ls -Ahltr";
-      g = "git";
-      b = "bc -l";
-      t = "bsdtar"; 
+      g = "git"; gp = "git push"; gf = "git fetch origin main"; 
+      b = "bsdtar";
+      t = "trash"; 
 
       # Other commands
-      trm = "trash"; 
       c = "code .";
       f = "find /nix/store -name";
       n = "nix"; nse = "nix search nixpkgs";
@@ -99,6 +98,9 @@ in
       hash = "nix-hash --flat --base32 --type sha256 $argv";
       nshp = "nix shell nixpkgs#$argv";
       rm = "echo 'Directly `rm` is disabled, use `trash` (or alias `trm`) instead.'";
+      gcm = ''
+        git commit -m "$argv"
+      '';
 
       # Prompt
       fish_greeting = "";
