@@ -7,8 +7,9 @@ in
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
     ark filelight bc procs man-pages tealdeer neofetch trash-cli
-    firefox tdesktop aria2 vlc syncplay 
+    firefox tdesktop aria2 vlc syncplay obs-studio
     okular libreoffice scribusUnstable gimp onlyoffice-bin kate xournalpp
+    qpdf
 
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
@@ -29,7 +30,7 @@ in
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
-    wine-wechat
+    wine-wechat netease-cloud-music
   ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 
