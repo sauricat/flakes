@@ -6,9 +6,9 @@ in
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
-    ark filelight vlc bc procs man-pages tealdeer neofetch
+    ark filelight vlc bc procs man-pages tealdeer neofetch trash-cli
     firefox tdesktop
-    okular libreoffice scribusUnstable gimp onlyoffice-bin kate
+    okular libreoffice scribusUnstable gimp onlyoffice-bin kate xournalpp
 
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
@@ -24,7 +24,8 @@ in
     megasync vscode
 
     # my own overlay:
-    pacman
+    # pacman
+    qqmusic
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
@@ -74,22 +75,33 @@ in
   programs.fish = {
     enable = true;
     shellAbbrs = {
-      l = "ls -ahl";
+      # Pride commands 
+      l = "ls -ahl"; lt = "ls -Ahltr";
       g = "git";
       b = "bc -l";
-      t = "tar";
+      t = "tar"; 
+
+      # Other commands
+      trm = "trash"; 
+      c = "code .";
+      f = "find /nix/store -name";
+      n = "nix"; nse = "nix search nixpkgs";
+      
+      # FIXME: abbrs cannot be sticked together
       s = "sudo";
+      p = "proxychains4"; 
     };
 
-    interactiveShellInit = ''
-      set -x PATH $PATH /var/guix/profiles/per-user/root/current-guix/bin/
-      set GUIX_LOCPATH $HOME/.guix-profile/lib/locale
-    '';
-
     functions = {
-      fish_greeting = "";
+      # Shortcuts
       setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
       ptree = "procs --tree";
+      hash = "nix-hash --flat --base32 --type sha256 $argv";
+      nshp = "nix shell nixpkgs#$argv";
+      rm = "echo 'Directly `rm` is disabled, use `trash` (or alias `trm`) instead.'";
+
+      # Prompt
+      fish_greeting = "";
       fish_prompt = ''
         # Defined originally in /nix/store/vkf0h13wialm2c6i3ylbqnq540gjygvm-fish-3.4.1/share/fish/functions/fish_prompt.fish @ line 4
         # function fish_prompt --description 'Write out the prompt'
@@ -99,8 +111,7 @@ in
         set -q fish_color_status
         or set -g fish_color_status --background=red white
     
-        # Color the prompt differently when we're root
-        set -l color_cwd $fish_color_cwd
+        # Color the prompt differently when we're root        set -l color_cwd $fish_color_cwd
         set -l suffix '>'
         if functions -q fish_is_root_user; and fish_is_root_user
             if set -q fish_color_cwd_root
@@ -125,14 +136,13 @@ in
         echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
       '';
 
-      hash = ''
-        if [ -z $argv ]
-          command echo "What are you calculating?"\n"Usage: hash <filepath>"
-        else
-          command nix-hash --flat --base32 --type sha256 $argv
-        end
-      '';
     };
+
+    # guix integration
+    interactiveShellInit = ''
+      set -x PATH $PATH /var/guix/profiles/per-user/root/current-guix/bin/
+      set GUIX_LOCPATH $HOME/.guix-profile/lib/locale
+    '';
   };
   
   home.stateVersion = "21.11";
