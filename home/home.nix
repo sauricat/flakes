@@ -9,7 +9,7 @@ in
     ark filelight bc procs man-pages tealdeer neofetch trash-cli
     firefox tdesktop aria2 vlc syncplay obs-studio
     okular libreoffice scribusUnstable gimp onlyoffice-bin kate xournalpp
-    qpdf
+    qpdf pdfstudio pdftag
 
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
