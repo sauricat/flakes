@@ -36,7 +36,7 @@ in
   home.file = lib.attrsets.mapAttrs' (name: value: 
       lib.attrsets.nameValuePair 
         (".config/ibus/rime/${value}") 
-        ({ source = config.lib.file.mkOutOfStoreSymlink ./config/ibus-rime/${value}; })){ 
+        ({ source = config.lib.file.mkOutOfStoreSymlink ./rime/${value}; })){ 
     dc = "default.custom.yaml";
     kb2 = "key_bindings2.yaml";
     sym = "mysymbols.yaml";
