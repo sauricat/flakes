@@ -37,9 +37,10 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out
-    cp -r ./opt $out/bin
-    cp -r ./usr $out/usr
-    # echo -e ${steam-run}/bin/steam-run $out/bin/qqmusic/qqmusic > $out/bin/qqmusic-sr
+    cp -R ./opt $out/opt
+    cp -R ./usr $out/usr
+    mkdir -p $out/bin
+    echo -e ${steam-run}/bin/steam-run $out/opt/qqmusic/qqmusic > $out/bin/qqmusic
     chmod +x $out/bin/qqmusic
   '';
 
