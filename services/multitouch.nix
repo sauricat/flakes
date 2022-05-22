@@ -7,8 +7,11 @@
     touchpad = {
       naturalScrolling = true;
       tapping = true;
+      tappingDragLock = false;
       disableWhileTyping = true;
       horizontalScrolling = false;
+      accelSpeed = "0.4";
+      accelProfile = "adaptive";
     };
   };
   services.xserver.wacom.enable = true;
