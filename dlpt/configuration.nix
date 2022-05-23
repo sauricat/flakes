@@ -37,6 +37,10 @@
   # Power management.
   powerManagement.enable = true;
 
+  # Fix cannot sleep issue.
+  systemd.sleep.extraConfig = "SuspendState=freeze";
+
+
   # Don't change this version.
   system.stateVersion = "21.11"; 
 
