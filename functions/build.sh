@@ -26,7 +26,7 @@ then
   exec nixos-install --flake "path:.#$hname"
 elif [ "$flag" = "u" ] || [ "$flag" = "U" ]
 then
-  exec nixos-rebuild switch --flake "path:.#$hname"
+  exec nixos-rebuild switch --upgrade --flake "path:.#$hname" 
 fi
 
 echo -e "\033[1,31mInvalid input!\033[0m Exiting the build script..."

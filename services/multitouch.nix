@@ -2,6 +2,7 @@
 
 {
   # Enable touchpad and touchscreen support (enabled default in most desktopManager).
+  
   services.xserver.libinput = {
     enable = true;
     touchpad = {
@@ -14,7 +15,13 @@
       accelProfile = "adaptive";
     };
   };
+
+  # FIXME: touch screen can only touch by pen but not touch by fingers
   services.xserver.wacom.enable = true;
+  #services.xserver.digimend.enable = true;
+
+  #hardware.opentabletdriver.enable = true;
+  #hardware.opentabletdriver.daemon.enable = true;
 
   # Touchégg is a multitouch gesture recognizer.
   services.touchegg.enable = true;

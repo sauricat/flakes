@@ -7,9 +7,12 @@ in
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
     ark filelight bc procs man-pages tealdeer neofetch trash-cli
-    firefox tdesktop aria2 vlc syncplay obs-studio
-    okular libreoffice scribusUnstable gimp onlyoffice-bin kate xournalpp
-    qpdf pdfstudio pdftag
+    firefox tdesktop aria2
+    vlc syncplay obs-studio
+
+    # work:
+    libreoffice scribusUnstable gimp onlyoffice-bin kate xournalpp
+    okular qpdf pdfstudio pdftag ocrmypdf
 
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
@@ -25,12 +28,13 @@ in
     megasync vscode
 
     # my own overlay:
-    # pacman
-    qqmusic
+    qqmusic #pacman
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
   ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
     wine-wechat netease-cloud-music
+  ]) ++ (with inputs.nixpkgs-master.legacyPackages.${system};[
+    #tdesktop
   ]);
   
   home.file = lib.attrsets.mapAttrs' (name: value: 

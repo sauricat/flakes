@@ -3,7 +3,7 @@
 { stdenv, lib, 
   fetchurl,
   dpkg, steam-run, 
-  gtk3, libnotify, nss, xorg, xdg-utils, at-spi2-core, libuuid, libappindicator, libsecret }:
+  gtk2, gtk3, libnotify, nss, xorg, xdg-utils, at-spi2-core, libuuid, libappindicator, libsecret, qt5 }:
 
 stdenv.mkDerivation rec {
   pname = "qqmusic";
@@ -19,22 +19,40 @@ stdenv.mkDerivation rec {
 
   # nativeBuildInputs = TODO: what is this?
   buildInputs = [ # As written in the deb file
-    gtk3 
+    gtk2 gtk3 
     libnotify
     nss
-    xorg.libXScrnSaver
-    xorg.libXtst
+    #xorg.libXScrnSaver
+    #xorg.libXtst
     xdg-utils
     at-spi2-core
     libuuid
     libappindicator
     libsecret
-    
+
+    qt5.qtbase
+    qt5.qtdeclarative
+    qt5.qtsvg
+
+    xorg.libX11
+    xorg.libxcb
+    xorg.libXcomposite
+    xorg.libXcursor
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libXrender
+    xorg.libXScrnSaver
+    xorg.libXtst
     # As to build and run
     dpkg
     steam-run
   ];
 
+  dontWrapQtApps = true;
+  
   installPhase = ''
     mkdir -p $out
     cp -R ./opt $out/opt
