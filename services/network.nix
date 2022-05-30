@@ -3,6 +3,7 @@
 {
   networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
+  users.groups."networkmanager".members = [ "shu" ];
 
   systemd.services.clashClient = {
     description = "Clash client service";

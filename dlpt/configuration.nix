@@ -40,7 +40,7 @@
   # Fix cannot sleep issue.
   systemd.sleep.extraConfig = "SuspendState=freeze";
 
-
+  environment.systemPackages = [ pkgs.throttled ];
   # Don't change this version.
   system.stateVersion = "21.11"; 
 

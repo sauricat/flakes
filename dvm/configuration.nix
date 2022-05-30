@@ -26,6 +26,7 @@
 
   # Vmware support
   virtualisation.vmware.guest.enable = true;
+  environment.systemPackages = [ pkgs.open-vm-tools ];
   
   # Don't change this version.
   system.stateVersion = "21.11"; 
