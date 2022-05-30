@@ -27,12 +27,17 @@ in
     # non-oss:
     megasync vscode
 
+    # nur:
+    nur.repos.dukzcry.cockpit
+
+    # nixos-cn:
+    nixos-cn.wine-wechat
+    nixos-cn.netease-cloud-music
+
     # my own overlay:
     qqmusic #pacman
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
-  ]) ++ (with inputs.nixos-cn.legacyPackages.${system}; [
-    wine-wechat netease-cloud-music
   ]) ++ (with inputs.nixpkgs-master.legacyPackages.${system};[
     #tdesktop
   ]);
