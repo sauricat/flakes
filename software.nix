@@ -4,9 +4,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    emacs #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    emacs
+    vim
     wget 
     clash
+    fd
+    ripgrep
     fish
     firefox
     git
@@ -15,8 +18,6 @@
     home-manager
     librime
     libarchive
-    open-vm-tools # vmware adaption
-    throttled # dlpt
   ];
   
   # Flatpak
