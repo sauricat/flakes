@@ -14,6 +14,7 @@
       winum
       paredit
       doom-themes
+      neotree
     ];
   };
   home.file = lib.attrsets.mapAttrs' (name: value: 

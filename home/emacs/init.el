@@ -16,7 +16,7 @@
 
 
 (use-package winum
-  :ensure
+  :ensure t
   :config
   (winum-mode))
 
@@ -42,4 +42,17 @@
 	     ("p" . multi-vterm-prev)	    
 	     ("n" . multi-vterm-next)))
 
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  ;; enable in the *scratch* buffer
+  (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
+  (add-hook 'ielm-mode-hook #'paredit-mode)
+  (add-hook 'lisp-mode-hook #'paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode))
 
+(use-package neotree
+  :ensure t
+  :config
+  (global-set-key [f8] 'neotree-toggle))
