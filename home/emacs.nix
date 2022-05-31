@@ -1,21 +1,25 @@
+
 { pkgs, config, lib, ... }:
 {
+  services.emacs.enable = true;
+  
   programs.emacs = {
     enable = true;
     extraPackages = epkgs: with epkgs; [
+      use-package
       nix-mode
       magit
       ivy
-      vterm
+      vterm multi-vterm
       winum
+      paredit
+      doom-themes
     ];
-    extraConfig = ''
-      (require 'winum)
-      (winum-mode)
-      (global-set-key (kbd "C-z") 'undo)
-    '';
   };
-  home.file.".emacs.d/init.el".text = ''
-      (load "default.el")
-  '';
+  home.file = lib.attrsets.mapAttrs' (name: value: 
+    lib.attrsets.nameValuePair 
+      (".emacs.d/${value}") 
+      ({ source = config.lib.file.mkOutOfStoreSymlink ./emacs/${value}; })){
+           init = "init.el";
+         };
 }
