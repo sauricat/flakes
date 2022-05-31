@@ -1,6 +1,6 @@
 # Named localisation, but actually services stuffs. 
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Localisation and X11
@@ -39,17 +39,6 @@
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.pulseaudio.extraConfig = "load-module module-switch-on-connect";
-  
-  # Nix configuration
-  nix.package = pkgs.nixFlakes; 
-  nix.extraOptions = "experimental-features = nix-command flakes";
-  nix.autoOptimiseStore = true;
-  nix.gc = {
-      automatic = true;
-      options = "--delete-older-than 7d";
-      dates = "Sun 01:00";
-    };
 
-  nixpkgs.config.allowUnfree = true;
 
 }

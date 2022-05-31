@@ -34,6 +34,7 @@
       # dvm means Desktop Virtual Machine, an already abandoned configuration
       "dvm" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs.inputs = inputs;
         modules = [
           ./dvm/configuration.nix
           { nixpkgs.pkgs = self.legacyPackages."x86_64-linux"; }
@@ -43,6 +44,7 @@
       # dlpt means Dell LaPTop
       "dlpt" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs.inputs = inputs;
         modules = [
           ./dlpt/configuration.nix
           nixos-hardware.nixosModules.dell-xps-13-7390

@@ -10,6 +10,7 @@
       ../software.nix
       ../services/network.nix
       ../services/localisation.nix
+      ../services/nix.nix
       ../user.nix
     ];
 
