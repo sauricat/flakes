@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-cd "$(dirname "$0")"/..
+projectDir="$(dirname "$0")"/..
+cd $projectDir
 
-# interactions
+# ~~ Interaction ~~
 echo -e "Update 'flake.lock'?"
-read -p "> (y/n) ... " updateflake
+read -p "> (y/n) ... " updateFlake
 
 echo -e "Are you \033[1;31mbuilding a LiveCD (b)\033[0m, \033[1;34minstalling from a LiveCD (i)\033[0m, or just \033[1;32mupdating your configuration (u)\033[0m?" 
 read -p "> (b/i/u) ... " flag
@@ -18,9 +19,9 @@ then
   read -p "> (hostname) ... " hname
 fi
 
-
+# ~~ Action ~~
 # 1. update flake.lock
-if [ "$updateflake" = "y" ]
+if [ "$updateFlake" = "y" ]
 then 
   nix flake update
 fi
@@ -43,4 +44,5 @@ then
   exec nixos-rebuild switch --upgrade --flake "path:.#$hname" 
 fi
 
+# ~~ Error ~~
 echo -e "\033[1;31mInvalid input!\033[0m Exiting the build script..."
