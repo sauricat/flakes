@@ -16,7 +16,7 @@ in
     vlc syncplay obs-studio
 
     # work:
-    libreoffice scribusUnstable gimp onlyoffice-bin kate xournalpp
+    libreoffice scribus gimp onlyoffice-bin kate xournalpp
     okular qpdf pdfstudio pdftag ocrmypdf
 
     # devel:
