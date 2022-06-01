@@ -5,7 +5,7 @@
     shellAbbrs = {
       # Pride commands 
       l = "ls -ahl"; lt = "ls -Ahltr";
-      g = "git"; gp = "git push"; gf = "git fetch origin main"; 
+      g = "git";
       b = "bsdtar";
       t = "trash"; 
 
@@ -65,7 +65,20 @@
         echo 
         echo -n -s (prompt_login)' ' (set_color $color_cwd) (prompt_pwd) $normal (fish_vcs_prompt) $normal " "$prompt_status $suffix " "
       '';
-
+      
+      # vterm integration
+      vterm_printf = ''
+        if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end 
+            # tell tmux to pass the escape sequences through
+            printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
+        else if string match -q -- "screen*" "$TERM"
+            # GNU screen (screen, screen-256color, screen-256color-bce)
+            printf "\eP\e]%s\007\e\\" "$argv"
+        else
+            printf "\e]%s\e\\" "$argv"
+        end
+      '';
+    
     };
 
     # guix integration
@@ -73,5 +86,7 @@
       set -x PATH $PATH /var/guix/profiles/per-user/root/current-guix/bin/
       set GUIX_LOCPATH $HOME/.guix-profile/lib/locale
     '';
+
+
   };
 }
