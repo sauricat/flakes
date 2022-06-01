@@ -11,10 +11,14 @@ in
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
-    ark filelight bc procs man-pages tealdeer neofetch trash-cli
+    # system:
+    htop procs trash-cli filelight ark bc
+    man-pages tealdeer neofetch
+
+    # internet:
     firefox tdesktop aria2
     vlc syncplay obs-studio
-
+    
     # work:
     libreoffice scribus gimp onlyoffice-bin kate xournalpp
     okular qpdf pdfstudio pdftag ocrmypdf
