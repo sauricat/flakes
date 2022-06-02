@@ -1,10 +1,6 @@
-# Named localisation, but actually services stuffs. 
-
+# Named localisation, but actually services stuffs, including X11 server. 
 { pkgs, ... }:
-
 {
-  # Localisation and X11
-
   time.timeZone = "Asia/Shanghai";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
@@ -26,10 +22,10 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   
-  # Configure keymap in X11
+  # Configure keymap in X11.
   services.xserver.layout = "us";
   services.xserver.xkbVariant = "altgr-intl"; # included xkbOption "eurosign:5"
-  services.xserver.xkbOptions = "caps:none";  # /usr/share/X11/xkb/rules/evdev.lst
+  services.xserver.xkbOptions = "caps:none"; # xkeyboard-config(7)
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
