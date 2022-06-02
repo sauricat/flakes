@@ -1,8 +1,10 @@
 # The Shu NixOS Configuration
 
-Shu’s NixOS configuration files. 
+These are Shu’s NixOS configuration files.
 
-
+Specifically, 
+- In `home/rime/` are Shu’s [Rime IM](https://rime.im/) configuration files;
+- In `home/emacs/` are Shu’s [Emacs](https://www.gnu.org/software/emacs) configuration files.
 
 ## Usage
 
@@ -16,7 +18,7 @@ Shu’s NixOS configuration files.
 
 - Directory `dlpt`, `dvm`: These are my 2 devices, virtual and physical. 
 
-- Directory `home`: Configurations concerning [Home Manager](https://github.com/nix-community/home-manager), a necessary suite for NixOS newcomers (just as me owo) to manage their home directory. Especially, in `home/rime/` saves my [Rime IM](https://rime.im/) configuration in yaml format, and can be directly transplanted and builded in another’s device as long as an instance of rime is equipped.  
+- Directory `home`: Configurations concerning [Home Manager](https://github.com/nix-community/home-manager), a necessary suite for NixOS newcomers (just as me owo) to manage their home directory.
 
 - Directory `functions`: Some useful files, even when separated from the main repository. 
 
