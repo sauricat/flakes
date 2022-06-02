@@ -5,19 +5,23 @@
     enable = true;
     defaultEditor = true;
   };
-  
   programs.emacs = {
     enable = true;
     extraPackages = epkgs: with epkgs; [
       use-package
-      nix-mode
+      nix-mode markdown-mode yaml-mode fish-mode
       magit
-      ivy
+      ivy counsel swiper
       vterm multi-vterm
       winum
       paredit
       doom-themes
       neotree
+      racket-mode
+      dired-single
+      pdf-tools
+      highlight-parentheses
+      flycheck
     ];
   };
   home.file = lib.attrsets.mapAttrs' (name: value: 
