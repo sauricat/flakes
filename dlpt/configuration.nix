@@ -19,16 +19,19 @@
       ../other-package-managers/pacman.nix
     ];
 
-  networking.hostName = "dlpt"; # Define your hostname.
+  networking.hostName = "dlpt";
+  networking.interfaces.wlp0s20f3.useDHCP = false;
 
   # Use the GRUB 2 boot loader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    device = "nodev"; # "nodev" for efi only
+    theme = pkgs.nixos-grub2-theme;
+  };
   boot.loader.efi.efiSysMountPoint = "/boot";
-  # Define on which hard drive you want to install Grub.
-  boot.loader.grub.device = "nodev"; # or "nodev" for efi only
 
   # Perform firmware updates.
   services.fwupd.enable = true; 
@@ -38,11 +41,13 @@
 
   # Power management.
   powerManagement.enable = true;
+  powerManagement.cpuFreqGovernor = "ondemand";
 
   # Fix cannot sleep issue.
   systemd.sleep.extraConfig = "SuspendState=freeze";
 
   environment.systemPackages = [ pkgs.throttled ];
+  
   # Don't change this version.
   system.stateVersion = "21.11"; 
 
