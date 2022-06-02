@@ -25,9 +25,9 @@ in
 
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
-    xsel cachix zlib cmake pkg-config libarchive 
-    glibc gpgme libarchive asciidoc doxygen meson fakechroot python3
-    bash-completion
+    xsel cachix zlib cmake pkg-config 
+    glibc gpgme asciidoc doxygen meson fakechroot python3
+    bash-completion cling racket
 
     # compatibility:
     wine winetricks samba
