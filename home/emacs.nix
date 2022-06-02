@@ -31,7 +31,7 @@ in
 
   systemd.user.services.emacs = {
     Unit = {
-      Decription = "Emacs text editor";
+      Description = "Emacs text editor";
       Documentation = [ "info:emacs" "man:emacs(1)" "https://gnu.org/software/emacs/" ];
       X-RestartIfChanged = false;
     };
