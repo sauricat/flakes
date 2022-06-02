@@ -82,9 +82,7 @@ speller:
   #   - xform/in\s/N/
   #   - xform/ing\s/;/
   #   - xlit/QWRTYUIOPSDFGHMJCKLZXVBN/qwrtyuiopsdfghmjcklzxvbn/
-    #- abbrev/\S(.).+\s/$1/
-
-
+  #   - abbrev/\S(.).+\s/$1/
   #####
 
 menu:
