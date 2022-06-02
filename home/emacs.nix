@@ -1,33 +1,50 @@
-
 { pkgs, config, lib, ... }:
+let
+  emacsPackage = pkgs.emacsUnstable;
+  emacsAccompaniedPkgs = 
+    pkgs.emacsWithPackagesFromUsePackage {
+      config = ./emacs/init.el;
+      alwaysEnsure = true;
+      package = emacsPackage;
+      override = epkgs : epkgs // {
+        tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
+          # Install all tree sitter grammars available from nixpkgs
+          (grammars: builtins.filter lib.isDerivation (lib.attrValues grammars)); };
+    };
+  editorScript = pkgs.writeScriptBin "emacseditor" ''
+    #!${pkgs.runtimeShell}
+    if [ -z "$1" ]; then
+      exec ${emacsPackage}/bin/emacsclient --create-frame --alternate-editor ${emacsPackage}/bin/emacs
+    else
+      exec ${emacsPackage}/bin/emacsclient --alternate-editor ${emacsPackage}/bin/emacs "$@"
+    fi
+  '';
+in
 {
-  services.emacs = {
-    enable = true;
-    defaultEditor = true;
+  # For emacs client cannot recognize epkgs, temporarily disable these options.
+  #
+  # services.emacs = {
+  #   enable = true;
+  #   defaultEditor = true;
+  #   package = pkgs.emacsUnstable;
+  # };
+
+  systemd.user.services.emacs = {
+    Unit = {
+      Decription = "Emacs text editor";
+      Documentation = [ "info:emacs" "man:emacs(1)" "https://gnu.org/software/emacs/" ];
+      X-RestartIfChanged = false;
+    };
+    Service = {
+      Restart = "on-failure";
+      ExecStart = "${emacsPackage}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --fg-daemon";
+      SuccessExitStatus = 15;
+      Type = "notify";
+    };
   };
-  programs.emacs = {
-    enable = true;
-    extraPackages = epkgs: with epkgs; [
-      use-package
-      nix-mode markdown-mode yaml-mode fish-mode
-      magit
-      ivy counsel swiper
-      vterm multi-vterm
-      winum
-      paredit
-      doom-themes
-      neotree
-      racket-mode
-      dired-single
-      pdf-tools
-      highlight-parentheses
-      flycheck
-    ];
-  };
-  home.file = lib.attrsets.mapAttrs' (name: value: 
-    lib.attrsets.nameValuePair 
-      (".emacs.d/${value}") 
-      ({ source = config.lib.file.mkOutOfStoreSymlink ./emacs/${value}; })){
-           init = "init.el";
-         };
+  systemd.user.sessionVariables."EDITOR" = lib.mkOverride 900 "${editorScript}/bin/emacseditor";
+
+  home.packages = [ emacsAccompaniedPkgs ];
+  
+  home.file.".emacs.d/init.el".source = ./emacs/init.el;
 }

@@ -1,13 +1,19 @@
-﻿;; Basic settings
+﻿;;; init --- Init file of emacs
+;;; Commentary:
+
+;;; Code:
 (global-set-key (kbd "C-z") 'undo)
 (global-unset-key (kbd "C-x C-z"))
-(global-set-key (kbd "C-M-z") 'linum-mode) 
+(global-set-key (kbd "C-M-z") 'linum-mode)
+(global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (setq inhibit-splash-screen t) ; hide welcome screen
 (xterm-mouse-mode t) ; use mouse in -nw mode
 
 (tool-bar-mode 0)
 (menu-bar-mode t)
-(scroll-bar-mode 0) 
+(scroll-bar-mode 0)
+
+(setq use-package-always-ensure t)
 
 (when (not (package-installed-p 'use-package))
   (package-refresh-contents)
@@ -54,7 +60,7 @@
 	   :prefix-map my-prefix-map
            :prefix "C-t"
 	   ("c" . multi-vterm) ;; c means create
-	   ("p" . multi-vterm-prev)	    
+	   ("p" . multi-vterm-prev)
 	   ("n" . multi-vterm-next)))
 
 (use-package paredit
@@ -77,7 +83,6 @@
 (use-package yaml-mode)
 (use-package fish-mode)
 
-;; dired
 (use-package dired-single
   :config
   (defun my-dired-init ()
@@ -110,3 +115,23 @@
 
 (use-package flycheck
   :config (global-flycheck-mode))
+
+(use-package company
+  :hook (after-init . global-company-mode)
+  :config
+  (setq company-tooltip-align-annotations t
+        company-tooltip-limit 20
+        company-show-numbers t
+        company-idle-delay .2
+        company-minimum-prefix-length 1))
+
+(use-package tree-sitter ; to live on the tree “Shēnghuó zài shù shàng.”
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-mode-hook 'tree-sitter-hl-mode))
+(use-package tree-sitter-langs
+  :config
+  (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))
+
+(provide 'init)
+;;; init.el ends here
