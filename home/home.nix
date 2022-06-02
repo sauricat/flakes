@@ -13,7 +13,7 @@ in
   home.packages = (with pkgs; [
     # system:
     htop procs trash-cli filelight ark bc
-    man-pages tealdeer neofetch
+    man-pages tealdeer neofetch kdeconnect
 
     # internet:
     firefox tdesktop aria2
@@ -31,7 +31,7 @@ in
 
     # compatibility:
     wine winetricks samba
-    dpkg apt steam-run rpm
+    steam-run #dpkg apt rpm
 
     # non-oss:
     megasync vscode
