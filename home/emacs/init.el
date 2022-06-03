@@ -5,6 +5,7 @@
 (global-set-key (kbd "C-z") 'undo)
 (global-unset-key (kbd "C-x C-z"))
 (global-set-key (kbd "C-M-z") 'linum-mode)
+(global-set-key (kbd "C-M-/") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (setq inhibit-splash-screen t) ; hide welcome screen
 (xterm-mouse-mode t) ; use mouse in -nw mode
@@ -14,7 +15,9 @@
 
 (setq use-package-always-ensure t)
 
-(use-package diminish)
+(use-package diminish
+  :config
+  (diminish 'eldoc-mode)) ;; other configs are in use-package :diminish
 
 (use-package magit
   :bind ("C-x g" . magit-status))
@@ -44,6 +47,10 @@
 (use-package swiper
   :config (global-set-key (kbd "C-s") 'swiper-isearch))
 
+;; Regex replace
+(use-package anzu
+  :bind ("C-r" . anzu-query-replace-regexp))
+
 ;; Spell check and auto fill
 (use-package flycheck
   :config (global-flycheck-mode))
@@ -62,7 +69,15 @@
   :config
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t)
-  (load-theme 'doom-tomorrow-day t))
+
+  ;; FIXME: These below are now global. We should patch doom
+  ;;        themes to let them display correctly in terminal.
+  (defun new-frame-setup (frame)
+    (if (display-graphic-p frame)
+	(load-theme 'doom-tomorrow-day t)
+      (disable-theme 'doom-tomorrow-day)))
+  (mapc 'new-frame-setup (frame-list))
+  (add-hook 'after-make-frame-functions 'new-frame-setup))
 
 ;; Terminal
 (use-package vterm)
@@ -76,20 +91,22 @@
 	   ("n" . multi-vterm-next)))
 
 ;; Parenthesis
-(use-package paredit
+(use-package highlight-parentheses
+  :diminish highlight-parentheses-mode
+  :config (global-highlight-parentheses-mode))
+(use-package paredit ;; strict
   :hook ((emacs-lisp-mode . enable-paredit-mode)
 	 (eval-expression-minibuffer-setup . enable-paredit-mode)
          (ielm-mode . enable-paredit-mode)
          (lisp-mode . enable-paredit-mode)
 	 (lisp-interaction-mode . enable-paredit-mode)
 	 (racket-mode . enable-paredit-mode)))
-(use-package highlight-parentheses
-  :diminish highlight-parentheses-mode
-  :config (global-highlight-parentheses-mode))
+(use-package smartparens ;; flexible
+  :hook ((nix-mode . smartparens-mode)
+	 (rust-mode . smartparens-mode)
+	 (ruby-mode . smartparens-mode)))
 
-(use-package neotree
-  :config (global-set-key [f8] 'neotree-toggle))
-
+;; Language modes
 (use-package racket-mode
   :mode ("\\.rkt\\'" . racket-mode)
   :hook (racket-mode . racket-xp-mode))
@@ -97,11 +114,10 @@
 (use-package markdown-mode)
 (use-package yaml-mode)
 (use-package fish-mode)
+(use-package rust-mode)
+(use-package cargo)
 
-(use-package eldoc
-  :diminish eldoc-mode)
-
-;; Display dired in a single buffer.
+;; Dired
 (use-package dired-single
   :config
   (defun my-dired-init ()
@@ -121,7 +137,10 @@
       (my-dired-init)
     ;; it's not loaded yet, so add our bindings to the load-hook
     (add-hook 'dired-load-hook 'my-dired-init)))
+(use-package neotree ;; TODO: replace it w/ dired plugins
+  :config (global-set-key [f8] 'neotree-toggle))
 
+;; PDF
 (use-package pdf-tools
   :config
   (pdf-tools-install)
