@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
-
 {
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     emacs
     vim
@@ -27,30 +24,26 @@
     enableDefaultFonts = true;
     fonts = with pkgs; [
       noto-fonts
-      noto-fonts-cjk
       noto-fonts-emoji
       fira-code
       fira-code-symbols
+
+      # CJKV
+      noto-fonts-cjk
       hanazono
       source-han-sans source-han-serif source-han-mono
       wqy_microhei wqy_zenhei
       sarasa-gothic
+      arphic-ukai arphic-uming
+      unfonts-core
     ];
     fontconfig = {
       defaultFonts = {
         serif = [ "Source Han Serif SC" ];
         sansSerif = [ "Source Han Sans SC" ];
         monospace = [ "Sarasa Mono SC" ];
+        emoji = [ "Noto Emoji" ];
       };
     };
   };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
 }
