@@ -12,7 +12,7 @@
     typing-booster ];
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us";
+    useXkbConfig = true;
   };
 
   # Enable the X11 windowing system.
