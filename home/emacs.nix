@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 let
   emacsPackage = pkgs.emacsUnstable;
-  emacsAccompaniedPkgs = 
+  emacsPackageWithPkgs = 
     pkgs.emacsWithPackagesFromUsePackage {
       config = ./emacs/init.el;
       alwaysEnsure = true;
@@ -14,9 +14,9 @@ let
   editorScript = pkgs.writeScriptBin "emacseditor" ''
     #!${pkgs.runtimeShell}
     if [ -z "$1" ]; then
-      exec ${emacsPackage}/bin/emacsclient --create-frame --alternate-editor ${emacsPackage}/bin/emacs
+      exec ${emacsPackageWithPkgs}/bin/emacsclient --create-frame --alternate-editor ${emacsPackageWithPkgs}/bin/emacs
     else
-      exec ${emacsPackage}/bin/emacsclient --alternate-editor ${emacsPackage}/bin/emacs "$@"
+      exec ${emacsPackageWithPkgs}/bin/emacsclient --alternate-editor ${emacsPackageWithPkgs}/bin/emacs "$@"
     fi
   '';
 in
@@ -37,14 +37,14 @@ in
     };
     Service = {
       Restart = "on-failure";
-      ExecStart = "${emacsPackage}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --fg-daemon";
+      ExecStart = "${emacsPackageWithPkgs}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --fg-daemon";
       SuccessExitStatus = 15;
       Type = "notify";
     };
   };
   systemd.user.sessionVariables."EDITOR" = "${editorScript}/bin/emacseditor";
 
-  home.packages = [ emacsAccompaniedPkgs ];
+  home.packages = [ emacsPackageWithPkgs ];
   
   home.file.".emacs.d/init.el".source = ./emacs/init.el;
 }
