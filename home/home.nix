@@ -7,6 +7,7 @@ in
     ./rime.nix
     ./emacs.nix
     ./fish.nix
+    ./firefox.nix
   ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
@@ -16,7 +17,7 @@ in
     man-pages tealdeer neofetch kdeconnect
 
     # internet:
-    firefox tdesktop aria2
+    tdesktop aria2
     vlc syncplay obs-studio
     
     # work:
