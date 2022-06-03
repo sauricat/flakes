@@ -8,16 +8,13 @@
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (setq inhibit-splash-screen t) ; hide welcome screen
 (xterm-mouse-mode t) ; use mouse in -nw mode
+(tool-bar-mode 0) (menu-bar-mode t) (scroll-bar-mode 0) ; hide toolbar and scrollbar
 
-(tool-bar-mode 0)
-(menu-bar-mode t)
-(scroll-bar-mode 0)
+(package-initialize)
 
 (setq use-package-always-ensure t)
 
-(when (not (package-installed-p 'use-package))
-  (package-refresh-contents)
-  (package-install 'use-package))
+(use-package diminish)
 
 (use-package magit
   :bind ("C-x g" . magit-status))
@@ -25,13 +22,14 @@
 (use-package winum
   :config (winum-mode))
 
+;; Ivy tool set
 (use-package ivy
+  :diminish ivy-mode
   :config
   (ivy-mode)
   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
   (global-set-key (kbd "C-c v") 'ivy-push-view)
   (global-set-key (kbd "C-c V") 'ivy-pop-view))
-
 (use-package counsel
   :config
   (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -43,16 +41,30 @@
   (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
   (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
   (global-set-key (kbd "<f2> j") 'counsel-set-variable))
-
 (use-package swiper
   :config (global-set-key (kbd "C-s") 'swiper-isearch))
 
+;; Spell check and auto fill
+(use-package flycheck
+  :config (global-flycheck-mode))
+(use-package company
+  :diminish company-mode
+  :hook (after-init . global-company-mode)
+  :config
+  (setq company-tooltip-align-annotations t
+        company-tooltip-limit 20
+        company-show-numbers t
+        company-idle-delay .2
+        company-minimum-prefix-length 1))
+
+;; Theme
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
+	doom-themes-enable-italic t)
   (load-theme 'doom-tomorrow-day t))
 
+;; Terminal
 (use-package vterm)
 (use-package multi-vterm
   :config (bind-keys
@@ -63,6 +75,7 @@
 	   ("p" . multi-vterm-prev)
 	   ("n" . multi-vterm-next)))
 
+;; Parenthesis
 (use-package paredit
   :hook ((emacs-lisp-mode . enable-paredit-mode)
 	 (eval-expression-minibuffer-setup . enable-paredit-mode)
@@ -70,10 +83,12 @@
          (lisp-mode . enable-paredit-mode)
 	 (lisp-interaction-mode . enable-paredit-mode)
 	 (racket-mode . enable-paredit-mode)))
+(use-package highlight-parentheses
+  :diminish highlight-parentheses-mode
+  :config (global-highlight-parentheses-mode))
 
 (use-package neotree
-  :config
-  (global-set-key [f8] 'neotree-toggle))
+  :config (global-set-key [f8] 'neotree-toggle))
 
 (use-package racket-mode
   :mode ("\\.rkt\\'" . racket-mode)
@@ -83,6 +98,10 @@
 (use-package yaml-mode)
 (use-package fish-mode)
 
+(use-package eldoc
+  :diminish eldoc-mode)
+
+;; Display dired in a single buffer.
 (use-package dired-single
   :config
   (defun my-dired-init ()
@@ -109,26 +128,10 @@
   ;; Pdf and swiper does not work together
   (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward-regexp))
 
-(use-package highlight-parentheses
-  :config
-  (global-highlight-parentheses-mode))
-
-(use-package flycheck
-  :config (global-flycheck-mode))
-
-(use-package company
-  :hook (after-init . global-company-mode)
-  :config
-  (setq company-tooltip-align-annotations t
-        company-tooltip-limit 20
-        company-show-numbers t
-        company-idle-delay .2
-        company-minimum-prefix-length 1))
-
-(use-package tree-sitter ; to live on the tree “Shēnghuó zài shù shàng.”
-  :config
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-mode-hook 'tree-sitter-hl-mode))
+;; To live on the tree “Shēnghuó zài shù shàng”
+(use-package tree-sitter
+  :hook (tree-sitter-mode . tree-sitter-hl-mode)
+  :config (global-tree-sitter-mode))
 (use-package tree-sitter-langs
   :config
   (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))

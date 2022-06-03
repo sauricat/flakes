@@ -42,7 +42,7 @@ in
       Type = "notify";
     };
   };
-  systemd.user.sessionVariables."EDITOR" = lib.mkOverride 900 "${editorScript}/bin/emacseditor";
+  systemd.user.sessionVariables."EDITOR" = "${editorScript}/bin/emacseditor";
 
   home.packages = [ emacsAccompaniedPkgs ];
   
