@@ -29,7 +29,7 @@ then
     if [[ "$flag" != "b" && "$flag" != "B" ]]
     then
 	echo -e "\nWhich rebuild \033[1;34msubcommand\033[0m do you like to use? (\033[1;4mswitch\033[0m/boot/test/build/dry-build/...)"
-	read -p ">> " operation
+	read -p ">> " subcommand
 
 	echo -e "\nWhat will be your \033[1;35mideal hostname\033[0m? (\033[1;4m$(hostname)\033[0m/...)"
 	read -p ">> " hname
@@ -39,7 +39,7 @@ fi
 
 # ~~ Auto Completion ~~
 if [[ -z "$flag" ]] ; then flag="u"; fi
-if [[ -z "$operation" ]] ; then operation="switch"; fi
+if [[ -z "$subcommand" ]] ; then subcommand="switch"; fi
 if [[ -z "$hname" ]] ; then hname=$(hostname); fi
 
 
@@ -66,12 +66,12 @@ then
     exec sudo nixos-install --flake "path:.#$hname"
 elif [[ "$flag" == "u" || "$flag" == "U" ]]
 then
-    if [[ "$operation" != *"build" ]]
+    if [[ "$subcommand" != *"build" ]]
     then
 	echo -e "Oops! It requires you to \033[1;31mcheck your privilege\033[0m..."
-	exec sudo nixos-rebuild $operation --flake "path:.#$hname"
+	exec sudo nixos-rebuild $subcommand --flake "path:.#$hname"
     else
-	exec nixos-rebuild $operation --flake "path:.#$hname"
+	exec nixos-rebuild $subcommand --flake "path:.#$hname"
     fi
 fi
 
