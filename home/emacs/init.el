@@ -20,7 +20,9 @@
   (diminish 'eldoc-mode)) ;; other configs are in use-package :diminish
 
 (use-package magit
-  :bind ("C-x g" . magit-status))
+  :bind (("C-x g g" . magit-status)
+	 ("C-x g b" . magit-blame)
+	 ("C-x g d" . magit-diff-buffer-file)))
 
 (use-package winum
   :config (winum-mode))
@@ -82,29 +84,28 @@
 ;; Terminal
 (use-package vterm)
 (use-package multi-vterm
-  :config (bind-keys
-	   :map global-map
-	   :prefix-map my-prefix-map
-           :prefix "C-t"
-	   ("c" . multi-vterm) ;; c means create
-	   ("p" . multi-vterm-prev)
-	   ("n" . multi-vterm-next)))
+  :bind (("C-c t c" . multi-vterm) ;; c means create
+	 ("C-t" . multi-vterm-prev) ;; most often used
+	 ("C-c t p" . multi-vterm-prev)
+	 ("C-c t n" . multi-vterm-next)))
 
 ;; Parenthesis
 (use-package highlight-parentheses
   :diminish highlight-parentheses-mode
   :config (global-highlight-parentheses-mode))
 (use-package paredit ;; strict
-  :hook ((emacs-lisp-mode . enable-paredit-mode)
-	 (eval-expression-minibuffer-setup . enable-paredit-mode)
-         (ielm-mode . enable-paredit-mode)
-         (lisp-mode . enable-paredit-mode)
-	 (lisp-interaction-mode . enable-paredit-mode)
-	 (racket-mode . enable-paredit-mode)))
+  :diminish (paredit-mode . " Par:S")
+  :hook ((emacs-lisp-mode
+	 eval-expression-minibuffer-setup
+         ielm-mode
+         lisp-mode
+	 lisp-interaction-mode
+	 racket-mode) . enable-paredit-mode))
 (use-package smartparens ;; flexible
-  :hook ((nix-mode . smartparens-mode)
-	 (rust-mode . smartparens-mode)
-	 (ruby-mode . smartparens-mode)))
+  :diminish (smartparens-mode . " Par:F")
+  :hook ((nix-mode
+	  rust-mode
+	  ruby-mode). smartparens-mode))
 
 ;; Language modes
 (use-package racket-mode
@@ -150,10 +151,41 @@
 ;; To live on the tree “Shēnghuó zài shù shàng”
 (use-package tree-sitter
   :hook (tree-sitter-mode . tree-sitter-hl-mode)
-  :config (global-tree-sitter-mode))
+  :config (global-tree-sitter-mode)
+  (diminish 'tree-sitter-mode " 🌲"))
 (use-package tree-sitter-langs
   :config
   (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))
+
+;; Language server
+(use-package lsp-mode
+  :commands (lsp)
+  :hook (((ruby-mode
+	   nix-mode
+	   rust-mode) . lsp))
+  :init
+  (setq lsp-auto-configure t
+        lsp-auto-guess-root t
+        lsp-idle-delay 0.500
+        lsp-session-file "~/.emacs/.cache/lsp-sessions"))
+(use-package lsp-ivy
+  :diminish
+  :after lsp-mode)
+(use-package lsp-ui
+  :after (lsp-mode)
+  :diminish
+  :commands (lsp-ui-mode)
+  :bind
+  (:map lsp-ui-mode-map
+        ("M-?" . lsp-ui-peek-find-references)
+        ("M-." . lsp-ui-peek-find-definitions)
+        ("C-c u" . lsp-ui-imenu))
+  :hook (lsp-mode . lsp-ui-mode)
+  :init
+  ;; https://github.com/emacs-lsp/lsp-mode/blob/master/docs/tutorials/how-to-turn-off.md
+  (setq lsp-enable-symbol-highlighting t
+        lsp-ui-doc-enable t
+        lsp-lens-enable t))
 
 (provide 'init)
 ;;; init.el ends here

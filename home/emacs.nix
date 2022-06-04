@@ -44,7 +44,11 @@ in
   };
   systemd.user.sessionVariables."EDITOR" = "${editorScript}/bin/emacseditor";
 
-  home.packages = [ emacsPackageWithPkgs ];
+  home.packages = [
+    emacsPackageWithPkgs
+    pkgs.rust-analyzer
+    pkgs.rnix-lsp
+  ];
   
   home.file.".emacs.d/init.el".source = ./emacs/init.el;
 }
