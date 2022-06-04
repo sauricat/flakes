@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs; [
     emacs
     vim
-    wget 
+    wget
     clash
     fd
     ripgrep
@@ -15,6 +15,8 @@
     home-manager
     librime
     libarchive
+    htop
+    procs
   ];
   
   # Flatpak

@@ -13,7 +13,7 @@ in
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
     # system:
-    htop procs trash-cli filelight ark bc
+    trash-cli filelight ark bc
     man-pages tealdeer neofetch kdeconnect
 
     # internet:
@@ -28,7 +28,7 @@ in
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
     xsel cachix zlib cmake pkg-config 
     glibc gpgme asciidoc doxygen meson fakechroot python3
-    bash-completion cling racket
+    bash-completion cling racket rustc cargo
 
     # compatibility:
     wine winetricks samba
@@ -46,6 +46,7 @@ in
 
     # my own overlay:
     qqmusic #pacman
+    wemeet
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
   ]) ++ (with inputs.nixpkgs-master.legacyPackages.${system};[
