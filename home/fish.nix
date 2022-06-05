@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   myinit = lib.strings.concatStringsSep "\n" [
     "set fish_prompt_pwd_dir_length 0" # make prompt show full path
@@ -16,7 +16,6 @@ in
       t = "trash"; 
 
       # Other commands
-      c = "code .";
       f = "find /nix/store -name";
       n = "nix"; nre = "nix repl '<nixpkgs>'"; nse = "nix search nixpkgs";
       
@@ -42,4 +41,9 @@ in
 
     shellInit = myinit; 
   };
+
+  programs.zoxide = { enable = true;
+                      enableFishIntegration = true; };
+  programs.fzf    = { enable = true;
+                      enableFishIntegration = true; };
 }

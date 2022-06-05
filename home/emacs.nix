@@ -13,7 +13,7 @@ let
     };
   editorScript = pkgs.writeScriptBin "emacseditor" ''
     #!${pkgs.runtimeShell}
-    if [ -z "$1" ]; then
+    if [[ -z "$1" ]]; then
       exec ${emacsPackageWithPkgs}/bin/emacsclient --create-frame --alternate-editor ${emacsPackageWithPkgs}/bin/emacs
     else
       exec ${emacsPackageWithPkgs}/bin/emacsclient --alternate-editor ${emacsPackageWithPkgs}/bin/emacs "$@"
@@ -42,12 +42,14 @@ in
       Type = "notify";
     };
   };
-  systemd.user.sessionVariables."EDITOR" = "${editorScript}/bin/emacseditor";
+  systemd.user.sessionVariables.EDITOR = "${editorScript}/bin/emacseditor";
 
   home.packages = [
     emacsPackageWithPkgs
     pkgs.rust-analyzer
     pkgs.rnix-lsp
+    pkgs.zoxide
+    pkgs.fzf
   ];
   
   home.file.".emacs.d/init.el".source = ./emacs/init.el;

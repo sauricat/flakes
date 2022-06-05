@@ -49,6 +49,12 @@
 (use-package swiper
   :config (global-set-key (kbd "C-s") 'swiper-isearch))
 
+;; Zoxide
+(use-package zoxide
+  :hook ((find-file
+	  counsel-find-file) . zoxide-add))
+(use-package fzf)
+
 ;; Regex replace
 (use-package anzu
   :bind ("C-r" . anzu-query-replace-regexp))
