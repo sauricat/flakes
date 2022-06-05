@@ -31,6 +31,7 @@ in
       hash = "nix-hash --flat --base32 --type sha256 $argv";
       nshp = "nix shell nixpkgs#$argv";
       rm = "echo 'Directly `rm` is disabled, use `trash` (or alias `t`) instead.'";
+      rwhich = "which $argv | xargs realpath";
 
       # Prompt
       fish_greeting = "";
