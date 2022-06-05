@@ -8,12 +8,13 @@ in
     ./emacs.nix
     ./fish.nix
     ./firefox.nix
+    ./compatibility.nix
   ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = (with pkgs; [
     # system:
-    trash-cli filelight ark bc
+    trash-cli bc
     man-pages tealdeer neofetch kdeconnect
 
     # internet:
@@ -30,23 +31,12 @@ in
     glibc gpgme asciidoc doxygen meson fakechroot python3
     bash-completion cling racket rustc cargo
 
-    # compatibility:
-    wine winetricks samba
-    steam-run #dpkg apt rpm
 
     # non-oss:
     megasync vscode
 
     # nur:
     nur.repos.dukzcry.cockpit
-
-    # nixos-cn:
-    nixos-cn.wine-wechat
-    nixos-cn.netease-cloud-music
-
-    # my own overlay:
-    qqmusic #pacman
-    wemeet
   ]) ++ (with inputs.nixos-guix.packages.${system}; [
     nixos-guix
   ]) ++ (with inputs.nixpkgs-master.legacyPackages.${system};[
