@@ -16,7 +16,7 @@
     };
   };
   console = {
-    font = "Lat2-Terminus16";
+    font = lib.mkOverride 900 "Lat2-Terminus16";
     useXkbConfig = true;
   };
 

@@ -47,9 +47,10 @@
   systemd.sleep.extraConfig = "SuspendState=freeze";
 
   environment.systemPackages = [ pkgs.throttled ];
+
+  console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
   
   # Don't change this version.
   system.stateVersion = "21.11"; 
-
 }
 
