@@ -7,7 +7,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../software.nix
+      ../basics.nix
       ../services/network.nix
       ../services/localisation.nix
       ../services/nix.nix

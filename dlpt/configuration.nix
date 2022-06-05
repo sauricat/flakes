@@ -7,7 +7,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../software.nix
+      ../basics.nix
       ../user.nix
       ../services/localisation.nix
       ../services/bluetooth.nix

@@ -68,6 +68,10 @@ in
     nix-direnv.enable = true;
   };
 
+  programs.gpg = {
+    enable = true;
+    homedir = "${config.home.homeDirectory}/clash-configuration/gnupg";
+  };
 
   home.stateVersion = "21.11";
   
