@@ -20,6 +20,6 @@
       PartOf = "graphical-session.target";
     };
     Service.ExecStop = "${pkgs.procps}/bin/pkill -9 WeChat";
-    Install.WantedBy = "graphical-session.target";
+    Install.WantedBy = [ "graphical-session.target" ];
   };
 }
