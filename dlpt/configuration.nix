@@ -34,7 +34,12 @@
   boot.loader.efi.efiSysMountPoint = "/boot";
 
   # Perform firmware updates.
-  services.fwupd.enable = true; 
+  services.fwupd.enable = true;
+
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
 
   # Add NTFS support.
   boot.supportedFilesystems = [ "ntfs" ];
