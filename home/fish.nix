@@ -10,7 +10,7 @@ in
     enable = true;
     shellAbbrs = {
       # Pride commands 
-      l = "ls -ahl"; lt = "ls -Ahltr";
+      l = "exa -Fabl"; ls = "exa -F"; lt = "exa -Fabls modified";
       g = "git";
       b = "bsdtar";
       t = "trash"; 
@@ -18,16 +18,17 @@ in
       # Other commands
       f = "find /nix/store -name";
       n = "nix"; nre = "nix repl '<nixpkgs>'"; nse = "nix search nixpkgs";
+      ptree = "procs --tree";
+      tree = "exa -TF";
       
       # FIXME: abbrs cannot be sticked together
       s = "sudo";
-      p = "proxychains4"; 
+      p = "proxychains4";
     };
 
     functions = {
       # Shortcuts
       setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
-      ptree = "procs --tree";
       hash = "nix-hash --flat --base32 --type sha256 $argv";
       nshp = "nix shell nixpkgs#$argv";
       rm = "echo 'Directly `rm` is disabled, use `trash` (or alias `t`) instead.'";

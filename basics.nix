@@ -5,7 +5,7 @@
   environment.systemPackages = with pkgs; [
     emacs
     wget clash git
-    fd ripgrep lsof tree
+    fd ripgrep lsof tree exa
     fish
     gnupg
     home-manager
@@ -15,8 +15,8 @@
 
   programs.command-not-found.enable = lib.mkDefault false;
   
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = lib.mkDefault "tty";
-  };
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   pinentryFlavor = lib.mkDefault "tty";
+  # };
 }
