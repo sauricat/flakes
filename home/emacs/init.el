@@ -53,7 +53,10 @@
 (use-package zoxide
   :hook ((find-file
 	  counsel-find-file) . zoxide-add))
-(use-package fzf)
+(use-package fzf
+  :bind (("C-c C-f" . fzf-find-file)
+	 ("C-c C-g" . fzf-grep)
+	 ("C-c C-d" . fzf-find-file-in-dir)))
 
 ;; Regex replace
 (use-package anzu
@@ -102,16 +105,18 @@
 (use-package paredit ;; strict
   :diminish (paredit-mode . " Par:S")
   :hook ((emacs-lisp-mode
-	 eval-expression-minibuffer-setup
-         ielm-mode
-         lisp-mode
-	 lisp-interaction-mode
-	 racket-mode) . enable-paredit-mode))
-(use-package smartparens ;; flexible
-  :diminish (smartparens-mode . " Par:F")
-  :hook ((nix-mode
-	  rust-mode
-	  ruby-mode). smartparens-mode))
+	  eval-expression-minibuffer-setup
+	  ielm-mode
+	  lisp-mode
+	  lisp-interaction-mode
+	  racket-mode) . enable-paredit-mode))
+;; (use-package smartparens
+;;   :diminish
+;;   (smartparens-mode . " Par:F")
+;;   :hook
+;;   ((nix-mode
+;;     rust-mode
+;;     ruby-mode). smartparens-mode))
 
 ;; Language modes
 (use-package racket-mode
