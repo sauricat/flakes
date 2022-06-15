@@ -17,12 +17,14 @@
                      inputs.nixpkgs.follows = "nixpkgs"; }; 
     nixos-cn = { url = "github:nixos-cn/flakes";
                  inputs.nixpkgs.follows = "nixpkgs"; };
+    berberman = { url = "github:berberman/flakes";
+                  inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-guix.url = "github:sauricat/nguix";
     oxalica = { url = "github:oxalica/nixos-config";
                 inputs.secrets.follows = "blank"; };
   };
 
-  outputs = inputs@{ self, nixpkgs, nur, nixos-hardware, home-manager, flake-utils, nixos-cn, nixos-guix, emacs-overlay, oxalica, ... }:
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }:
     let
       overlays = {
         mypackages = ( self: super:
@@ -38,6 +40,7 @@
         emacs-overlay = inputs.emacs-overlay.overlay;
         nixos-cn = inputs.nixos-cn.overlay;
         rust-overlay = inputs.rust-overlay.overlay;
+        berberman = inputs.berberman.overlay;
       };
     in
       flake-utils.lib.eachDefaultSystem (system: {
@@ -77,13 +80,13 @@
                 home-manager.useUserPackages = true;
                 home-manager.users.shu = import ./home/home.nix;
                 home-manager.users.oxa = {
-                  imports = [ (oxalica + /home/modules/shell) ];
+                  imports = [ (inputs.oxalica + /home/modules/shell) ];
                   xdg.stateHome = /home/oxa; };
                 home-manager.extraSpecialArgs = { inherit inputs; };
               }
               { nixpkgs.pkgs = self.legacyPackages."x86_64-linux"; }
-              nixos-cn.nixosModules.nixos-cn
-              nixos-cn.nixosModules.nixos-cn-registries
+              # nixos-cn.nixosModules.nixos-cn
+              # nixos-cn.nixosModules.nixos-cn-registries
               ./cache/cachix.nix
               ./cache/nixos-cn.nix
             ];
