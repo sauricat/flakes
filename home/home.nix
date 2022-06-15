@@ -51,6 +51,7 @@ in
     extraConfig = {
       init.defaultBranch = "main";
     };
+    ignores = [ "*~" "\\#*\\#" ".\\#*" ]; # emacs
   };
 
   programs.direnv = {
