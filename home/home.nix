@@ -64,7 +64,7 @@ in
   };
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "emacs"; 
+    pinentryFlavor = "curses"; 
   };
 
   home.stateVersion = "21.11";
