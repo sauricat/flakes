@@ -22,15 +22,14 @@ in
     vlc syncplay obs-studio
     
     # work:
-    libreoffice scribus gimp onlyoffice-bin xournalpp
-    okular qpdf pdfstudio pdftag ocrmypdf
+    libreoffice scribus gimp xournalpp
+    okular pdftag ocrmypdf poppler_utils
 
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
     xsel cachix zlib cmake pkg-config 
     glibc gpgme asciidoc doxygen meson fakechroot python3
     bash-completion cling racket rustc cargo
-
 
     # non-oss:
     megasync vscode
@@ -65,7 +64,7 @@ in
   };
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "qt"; 
+    pinentryFlavor = "emacs"; 
   };
 
   home.stateVersion = "21.11";
