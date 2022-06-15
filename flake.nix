@@ -25,7 +25,15 @@
   outputs = inputs@{ self, nixpkgs, nur, nixos-hardware, home-manager, flake-utils, nixos-cn, nixos-guix, emacs-overlay, oxalica, ... }:
     let
       overlays = {
-        packages = (final: prev: import ./functions/auto-recognize-packages.nix final prev);
+        mypackages = ( self: super:
+          let
+            dirContents = builtins.readDir ./packages;
+            genPackage = name: {
+              inherit name;
+              value = self.callPackage (./packages + "/${name}") {}; };
+            names = builtins.attrNames dirContents;
+          in builtins.listToAttrs (map genPackage names)
+        );
         nur = inputs.nur.overlay;
         emacs-overlay = inputs.emacs-overlay.overlay;
         nixos-cn = inputs.nixos-cn.overlay;

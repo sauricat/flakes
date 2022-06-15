@@ -51,7 +51,10 @@
   '';
 
   environment.etc."pacman.d/mirrorlist".source = pkgs.runCommand "preprocess" { } ''
-    export filepath=${builtins.fetchurl { url = "https://archlinux.org/mirrorlist/all/https/" ; sha256 = "0jrncbm207rxnp8iyf51f8v76vb8vkj4fwj9qw4pdjrg57pnvh88"; }}
-    ${pkgs.ruby_3_1}/bin/ruby ${../functions/removehash.rb} > $out
+    ${pkgs.gnused}/bin/sed -E 's/^#?//g' ${
+      builtins.fetchurl {
+        url = "https://archlinux.org/mirrorlist/all/https/" ;
+        sha256 = "0jrncbm207rxnp8iyf51f8v76vb8vkj4fwj9qw4pdjrg57pnvh88"; }
+    } > $out
   '';
 }

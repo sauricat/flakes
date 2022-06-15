@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-projectDir="$(dirname "$0")"/..
-cd $projectDir
+cd $(dirname "$0")
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]
 then

@@ -8,7 +8,7 @@ Specifically,
 
 ## Usage
 
-1. Run `functions/build.sh` to build a liveCD, install from an arbitrary external nix enviroment, or upgrade your system configuration. 
+1. Run `build.sh` to build a liveCD, install from an arbitrary external nix enviroment, or upgrade your system configuration. 
 
 2. Or you can simply refer to the following Nix Flake URL `github:sauricat/my-nixos-configuration` since this is a Flaked repository. 
 
@@ -19,8 +19,6 @@ Specifically,
 - Directory `dlpt`, `dvm`: These are my 2 devices, virtual and physical. 
 
 - Directory `home`: Configurations concerning [Home Manager](https://github.com/nix-community/home-manager), a necessary suite for NixOS newcomers (just as me owo) to manage their home directory.
-
-- Directory `functions`: Some useful files, even when separated from the main repository. 
 
 - Directory `other-package-managers`, `packages`: Experimental projects will be here. 
 
