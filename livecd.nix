@@ -4,7 +4,8 @@
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-graphical-plasma5.nix")
     ./services/localisation.nix
-    ./services/network.nix
+    # ./services/network.nix
+    ./basics.nix
   ];
 
   isoImage = {
@@ -15,7 +16,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    neofetch emacs firefox clash libarchive
+    neofetch firefox
   ];
   
   system.stateVersion = "21.11";
