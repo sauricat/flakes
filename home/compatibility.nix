@@ -9,6 +9,9 @@
     nixos-cn.wine-wechat
     nixos-cn.netease-cloud-music
 
+    # berberman:
+    feeluown
+
     # my own overlay:
     qqmusic #pacman
     wemeet
