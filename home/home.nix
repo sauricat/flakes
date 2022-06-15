@@ -22,7 +22,7 @@ in
     vlc syncplay obs-studio
     
     # work:
-    libreoffice scribus gimp onlyoffice-bin kate xournalpp
+    libreoffice scribus gimp onlyoffice-bin xournalpp
     okular qpdf pdfstudio pdftag ocrmypdf
 
     # devel:
@@ -62,7 +62,10 @@ in
     enable = true;
     homedir = "${config.home.homeDirectory}/clash-configuration/gnupg";
   };
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "qt"; 
+  };
 
   home.stateVersion = "21.11";
-  
 }
