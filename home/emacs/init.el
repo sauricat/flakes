@@ -10,6 +10,7 @@
 (setq inhibit-splash-screen t) ; hide welcome screen
 (xterm-mouse-mode t) ; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode t) (scroll-bar-mode 0) ; hide toolbar and scrollbar
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 (package-initialize)
 
