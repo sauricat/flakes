@@ -13,7 +13,6 @@
     feeluown
 
     # my own overlay:
-    qqmusic #pacman
     wemeet
   ];
   
