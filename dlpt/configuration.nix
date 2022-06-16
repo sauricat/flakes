@@ -33,6 +33,15 @@
   };
   boot.loader.efi.efiSysMountPoint = "/boot";
 
+  # Virtual Cam & Mic support
+  # https://www.reddit.com/r/NixOS/comments/p8bqvu/how_to_install_v4l2looback_kernel_module/
+  boot.kernelModules = [ "v4l2loopback" "snd-aloop" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback.out ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+  '';
+  
   # Perform firmware updates.
   services.fwupd.enable = true;
 
