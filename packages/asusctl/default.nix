@@ -1,6 +1,10 @@
-{ lib, stdenv, fetchFromGitLab, fetchpatch,
-  rustPlatform, pkg-config, udev }:
-
+{ lib
+, fetchFromGitLab
+, fetchpatch
+, rustPlatform
+, pkg-config
+, udev
+}:
 rustPlatform.buildRustPackage rec {
   pname = "asusctl";
   version = "git-3cd6eb";
@@ -15,14 +19,18 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ udev ];
 
+  postInstall = ''
+    make install INSTALL_PROGRAM=true DESTDIR=$out prefix=
+  '';
+
   meta = {
-    description = "Asusctl for ASUS ROG";
+    description = "Control utility for ASUS ROG";
     longDescription = ''
       asusd is a utility for Linux to control many aspects of various ASUS
       laptops but can also be used with non-asus laptops with reduced features.
     '';
     homepage = "https://asus-linux.org";
     license = lib.licenses.mpl20;
-    maintainers = [ ]; # with maintainers; [ sauricat ];
+    maintainers = with lib.maintainers; [ sauricat ];
   };
 }
