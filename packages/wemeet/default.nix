@@ -1,5 +1,6 @@
 # Author: NickCao
 # Source: gitlab:NickCao/flakes pkgs/wemeet
+# License: MIT
 { qt5, fetchurl, dpkg, autoPatchelfHook, xorg, libbsd }:
 qt5.mkDerivation {
   pname = "wemeet";
