@@ -16,7 +16,6 @@
       ../services/virtualisation.nix
       ../services/nix.nix
       ../other-package-managers/guix-daemon.nix
-      ../other-package-managers/pacman.nix
     ];
 
   networking.hostName = "dlpt";

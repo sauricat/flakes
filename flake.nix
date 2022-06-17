@@ -89,7 +89,7 @@
               # nixos-cn.nixosModules.nixos-cn-registries
               ./cache/cachix.nix
               # ./cache/nixos-cn.nix
-              ./test.nix
+              # ./test.nix
             ];
           };
 
