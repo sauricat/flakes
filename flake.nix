@@ -25,9 +25,18 @@
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }:
-    let
+    flake-utils.lib.eachDefaultSystem (system: {
+      legacyPackages = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = builtins.attrValues self.overlays;
+      };
+      # packages.home-manager = home-manager.defaultPackage.${system};
+    }) 
+    // 
+    { 
       overlays = {
-        mypackages = ( self: super:
+        sauricat = ( self: super:
           let
             dirContents = builtins.readDir ./packages;
             genPackage = name: {
@@ -42,64 +51,51 @@
         rust-overlay = inputs.rust-overlay.overlay;
         berberman = inputs.berberman.overlay;
       };
-    in
-      flake-utils.lib.eachDefaultSystem (system: {
-        legacyPackages = import nixpkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = builtins.attrValues self.overlays;
+      nixosModules.sauricat = { ... }: {
+        nixpkgs.pkgs = self.legacyPackages."x86_64-linux";
+        imports = [ ./modules ];
+      };
+      nixosConfigurations = {
+        # dvm means Desktop Virtual Machine, an already abandoned configuration
+        "dvm" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs.inputs = inputs;
+          modules = [
+            ./dvm/configuration.nix
+            self.nixosModules.sauricat
+          ];
         };
-        # packages.home-manager = home-manager.defaultPackage.${system};
-      }) 
-      // 
-      { 
-        inherit overlays;
 
-        nixosConfigurations = {
-          
-          # dvm means Desktop Virtual Machine, an already abandoned configuration
-          "dvm" = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs.inputs = inputs;
-            modules = [
-              ./dvm/configuration.nix
-              { nixpkgs.pkgs = self.legacyPackages."x86_64-linux"; }
-            ];
-          };
+        # dlpt means Dell LaPTop
+        "dlpt" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs.inputs = inputs;
+          modules = [
+            ./dlpt/configuration.nix
+            nixos-hardware.nixosModules.dell-xps-13-7390
+            home-manager.nixosModules.home-manager 
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.shu = import ./home/home.nix;
+              home-manager.users.oxa = {
+                imports = [ (inputs.oxalica + /home/modules/shell) ];
+                xdg.stateHome = /home/oxa; };
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
+            self.nixosModules.sauricat
+            ./cache/cachix.nix
+            # ./cache/nixos-cn.nix
+            # ./test.nix
+          ];
+        };
 
-          # dlpt means Dell LaPTop
-          "dlpt" = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            specialArgs.inputs = inputs;
-            modules = [
-              ./dlpt/configuration.nix
-              nixos-hardware.nixosModules.dell-xps-13-7390
-              home-manager.nixosModules.home-manager 
-              {
-                home-manager.useGlobalPkgs = true;
-                home-manager.useUserPackages = true;
-                home-manager.users.shu = import ./home/home.nix;
-                home-manager.users.oxa = {
-                  imports = [ (inputs.oxalica + /home/modules/shell) ];
-                  xdg.stateHome = /home/oxa; };
-                home-manager.extraSpecialArgs = { inherit inputs; };
-              }
-              { nixpkgs.pkgs = self.legacyPackages."x86_64-linux"; }
-              # nixos-cn.nixosModules.nixos-cn
-              # nixos-cn.nixosModules.nixos-cn-registries
-              ./cache/cachix.nix
-              # ./cache/nixos-cn.nix
-              # ./test.nix
-            ];
-          };
-
-          "livecd" = nixpkgs.lib.nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              ./livecd.nix
-            ];
-          };
-
+        "livecd" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./livecd.nix
+          ];
         };
       };
+    };
 }
