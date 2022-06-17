@@ -18,5 +18,7 @@ let
       (copyDirRecursively fromDir toDir);
 in
 {
-  home.file = mkHomeFile ./rime ".config/ibus/rime";
+  home.file =
+    mkHomeFile ./rime ".config/ibus/rime" //
+    mkHomeFile ./emacs ".emacs.d";
 }

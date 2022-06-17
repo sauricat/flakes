@@ -51,6 +51,4 @@ in
     pkgs.zoxide
     pkgs.fzf
   ];
-  
-  home.file.".emacs.d/init.el".source = ./emacs/init.el;
 }

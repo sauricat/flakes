@@ -4,7 +4,7 @@ let
 in
 {
   imports = [
-    ./rime.nix
+    ./mapping.nix
     ./emacs.nix
     ./fish.nix
     ./firefox.nix
