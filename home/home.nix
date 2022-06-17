@@ -9,6 +9,7 @@ in
     ./fish.nix
     ./firefox.nix
     ./compatibility.nix
+    ./python.nix
   ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
@@ -28,7 +29,7 @@ in
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
     xsel cachix zlib cmake pkg-config 
-    glibc gpgme asciidoc doxygen meson fakechroot python3
+    glibc gpgme asciidoc doxygen meson fakechroot
     bash-completion cling racket rustc cargo
 
     # non-oss:
