@@ -16,7 +16,7 @@ in
   home.packages = (with pkgs; [
     # system:
     trash-cli bc
-    man-pages tealdeer neofetch kdeconnect
+    man-pages tealdeer neofetch hyfetch kdeconnect
 
     # internet:
     tdesktop aria2
