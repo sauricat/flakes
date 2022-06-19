@@ -4,7 +4,7 @@
   time.timeZone = "Asia/Shanghai";
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings.LC_TIME = "lt_LT.UTF-8"; # Emmanuel Lévinas's hometown. 
+    extraLocaleSettings.LC_TIME = "lt_LT.UTF-8"; # Emmanuel Lévinas's hometown.
     inputMethod = {
       enabled = "ibus";
       ibus.engines = with pkgs.ibus-engines; [
@@ -24,6 +24,7 @@
     firefox plasma-browser-integration
     ark
     filelight
+    plasma5Packages.bismuth
   ];
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
@@ -63,7 +64,10 @@
   services.xserver.enable = true;
 
   # Enable the Plasma 5 Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager = {
+    sddm.enable = true;
+    hiddenUsers = [ "oxa" ];
+  };
   services.xserver.desktopManager.plasma5.enable = true;
   
   # Configure keymap in X11.
