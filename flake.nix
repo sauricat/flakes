@@ -51,7 +51,11 @@
         rust-overlay = inputs.rust-overlay.overlay;
         berberman = inputs.berberman.overlay;
       };
-      nixosModules.sauricat = { ... }: {
+      nixosModules.smallcat = { ... }: {
+        nixpkgs.overlays = [ self.overlays.sauricat ];
+        imports = [ ./modules ];
+      };
+      nixosModules.bigcat = { ... }: {
         nixpkgs.pkgs = self.legacyPackages."x86_64-linux";
         imports = [ ./modules ];
       };
@@ -62,7 +66,7 @@
           specialArgs.inputs = inputs;
           modules = [
             ./dvm/configuration.nix
-            self.nixosModules.sauricat
+            self.nixosModules.bigcat
           ];
         };
 
@@ -83,7 +87,7 @@
                 xdg.stateHome = /home/oxa; };
               home-manager.extraSpecialArgs = { inherit inputs; };
             }
-            self.nixosModules.sauricat
+            self.nixosModules.bigcat
             ./cache/cachix.nix
             # ./cache/nixos-cn.nix
             # ./test.nix
