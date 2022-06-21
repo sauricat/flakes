@@ -7,10 +7,11 @@
 (global-set-key (kbd "C-M-z") 'linum-mode)
 (global-set-key (kbd "C-M-/") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
-(setq inhibit-splash-screen t) ; hide welcome screen
-(xterm-mouse-mode t) ; use mouse in -nw mode
+(setq inhibit-splash-screen t) ;; hide welcome screen
+(xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
 (defalias 'yes-or-no-p 'y-or-n-p)
+(desktop-save-mode 1) ;; auto save window
 
 (package-initialize)
 
@@ -32,29 +33,19 @@
 (use-package exwm
   :ensure t
   :config
-
-  ;; necessary to configure exwm manually
   (require 'exwm-config)
-
-  ;; buffer name
-  (defun exwm-rename-buffer ()
+  (defun exwm-rename-buffer () ;; show app name in every exwm buffer
     (interactive)
     (exwm-workspace-rename-buffer
      (concat exwm-class-name ":"
              (if (<= (length exwm-title) 50) exwm-title
                (concat (substring exwm-title 0 49) "...")))))
-
   (add-hook 'exwm-update-class-hook 'exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
-
-  ;; fringe size, most people prefer 1
-  (fringe-mode 3)
   
-  ;; emacs as a daemon, use "emacsclient <filename>" to seamlessly edit files from the terminal directly in the exwm instance
-  (server-start)
+  (fringe-mode '(10 . 10))
 
-  ;; a number between 1 and 9, exwm creates workspaces dynamically so I like starting out with 1
-  (setq exwm-workspace-number 1)
+  (setq exwm-workspace-number 4)
 
   ;; this is a way to declare truly global/always working keybindings
   ;; this is a nifty way to go back from char mode to line mode without using the mouse
