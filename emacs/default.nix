@@ -60,7 +60,7 @@ in
       ''
         env KDEWM=${pkgs.writeShellScript "callEmacsClient"
           ''
-            ${emacsPackageWithPkgs}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --daemon
+            ${emacsPackageWithPkgs}/bin/emacs --daemon
             ${emacsPackageWithPkgs}/bin/emacsclient -c -e "(exwm-init)"
           ''
                    } ${pkgs.plasma-workspace}/bin/startplasma-x11
