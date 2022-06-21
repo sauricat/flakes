@@ -15,6 +15,7 @@
       ../services/network.nix
       ../services/virtualisation.nix
       ../services/nix.nix
+      ../emacs
       ../other-package-managers/guix-daemon.nix
     ];
 

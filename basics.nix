@@ -3,7 +3,7 @@
 { config, pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
-    emacs
+    # emacs
     wget clash git
     fd ripgrep lsof tree exa
     fish

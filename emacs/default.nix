@@ -3,7 +3,7 @@ let
   emacsPackage = pkgs.emacsUnstable;
   emacsPackageWithPkgs = 
     pkgs.emacsWithPackagesFromUsePackage {
-      config = ./emacs/init.el;
+      config = ./init.el;
       alwaysEnsure = true;
       package = emacsPackage;
       override = epkgs : epkgs // {
@@ -23,32 +23,40 @@ in
 {
   # For emacs client cannot recognize epkgs, temporarily disable these options.
   #
-  # services.emacs = {
-  #   enable = true;
-  #   defaultEditor = true;
-  #   package = pkgs.emacsUnstable;
-  # };
-
-  systemd.user.services.emacs = {
-    Unit = {
-      Description = "Emacs text editor";
-      Documentation = [ "info:emacs" "man:emacs(1)" "https://gnu.org/software/emacs/" ];
-      X-RestartIfChanged = false;
-    };
-    Service = {
-      Restart = "on-failure";
-      ExecStart = "${emacsPackageWithPkgs}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --fg-daemon";
-      SuccessExitStatus = 15;
-      Type = "notify";
-    };
+  services.emacs = {
+    enable = true;
+    # defaultEditor = true;
+    package = emacsPackageWithPkgs;
   };
-  systemd.user.sessionVariables.EDITOR = "${editorScript}/bin/emacseditor";
 
-  home.packages = [
+  # systemd.services.emacs = {
+  #   Unit = {
+  #     Description = "Emacs text editor";
+  #     Documentation = [ "info:emacs" "man:emacs(1)" "https://gnu.org/software/emacs/" ];
+  #     X-RestartIfChanged = false;
+  #   };
+  #   Service = {
+  #     Restart = "on-failure";
+  #     ExecStart = "${emacsPackageWithPkgs}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --fg-daemon";
+  #     SuccessExitStatus = 15;
+  #     Type = "notify";
+  #   };
+  # };
+  environment.sessionVariables.EDITOR = "${editorScript}/bin/emacseditor";
+  environment.systemPackages = [
     emacsPackageWithPkgs
     pkgs.rust-analyzer
     pkgs.rnix-lsp
     pkgs.zoxide
     pkgs.fzf
   ];
+
+
+  # EXWM
+  services.xserver.windowManager.session = lib.singleton {
+    name = "exwm";
+    start = ''
+      env KDEWM=${emacsPackageWithPkgs}/bin/emacs ${pkgs.plasma-workspace}/bin/startplasma-x11
+    '';
+  };
 }

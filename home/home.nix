@@ -5,7 +5,7 @@ in
 {
   imports = [
     ./mapping.nix
-    ./emacs.nix
+    # ./emacs.nix
     ./fish.nix
     ./firefox.nix
     ./compatibility.nix

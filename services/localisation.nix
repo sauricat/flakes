@@ -69,7 +69,8 @@
     hiddenUsers = [ "oxa" ];
   };
   services.xserver.desktopManager.plasma5.enable = true;
-  
+  # services.xserver.windowManager.exwm.enable = true;
+
   # Configure keymap in X11.
   services.xserver.layout = "us";
   services.xserver.xkbVariant = "altgr-intl"; # included xkbOption "eurosign:5"
