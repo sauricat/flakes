@@ -110,7 +110,8 @@
     (cl-pushnew k exwm-input-prefix-keys))
   
   ;; this just enables exwm, it started automatically once everything is ready
-  (exwm-enable))
+  ;; (exwm-enable)
+  )
 
 ;; Ivy tool set
 (use-package ivy

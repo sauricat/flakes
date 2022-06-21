@@ -29,20 +29,20 @@ in
   #   package = emacsPackageWithPkgs;
   # };
 
-  systemd.user.services.emacsServerForExwm = {
-    wantedBy = [ "graphical-session.target" ];
-    description = "Emacs text editor";
-    documentation = [ "info:emacs" "man:emacs(1)" "https://gnu.org/software/emacs/" ];
-    script = "${emacsPackageWithPkgs}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --daemon";
-    unitConfig = {
-      X-RestartIfChanged = false;
-    };
-    serviceConfig = {
-      Restart = "on-failure";
-      SuccessExitStatus = 15;
-      Type = "notify";
-    };
-  };
+  # systemd.user.services.emacsServerForExwm = {
+  #   wantedBy = [ "graphical-session.target" ];
+  #   description = "Emacs text editor";
+  #   documentation = [ "info:emacs" "man:emacs(1)" "https://gnu.org/software/emacs/" ];
+  #   script = "${emacsPackageWithPkgs}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --daemon";
+  #   unitConfig = {
+  #     X-RestartIfChanged = false;
+  #   };
+  #   serviceConfig = {
+  #     Restart = "on-failure";
+  #     SuccessExitStatus = 15;
+  #     Type = "notify";
+  #   };
+  # };
   environment.sessionVariables.EDITOR = "${emacsPackageWithPkgs}/bin/emacsclient";
   environment.systemPackages = [
     emacsPackageWithPkgs
@@ -60,8 +60,8 @@ in
       ''
         env KDEWM=${pkgs.writeShellScript "callEmacsClient"
           ''
-            ${pkgs.emacsUnstable}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --daemon
-            ${pkgs.emacsUnstable}/bin/emacsclient -c
+            ${emacsPackageWithPkgs}/bin/emacs -l cl-loaddefs -l nix-generated-autoload --daemon
+            ${emacsPackageWithPkgs}/bin/emacsclient -c -e "(exwm-init)"
           ''
                    } ${pkgs.plasma-workspace}/bin/startplasma-x11
       '';
