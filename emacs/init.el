@@ -112,6 +112,10 @@
   ;; this just enables exwm, it started automatically once everything is ready
   ;; (exwm-enable)
   )
+(add-hook 'after-make-frame-functions
+	  (lambda (frame)
+	    (select-frame frame)
+	    (find-file-read-only "~/.background-image" nil)))
 
 ;; Ivy tool set
 (use-package ivy
