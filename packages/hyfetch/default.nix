@@ -4,20 +4,24 @@
 { lib
 , stdenv
 , python3Packages
+, fetchFromGitHub
 }:
 
 python3Packages.buildPythonPackage rec {
   pname = "HyFetch";
-  version = "1.0.7";
+  version = "git-d11796";
 
-  src = python3Packages.fetchPypi {
-    inherit pname version;
-    hash = "sha256-3/6/3EtTqHXTMuRIo2nclIxYSzOFvQegR29OJsKMQU4=";
+  src = fetchFromGitHub {
+    owner = "hykilpikonna";
+    repo = pname;
+    rev = "d11796ef023d8bbe916527efeb903c81d9ae1fbd";
+    hash = "sha256-quagGaY5ZVhTGFaQKE09u+KuCFsBKMyhHWvWFfYVfFo=";
   };
 
   propagatedBuildInputs = with python3Packages; [
     typing-extensions
     setuptools
+    numpy
   ];
 
   doCheck = false;
