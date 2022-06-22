@@ -4,13 +4,13 @@ These are Shu’s NixOS configuration files.
 
 Specifically, 
 - In `home/rime/` are Shu’s [Rime IM](https://rime.im/) configuration files;
-- In `home/emacs/` are Shu’s [Emacs](https://www.gnu.org/software/emacs) configuration files.
+- In `emacs/` are Shu’s [Emacs](https://www.gnu.org/software/emacs) configuration files.
 
 ## Usage
 
 1. Run `build.sh` to build a liveCD, install from an arbitrary external nix enviroment, or upgrade your system configuration. 
 
-2. Or you can simply refer to the following Nix Flake URL `github:sauricat/my-nixos-configuration` since this is a Flaked repository. 
+2. Or you can simply refer to the following Nix Flake URL `github:sauricat/flakes` since this is a Flaked repository.
 
 ## Structure
 
