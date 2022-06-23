@@ -28,23 +28,10 @@
 
 ;; Window Management
 (use-package winum
-  :config (winum-mode)
-  (define-key global-map (kbd "s-1") 'winum-select-window-1)
-  (define-key global-map (kbd "s-2") 'winum-select-window-2)
-  (define-key global-map (kbd "s-3") 'winum-select-window-3)
-  (define-key global-map (kbd "s-4") 'winum-select-window-4)
-  (define-key global-map (kbd "s-5") 'winum-select-window-5)
-  (define-key global-map (kbd "s-6") 'winum-select-window-6)
-  (define-key global-map (kbd "s-7") 'winum-select-window-7)
-  (define-key global-map (kbd "s-8") 'winum-select-window-8)
-  (define-key global-map (kbd "s-9") 'winum-select-window-9)
-  (define-key global-map (kbd "s-0") 'winum-select-window-0-or-10)
-  (define-key global-map (kbd "s-!") 'winum-select-window-by-number) ;; C-` is used by rime
-  )
+  :config (winum-mode))
 
 ;; EXWM
 (use-package exwm
-  :ensure t
   :config
   (require 'exwm-config)
   (defun exwm-rename-buffer () ;; show app name in every exwm buffer
@@ -71,10 +58,10 @@
     (exwm-input-set-key (kbd (format "s-%d" i))
                         `(lambda ()
                            (interactive)
-                           (exwm-workspace-switch-create ,i))))
-
+                           (exwm-workspace-switch-create ,(- i 1)))))
+  
   ;; the simplest launcher, I keep it in only if dmenu eventually stopped working or something
-  (exwm-input-set-key (kbd "s-&")
+  (exwm-input-set-key (kbd "<VoidSymbol>") ;; caps:none
                       (lambda (command)
                         (interactive (list (read-shell-command "$ ")))
                         (start-process-shell-command command nil command)))
@@ -82,17 +69,6 @@
   ;; an easy way to make keybindings work *only* in line mode
   (push ?\C-q exwm-input-prefix-keys)
   (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
-  (define-key exwm-mode-map (kbd "s-1") 'winum-select-window-1)
-  (define-key exwm-mode-map (kbd "s-2") 'winum-select-window-2)
-  (define-key exwm-mode-map (kbd "s-3") 'winum-select-window-3)
-  (define-key exwm-mode-map (kbd "s-4") 'winum-select-window-4)
-  (define-key exwm-mode-map (kbd "s-5") 'winum-select-window-5)
-  (define-key exwm-mode-map (kbd "s-6") 'winum-select-window-6)
-  (define-key exwm-mode-map (kbd "s-7") 'winum-select-window-7)
-  (define-key exwm-mode-map (kbd "s-8") 'winum-select-window-8)
-  (define-key exwm-mode-map (kbd "s-9") 'winum-select-window-9)
-  (define-key exwm-mode-map (kbd "s-0") 'winum-select-window-0-or-10)
-  (define-key exwm-mode-map (kbd "s-!") 'winum-select-window-by-number)
 
   ;; simulation keys are keys that exwm will send to the exwm buffer upon inputting a key combination
   (exwm-input-set-simulation-keys
@@ -128,7 +104,7 @@
                XF86AudioPrev
                XF86AudioNext
                XF86ScreenSaver
-               XF68Back
+               XF86Back
                XF86Forward
                Scroll_Lock
                print))
