@@ -26,8 +26,21 @@
 	 ("C-x g b" . magit-blame)
 	 ("C-x g d" . magit-diff-buffer-file)))
 
+;; Window Management
 (use-package winum
-  :config (winum-mode))
+  :config (winum-mode)
+  (define-key global-map (kbd "s-1") 'winum-select-window-1)
+  (define-key global-map (kbd "s-2") 'winum-select-window-2)
+  (define-key global-map (kbd "s-3") 'winum-select-window-3)
+  (define-key global-map (kbd "s-4") 'winum-select-window-4)
+  (define-key global-map (kbd "s-5") 'winum-select-window-5)
+  (define-key global-map (kbd "s-6") 'winum-select-window-6)
+  (define-key global-map (kbd "s-7") 'winum-select-window-7)
+  (define-key global-map (kbd "s-8") 'winum-select-window-8)
+  (define-key global-map (kbd "s-9") 'winum-select-window-9)
+  (define-key global-map (kbd "s-0") 'winum-select-window-0-or-10)
+  (define-key global-map (kbd "s-!") 'winum-select-window-by-number) ;; C-` is used by rime
+  )
 
 ;; EXWM
 (use-package exwm
@@ -69,29 +82,41 @@
   ;; an easy way to make keybindings work *only* in line mode
   (push ?\C-q exwm-input-prefix-keys)
   (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
+  (define-key exwm-mode-map (kbd "s-1") 'winum-select-window-1)
+  (define-key exwm-mode-map (kbd "s-2") 'winum-select-window-2)
+  (define-key exwm-mode-map (kbd "s-3") 'winum-select-window-3)
+  (define-key exwm-mode-map (kbd "s-4") 'winum-select-window-4)
+  (define-key exwm-mode-map (kbd "s-5") 'winum-select-window-5)
+  (define-key exwm-mode-map (kbd "s-6") 'winum-select-window-6)
+  (define-key exwm-mode-map (kbd "s-7") 'winum-select-window-7)
+  (define-key exwm-mode-map (kbd "s-8") 'winum-select-window-8)
+  (define-key exwm-mode-map (kbd "s-9") 'winum-select-window-9)
+  (define-key exwm-mode-map (kbd "s-0") 'winum-select-window-0-or-10)
+  (define-key exwm-mode-map (kbd "s-!") 'winum-select-window-by-number)
 
   ;; simulation keys are keys that exwm will send to the exwm buffer upon inputting a key combination
   (exwm-input-set-simulation-keys
-   '(
-     ;; movement
-     ([?\C-b] . left)
-     ([?\M-b] . C-left)
-     ([?\C-f] . right)
-     ([?\M-f] . C-right)
-     ([?\C-p] . up)
-     ([?\C-n] . down)
-     ([?\C-a] . home)
-     ([?\C-e] . end)
-     ([?\M-v] . prior)
-     ([?\C-v] . next)
-     ([?\C-d] . delete)
-     ([?\C-k] . (S-end delete))
-     ;; cut/paste
-     ([?\C-w] . ?\C-x)
+   '(([?\C-w] . ?\C-x)
      ([?\M-w] . ?\C-c)
      ([?\C-y] . ?\C-v)
+     ([?\C-x ?h] . ?\C-a)
      ;; search
-     ([?\C-s] . ?\C-f)))
+     ([?\C-s] . ?\C-f)
+     ([?\C-x ?\C-s] . ?\C-s)
+     ;; deleted all movement
+     ;; ([?\C-b] . left)
+     ;; ([?\M-b] . C-left)
+     ;; ([?\C-f] . right)
+     ;; ([?\M-f] . C-right)
+     ;; ([?\C-p] . up)
+     ;; ([?\C-n] . down)
+     ;; ([?\C-a] . home)
+     ;; ([?\C-e] . end)
+     ;; ([?\M-v] . prior)
+     ;; ([?\C-v] . next)
+     ;; ([?\C-d] . delete)
+     ;; ([?\C-k] . (S-end delete))
+     ))
 
   ;; this little bit will make sure that XF86 keys work in exwm buffers as well
   (dolist (k '(XF86AudioLowerVolume
@@ -107,11 +132,7 @@
                XF86Forward
                Scroll_Lock
                print))
-    (cl-pushnew k exwm-input-prefix-keys))
-  
-  ;; this just enables exwm, it started automatically once everything is ready
-  ;; (exwm-enable)
-  )
+    (cl-pushnew k exwm-input-prefix-keys)))
 (add-hook 'after-make-frame-functions
 	  (lambda (frame)
 	    (select-frame frame)
@@ -122,31 +143,31 @@
   :diminish ivy-mode
   :config
   (ivy-mode)
-  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-  (global-set-key (kbd "C-c v") 'ivy-push-view)
-  (global-set-key (kbd "C-c V") 'ivy-pop-view))
+  (define-key global-map (kbd "C-x b") 'ivy-switch-buffer)
+  (define-key global-map (kbd "C-c v") 'ivy-push-view)
+  (define-key global-map (kbd "C-c V") 'ivy-pop-view))
 (use-package counsel
   :config
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "M-y") 'counsel-yank-pop)
-  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-  (global-set-key (kbd "<f1> l") 'counsel-find-library)
-  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-  (global-set-key (kbd "<f2> j") 'counsel-set-variable))
+  (define-key global-map (kbd "M-x") 'counsel-M-x)
+  (define-key global-map (kbd "C-x C-f") 'counsel-find-file)
+  (define-key global-map (kbd "M-y") 'counsel-yank-pop)
+  (define-key global-map (kbd "<f1> f") 'counsel-describe-function)
+  (define-key global-map (kbd "<f1> v") 'counsel-describe-variable)
+  (define-key global-map (kbd "<f1> l") 'counsel-find-library)
+  (define-key global-map (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (define-key global-map (kbd "<f2> u") 'counsel-unicode-char)
+  (define-key global-map (kbd "<f2> j") 'counsel-set-variable))
 (use-package swiper
-  :config (global-set-key (kbd "C-s") 'swiper-isearch))
+  :config (define-key global-map (kbd "C-s") 'swiper-isearch))
 
-;; Zoxide
+;; Zoxide find file
 (use-package zoxide
   :hook ((find-file
 	  counsel-find-file) . zoxide-add))
 (use-package fzf
-  :bind (("C-c C-f" . fzf-find-file)
-	 ("C-c C-g" . fzf-grep)
-	 ("C-c C-d" . fzf-find-file-in-dir)))
+  :bind (("C-c C-f" . fzf-directory)
+	 ("C-c g" . fzf-git-grep) ;; C-c C-g is improper since C-g is Quit
+	 ))
 
 ;; Regex replace
 (use-package anzu
@@ -160,10 +181,10 @@
   :hook (after-init . global-company-mode)
   :config
   (setq company-tooltip-align-annotations t
-        company-tooltip-limit 20
+        company-tooltip-limit 10
         company-show-numbers t
-        company-idle-delay .2
-        company-minimum-prefix-length 1))
+        company-idle-delay 1
+        company-minimum-prefix-length 3))
 
 ;; Theme
 (use-package doom-themes
@@ -184,7 +205,7 @@
 (use-package vterm)
 (use-package multi-vterm
   :bind (("C-c t c" . multi-vterm) ;; c means create
-	 ("C-t" . multi-vterm-prev) ;; most often used
+	 ("s-<return>" . multi-vterm-prev) ;; most often used
 	 ("C-c t p" . multi-vterm-prev)
 	 ("C-c t n" . multi-vterm-next)))
 
@@ -192,14 +213,14 @@
 (use-package highlight-parentheses
   :diminish highlight-parentheses-mode
   :config (global-highlight-parentheses-mode))
-(use-package paredit ;; strict
-  :diminish (paredit-mode . " Par:S")
-  :hook ((emacs-lisp-mode
-	  eval-expression-minibuffer-setup
-	  ielm-mode
-	  lisp-mode
-	  lisp-interaction-mode
-	  racket-mode) . enable-paredit-mode))
+;; (use-package paredit ;; strict
+;;   :diminish (paredit-mode . " Par:S")
+;;   :hook ((emacs-lisp-mode
+;; 	  eval-expression-minibuffer-setup
+;; 	  ielm-mode
+;; 	  lisp-mode
+;; 	  lisp-interaction-mode
+;; 	  racket-mode) . enable-paredit-mode))
 ;; (use-package smartparens
 ;;   :diminish
 ;;   (smartparens-mode . " Par:F")
@@ -239,8 +260,8 @@
       (my-dired-init)
     ;; it's not loaded yet, so add our bindings to the load-hook
     (add-hook 'dired-load-hook 'my-dired-init)))
-(use-package neotree ;; TODO: replace it w/ dired plugins
-  :config (global-set-key [f8] 'neotree-toggle))
+(use-package dirvish
+  :config (dirvish-override-dired-mode))
 
 ;; PDF
 (use-package pdf-tools
@@ -257,6 +278,18 @@
 (use-package tree-sitter-langs
   :config
   (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown)))
+
+;; Undo tree
+(use-package undo-tree
+  :delight
+  :diminish undo-tree-mode
+  :config
+  (setq undo-tree-visualizer-timestamps t
+        undo-tree-visualizer-diff t
+        undo-tree-auto-save-history nil
+        ;; undo-tree-history-directory-alist `(("." . ,(expand-file-name ".cache/undo-tree/" user-emacs-directory)))
+        )
+  (global-undo-tree-mode))
 
 ;; Language server
 (use-package lsp-mode
