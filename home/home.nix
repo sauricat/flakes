@@ -20,7 +20,7 @@ in
 
     # internet:
     tdesktop aria2
-    vlc syncplay obs-studio
+    vlc /*syncplay*/ obs-studio
     
     # work:
     libreoffice scribus gimp xournalpp
