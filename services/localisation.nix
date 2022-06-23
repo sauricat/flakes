@@ -12,6 +12,8 @@
         anthy
         rime
         bamboo
+        libthai
+        uniemoji
       ];
     };
   };
