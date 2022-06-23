@@ -85,7 +85,8 @@
               home-manager.users.shu = import ./home/home.nix;
               home-manager.users.oxa = {
                 imports = [ (inputs.oxalica + /home/modules/shell) ];
-                xdg.stateHome = /home/oxa; };
+                xdg.stateHome = /home/oxa;
+                home.stateVersion = "21.05"; };
               home-manager.extraSpecialArgs = { inherit inputs; };
             }
             self.nixosModules.bigcat
