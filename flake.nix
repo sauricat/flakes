@@ -21,7 +21,8 @@
                   inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-guix.url = "github:sauricat/nguix";
     oxalica = { url = "github:oxalica/nixos-config";
-                inputs.secrets.follows = "blank"; };
+                # inputs.secrets.follows = "blank";
+                flake = false; };
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }:
