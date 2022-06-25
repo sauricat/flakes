@@ -181,29 +181,27 @@
 (use-package vterm)
 (use-package multi-vterm
   :bind (("C-c t c" . multi-vterm) ;; c means create
-	 ("s-<return>" . multi-vterm-prev) ;; most often used
+	 ("s-<return>" . multi-vterm)
 	 ("C-c t p" . multi-vterm-prev)
 	 ("C-c t n" . multi-vterm-next)))
 
-;; Parenthesis
-(use-package highlight-parentheses
-  :diminish highlight-parentheses-mode
-  :config (global-highlight-parentheses-mode))
-;; (use-package paredit ;; strict
-;;   :diminish (paredit-mode . " Par:S")
-;;   :hook ((emacs-lisp-mode
-;; 	  eval-expression-minibuffer-setup
-;; 	  ielm-mode
-;; 	  lisp-mode
-;; 	  lisp-interaction-mode
-;; 	  racket-mode) . enable-paredit-mode))
-;; (use-package smartparens
-;;   :diminish
-;;   (smartparens-mode . " Par:F")
-;;   :hook
-;;   ((nix-mode
-;;     rust-mode
-;;     ruby-mode). smartparens-mode))
+;; Parentheses and highlight TODO
+(show-paren-mode t)
+(setq show-paren-style 'parenthesis)
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode)
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("HACK"       font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold)
+          ("DEBUG"      error bold))))
 
 ;; Language modes
 (use-package racket-mode
