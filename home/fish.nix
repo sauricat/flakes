@@ -16,7 +16,6 @@ in
       t = "trash"; 
 
       # Other commands
-      f = "find /nix/store -name";
       n = "nix"; nre = "nix repl '<nixpkgs>'"; nse = "nix search nixpkgs";
       ptree = "procs --tree";
       tree = "exa -TF";
@@ -31,6 +30,13 @@ in
       setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
       hash = "nix-hash --flat --base32 --type sha256 $argv";
       nshp = "nix shell nixpkgs#$argv";
+      e = ''
+        if test -z "$argv"
+            set args "-c"
+        end
+        emacsclient $argv
+      '';
+      f = "fd $argv /nix/store";
       rm = "echo 'Directly `rm` is disabled, use `trash` (or alias `t`) instead.'";
       rwhich = "which $argv | xargs realpath";
 
