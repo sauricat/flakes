@@ -19,7 +19,7 @@ in
     man-pages tealdeer neofetch hyfetch kdeconnect
 
     # internet:
-    tdesktop aria2
+    tdesktop aria2 element-desktop
     vlc /*syncplay*/ obs-studio
     
     # work:
