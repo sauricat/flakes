@@ -10,6 +10,7 @@
 (setq inhibit-splash-screen t) ;; hide welcome screen
 (xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
+(pixel-scroll-precision-mode t) ;; smooth scrolling
 (defalias 'yes-or-no-p 'y-or-n-p)
 (desktop-save-mode 1) ;; auto save window
 
@@ -294,6 +295,9 @@
   (setq lsp-enable-symbol-highlighting t
         lsp-ui-doc-enable t
         lsp-lens-enable t))
+
+;; Matrix Client
+(use-package ement)
 
 (provide 'init)
 ;;; init.el ends here

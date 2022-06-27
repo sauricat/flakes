@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-  emacsPackage = pkgs.emacsUnstable;
+  emacsPackage = pkgs.emacsGit;
   emacsPackageWithPkgs = 
     pkgs.emacsWithPackagesFromUsePackage {
       config = ./init.el;
