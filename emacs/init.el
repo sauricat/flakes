@@ -299,7 +299,7 @@
 ;; Lsp-bridge
 (use-package posframe)
 (use-package markdown-mode)
-(use-package yasnippets)
+(use-package yasnippet)
 (add-to-list 'load-path "~/.emacs.d/lsp-bridge")
 (require 'lsp-bridge)
 (yas-global-mode 1)
