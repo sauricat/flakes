@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "lsp-bridge"
+version = "0.0.1"
+description = "emacs lsp client"
+authors = ["Andy Stewart <lazycat.manatee@gmail.com>"]
+packages = [
+  { include = "lsp_bridge.py" },
+  { include = "acm" },
+  { include = "core" },
+  { include = "langserver" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+epc = "^0.0.5"
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

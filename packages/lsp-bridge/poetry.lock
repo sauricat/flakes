@@ -1,0 +1,31 @@
+[[package]]
+name = "epc"
+version = "0.0.5"
+description = "EPC (RPC stack for Emacs Lisp) implementation in Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+sexpdata = ">=0.0.3"
+
+[[package]]
+name = "sexpdata"
+version = "0.0.3"
+description = "S-expression parser for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.9"
+content-hash = "6bef1a62dd5f19ce566e22043a5b7ee721db20ce14f10c58bb7940bb9255f613"
+
+[metadata.files]
+epc = [
+    {file = "epc-0.0.5.tar.gz", hash = "sha256:a14d2ea74817955a20eb00812e3a4630a132897eb4d976420240f1152c0d7d25"},
+]
+sexpdata = [
+    {file = "sexpdata-0.0.3.tar.gz", hash = "sha256:1ac827a616c5e87ebb60fd6686fb86f8a166938c645f4089d92de3ffbdd494e0"},
+]
