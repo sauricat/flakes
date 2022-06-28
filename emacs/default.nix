@@ -22,14 +22,14 @@ in
   # };
 
   environment.sessionVariables.EDITOR = "${emacsPackageWithPkgs}/bin/emacsclient";
-  environment.systemPackages = [
-    emacsPackageWithPkgs
-    pkgs.rust-analyzer
-    pkgs.rnix-lsp
-    pkgs.zoxide
-    pkgs.fzf
-    pkgs.lsp-bridge
-  ];
+  environment.systemPackages = [ emacsPackageWithPkgs ] ++ (with pkgs; [
+    rust-analyzer
+    rnix-lsp
+    pyright
+    zoxide
+    fzf
+    lsp-bridge
+  ]);
 
   # EXWM
   services.xserver.windowManager.session = lib.singleton {
