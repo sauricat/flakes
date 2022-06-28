@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   copyDir = fromDir: toDir: # fromDir is a path, toDir is a string.
     lib.mapAttrs'
@@ -20,5 +20,6 @@ in
 {
   home.file =
     mkHomeFile ./rime ".config/ibus/rime" //
-    mkHomeFile ../emacs ".emacs.d";
+    mkHomeFile ../emacs ".emacs.d" //
+    mkHomeFile pkgs.lsp-bridge.outPath ".emacs.d/lsp-bridge";
 }

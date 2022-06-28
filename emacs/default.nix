@@ -6,6 +6,8 @@ let
       config = ./init.el;
       alwaysEnsure = true;
       package = emacsPackage;
+      extraEmacsPackages = epkgs: [
+      ];
       override = epkgs : epkgs // {
         tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
           # Install all tree sitter grammars available from nixpkgs
@@ -26,6 +28,7 @@ in
     pkgs.rnix-lsp
     pkgs.zoxide
     pkgs.fzf
+    pkgs.lsp-bridge
   ];
 
   # EXWM
