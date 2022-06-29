@@ -26,6 +26,9 @@ in
     rust-analyzer
     rnix-lsp
     pyright
+    haskell-language-server
+    solargraph
+    yaml-language-server
     zoxide
     fzf
     lsp-bridge
