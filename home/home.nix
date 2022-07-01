@@ -33,7 +33,7 @@ in
     bash-completion cling racket rustc cargo
 
     # non-oss:
-    megasync vscode
+    /*megasync*/
 
     # nur:
     nur.repos.dukzcry.cockpit
