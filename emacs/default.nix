@@ -6,12 +6,23 @@ let
       config = ./init.el;
       alwaysEnsure = true;
       package = emacsPackage;
-      extraEmacsPackages = epkgs: [
+      extraEmacsPackages = epkgs: with epkgs; [
+        vterm
       ];
       override = epkgs : epkgs // {
         tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
           # Install all tree sitter grammars available from nixpkgs
-          (grammars: builtins.filter lib.isDerivation (lib.attrValues grammars)); };
+          (grammars: builtins.filter lib.isDerivation (lib.attrValues grammars));
+        vterm-with-mouse-support = epkgs.vterm.overrideAttrs (oldAttrs: rec {
+          commit = "a1af04d1db8a677c727776b7f15e3a1529ea8a50"; # HEAD of branch "tmux_mouse_scroll_support"
+          src = pkgs.fetchFromGitHub {
+            owner = "akermu";
+            repo = "emacs-libvterm";
+            rev = commit;
+            sha256 = "sha256-m0Pxko/F6hYU0sIpYl1ImMwejcWu2kwTphqPuPUrIek=";
+          };
+        });
+      };
     };
 in
 {

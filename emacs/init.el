@@ -55,6 +55,8 @@
   (exwm-input-set-key (kbd "s-k") #'exwm-workspace-delete)
   (exwm-input-set-key (kbd "s-w") #'exwm-workspace-swap)
 
+  (exwm-input-set-key (kbd "s-<return>") #'vterm)
+
   ;; the next loop will bind s-<number> to switch to the corresponding workspace
   (dotimes (i 10)
     (exwm-input-set-key (kbd (format "s-%d" i))
@@ -62,7 +64,6 @@
                            (interactive)
                            (exwm-workspace-switch-create ,(- i 1)))))
   
-  ;; the simplest launcher, I keep it in only if dmenu eventually stopped working or something
   (exwm-input-set-key (kbd "<VoidSymbol>") ;; caps:none
                       (lambda (command)
                         (interactive (list (read-shell-command "$ ")))
@@ -180,14 +181,21 @@
   (add-hook 'after-make-frame-functions 'new-frame-setup))
 
 ;; Terminal
-(use-package vterm)
-(use-package multi-vterm
-  :bind (("C-c t c" . multi-vterm) ;; c means create
-	 ("s-<return>" . multi-vterm)
-	 ("C-c t p" . multi-vterm-prev)
-	 ("C-c t n" . multi-vterm-next)))
+(use-package vterm-with-mouse-support
+  :bind ("C-x C-z" . vterm)
+  :config
+  (define-key vterm-mode-map (kbd "C-q") 'vterm-send-next-key)
+  (define-key vterm-mode-map (kbd "C-z") 'vterm-send-C-b) ;; TMUX
+  (define-key vterm-mode-map (kbd "C-b") 'backward-char)
+  (define-key vterm-mode-map (kbd "M-a") 'vterm-copy-mode)
+  (define-key vterm-mode-map (kbd "M-w") 'kill-ring-save))
+;; Now we have tmux, multi-vterm is not necessary (really?)
+;; (use-package multi-vterm
+;;   :bind (("C-c t c" . multi-vterm) ;; c means create
+;; 	 ("C-c t p" . multi-vterm-prev)
+;; 	 ("C-c t n" . multi-vterm-next)))
 
-;; Parentheses and highlight TODO
+;; Parentheses and highlight "todo"
 (show-paren-mode t)
 (setq show-paren-style 'parenthesis)
 (use-package rainbow-delimiters

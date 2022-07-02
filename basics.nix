@@ -3,7 +3,7 @@
 { config, pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # emacs
+    tmux vim #emacs-nox
     wget clash git
     fd ripgrep lsof tree exa
     fish
@@ -13,6 +13,7 @@
     htop iotop iftop procs
   ];
 
+  environment.variables.SHELL = "${pkgs.tmux}/bin/tmux";
   programs.command-not-found.enable = lib.mkDefault false;
   
   # programs.gnupg.agent = {
