@@ -13,6 +13,7 @@
 (pixel-scroll-precision-mode t) ;; smooth scrolling
 (defalias 'yes-or-no-p 'y-or-n-p)
 (desktop-save-mode 1) ;; auto save window
+(setq mouse-drag-copy-region 1)
 
 (package-initialize)
 
