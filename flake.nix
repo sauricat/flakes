@@ -50,7 +50,7 @@
         nur = inputs.nur.overlay;
         emacs-overlay = inputs.emacs-overlay.overlay;
         nixos-cn = inputs.nixos-cn.overlay;
-        rust-overlay = inputs.rust-overlay.overlay;
+        rust-overlay = inputs.rust-overlay.overlays.default;
         berberman = inputs.berberman.overlay;
       };
       nixosModules.smallcat = { ... }: {
