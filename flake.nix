@@ -19,7 +19,8 @@
                  inputs.nixpkgs.follows = "nixpkgs"; };
     berberman = { url = "github:berberman/flakes";
                   inputs.nixpkgs.follows = "nixpkgs"; };
-    nixos-guix.url = "github:sauricat/nguix";
+    nixos-guix = { url = "github:sauricat/nguix";
+                   inputs.nixpkgs.follows = "nixpkgs"; };
     oxalica = { url = "github:oxalica/nixos-config";
                 # inputs.secrets.follows = "blank";
                 flake = false; };
