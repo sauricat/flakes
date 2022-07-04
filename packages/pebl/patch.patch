@@ -1,0 +1,20 @@
+diff --git a/Makefile b/Makefile
+index 063da02..7e93d0e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -92,12 +92,12 @@ ifdef USE_LIBGAZE
+ 	LINKOPTS4 = -lGazeApiLib -lboost_system -lboost_thread
+ endif
+ 
+-CXXFLAGS = $(CXXFLAGS0) $(CXXFLAGS1) $(CXXFLAGS2) $(CXXFLAGS3) $(CXXFLAGS4) $(CXXFLAGS5) $(CXXFLAGS6)
+-LINKOPTS = $(LINKOPTS1) $(LINKOPTS2) $(LINKOPTS3) $(LINKOPTS4)
++CXXFLAGS = $(CXXFLAGS0) $(CXXFLAGS1) $(CXXFLAGS2) $(CXXFLAGS3) $(CXXFLAGS4) $(CXXFLAGS5) $(CXXFLAGS6) $(shell sdl-config --cflags)
++LINKOPTS = $(LINKOPTS1) $(LINKOPTS2) $(LINKOPTS3) $(LINKOPTS4) $(shell sdl-config --libs)
+ 
+ SDL_CONFIG = /usr/bin/sdl-config
+ 
+-SDL_FLAGS = -I/usr/include/SDL -I/usr/local/include -Ilibs/tet-cpp-client-master/include -D_REENTRANT -L/usr/lib -L/usr/local/lib -Llibs/tet-cpp-client-master 
++SDL_FLAGS =
+ 
+ #ifeq($(USE_WAAVE),1)
+ #SDL_FLAGS = $(SDLFLAGS) -L/home/smueller/Projects/src/waave-1.0/src 
