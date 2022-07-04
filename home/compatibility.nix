@@ -13,7 +13,7 @@
     feeluown
 
     # my own overlay:
-    wemeet
+    wemeet pebl
   ];
   
   systemd.user.services.killWine = {
