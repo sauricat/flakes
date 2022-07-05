@@ -93,7 +93,6 @@
             self.nixosModules.bigcat
             ./cache/cachix.nix
             # ./cache/nixos-cn.nix
-            # ./test.nix
           ];
         };
 
