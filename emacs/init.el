@@ -172,18 +172,24 @@
 
   ;; FIXME: These below are now global. We should patch doom
   ;;        themes to let them display correctly in terminal.
-  (defun new-frame-setup (frame)
-    (if (display-graphic-p frame)
-	(load-theme 'doom-tomorrow-day t)
-      (disable-theme 'doom-tomorrow-day)))
-  (mapc 'new-frame-setup (frame-list))
-  (add-hook 'after-make-frame-functions 'new-frame-setup))
+  ;; (defun new-frame-setup (frame)
+  ;;   (if (display-graphic-p frame)
+  (load-theme 'doom-tomorrow-day t)
+  ;;     (disable-theme 'doom-tomorrow-day)))
+  ;; (mapc 'new-frame-setup (frame-list))
+  ;; (add-hook 'after-make-frame-functions 'new-frame-setup)
+  )
+;; (add-to-list 'load-path "~/.emacs.d/awesome-tray")
+;; (require 'awesome-tray)
+;; (setq awesome-tray-mode-line-inactive-color "#d6d4d4"
+;;       awesome-tray-mode-line-active-color "#8abeb7"
+;;       awesome-tray-mode-line-height 0.1)
+;; (awesome-tray-mode 1)
 
 ;; Terminal
 (use-package vterm)
 (use-package multi-vterm
   :bind (("C-c t c" . multi-vterm) ;; c means create
-	 ("s-<return>" . multi-vterm)
 	 ("C-c t p" . multi-vterm-prev)
 	 ("C-c t n" . multi-vterm-next)))
 
