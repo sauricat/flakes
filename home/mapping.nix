@@ -21,5 +21,10 @@ in
   home.file =
     mkHomeFile ./rime ".config/ibus/rime" //
     mkHomeFile ../emacs ".emacs.d" //
-    mkHomeFile pkgs.lsp-bridge.outPath ".emacs.d/lsp-bridge";
+    mkHomeFile pkgs.lsp-bridge.outPath ".emacs.d/lsp-bridge" //
+    mkHomeFile (pkgs.fetchFromGitHub { owner = "manateelazycat";
+                                       repo = "awesome-tray";
+                                       rev = "d6cfda96a66a8cb38d27e47087d1a6f8b4249fb8";
+                                       sha256 = "sha256-0h6bsyOadU9gE32d13YQT3iVDw/UYztnjSNlDU/m/DM=";})
+      ".emacs.d/awesome-tray";
 }
