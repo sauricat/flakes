@@ -65,6 +65,8 @@
   environment.systemPackages = [ pkgs.throttled ];
 
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
+
+  services.xserver.dpi = 140;
   
   # Don't change this version.
   system.stateVersion = "21.11"; 
