@@ -124,94 +124,24 @@
      ;; ([?\C-v] . next)
      ;; ([?\C-d] . delete)
      ;; ([?\C-k] . (S-end delete))
-     ))
-
-  ;; this little bit will make sure that XF86 keys work in exwm buffers as well
-  (dolist (k '(XF86AudioLowerVolume
-               XF86AudioRaiseVolume
-               XF86PowerOff
-               XF86AudioMute
-               XF86AudioPlay
-               XF86AudioStop
-               XF86AudioPrev
-               XF86AudioNext
-               XF86ScreenSaver
-               XF86Back
-               XF86Forward
-               Scroll_Lock
-               print))
-    (cl-pushnew k exwm-input-prefix-keys)))
-;; (use-package desktop-environment
-;;   :config
-;;   (defvar desktop-environment-mode-map-new
-;;     (let ((desktop-environment--keybindings
-;;            `(;; Brightness
-;;              (,(kbd "<XF86MonBrightnessUp>") . ,(function desktop-environment-brightness-increment))
-;;              (,(kbd "<XF86MonBrightnessDown>") . ,(function desktop-environment-brightness-decrement))
-;;              (,(kbd "S-<XF86MonBrightnessUp>") . ,(function desktop-environment-brightness-increment-slowly))
-;;              (,(kbd "S-<XF86MonBrightnessDown>") . ,(function desktop-environment-brightness-decrement-slowly))
-;;              ;; Volume
-;;              (,(kbd "<XF86AudioRaiseVolume>") . ,(function desktop-environment-volume-increment))
-;;              (,(kbd "<XF86AudioLowerVolume>") . ,(function desktop-environment-volume-decrement))
-;;              (,(kbd "S-<XF86AudioRaiseVolume>") . ,(function desktop-environment-volume-increment-slowly))
-;;              (,(kbd "S-<XF86AudioLowerVolume>") . ,(function desktop-environment-volume-decrement-slowly))
-;;              (,(kbd "<XF86AudioMute>") . ,(function desktop-environment-toggle-mute))
-;;              (,(kbd "<XF86AudioMicMute>") . ,(function desktop-environment-toggle-microphone-mute))
-;;              ;; Screenshot
-;;              (,(kbd "S-<print>") . ,(function wm-screenshot))
-;;              (,(kbd "<print>") . ,(function wm-screenshot-area))
-;;              ;; Screen locking
-;;              (,(kbd "s-l") . ,(function wm-lock-screen))
-;;              (,(kbd "<XF86ScreenSaver>") . ,(function wm-lock-screen))
-;;              ;; Wifi controls
-;;              (,(kbd "<XF86WLAN>") . ,(function desktop-environment-toggle-wifi))
-;;              ;; Bluetooth controls
-;;              (,(kbd "<XF86Bluetooth>") . ,(function desktop-environment-toggle-bluetooth))
-;;              ;; Music controls
-;;              (,(kbd "<XF86AudioPlay>") . ,(function desktop-environment-toggle-music))
-;;              (,(kbd "<XF86AudioPrev>") . ,(function desktop-environment-music-previous))
-;;              (,(kbd "<XF86AudioNext>") . ,(function desktop-environment-music-next))
-;;              (,(kbd "<XF86AudioStop>") . ,(function desktop-environment-music-stop))))
-;;           (map (make-sparse-keymap)))
-;;       (dolist (keybinding desktop-environment--keybindings)
-;; 	(define-key map (car keybinding) (cdr keybinding)))
-;;       map)
-;;     "New keymap for `desktop-environment-mode'.")
-;;   (defun desktop-environment-exwm-set-global-keybindings-new (enable)
-;;     "New function for key bindings."
-;;     (when (featurep 'exwm-input)
-;;       (cl-case desktop-environment-update-exwm-global-keys
-;; 	(:global
-;; 	 (when enable
-;;            (map-keymap (lambda (event definition)
-;; 			 (exwm-input-set-key (vector event) definition))
-;;                        desktop-environment-mode-map-new)))
-;; 	(:prefix
-;; 	 (when (boundp 'exwm-input-prefix-keys)
-;;            (map-keymap (lambda (event definition)
-;; 			 (ignore definition)
-;; 			 (setq exwm-input-prefix-keys (if enable
-;;                                                           (cons event exwm-input-prefix-keys)
-;; 							(delq event exwm-input-prefix-keys))))
-;;                        desktop-environment-mode-map-new)))
-;; 	((nil) nil)
-;; 	(t
-;; 	 (message "Ignoring unknown value %s for `desktop-environment-update-exwm-global-keys'"
-;;                   desktop-environment-update-exwm-global-keys)))))
-;;   (advice-add 'desktop-environment-exwm-set-global-keybindings
-;; 	      :override #'desktop-environment-exwm-set-global-keybindings-new))
+     )))
+(use-package desktop-environment
+  :diminish
+  :config
+  (define-key desktop-environment-mode-map (kbd "s-l") 'wm-lock-screen)
+  (define-key desktop-environment-mode-map (kbd "S-<print>") nil)
+  (define-key desktop-environment-mode-map (kbd "<print>") 'wm-screenshot-area)
+  (define-key desktop-environment-mode-map (kbd "<XF86ScreenSaver>") 'wm-lock-screen)
+  (setq desktop-environment-update-exwm-global-keys :prefix)
+  (setq exwm-layout-show-all-buffers t)
+  (desktop-environment-mode))
 (defun init-exwm ()
   "Init exwm without DE support."
   (progn
     (toggle-frame-fullscreen)
-    (start-process-shell-command "ibus-env-qt" nil "export QT_IM_MODULE=ibus")
-    (start-process-shell-command "ibus-env-gtk" nil "export GTK_IM_MODULE=ibus")
-    (start-process-shell-command "ibus-env-xim" nil "export XMODIFIERS=@im=ibus")
-    (start-process-shell-command "ibus-daemon" nil "ibus-daemon")
     (exwm-init)
-    (start-process-shell-command "polybar" nil "polybar")
-    ;; (desktop-environment-mode)
-    ))
+    (start-process-shell-command "ibus-daemon" nil "ibus-daemon")
+    (start-process-shell-command "polybar" nil "polybar")))
 
 ;; Ivy tool set
 (use-package ivy
