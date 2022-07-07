@@ -64,7 +64,7 @@
 	   (multi-vterm-dedicated-close)))
   (defun wm-lock-screen ()
     (interactive)
-    (start-process-gui-command "i3lock"))
+    (start-process-gui-command "kscreenlocker_greet"))
   (defun wm-screenshot ()
     (interactive)
     (start-process-gui-command "set a ~/Pictures/Screenshots/$(date +%s).png; maim $a; xclip -selection clipboard $a -t image/png"))

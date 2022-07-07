@@ -23,21 +23,21 @@ let
     yaml-language-server
   ];
   exwm-independent-packages = with pkgs; [
-    polybar
-    maim xclip # for printing screen and clipboar setting
+    maim xclip # for printing screen and copying it to clipboard
     gtk3 # for gtk-launch
-    i3lock
-    alsa-utils brightnessctl scrot slock upower tlp playerctl # for desktop-env
-    rofi
+    kscreenlocker
+    alsa-utils brightnessctl upower tlp playerctl # for epkgs.desktop-environment
   ];
-  callExwm = pkgs.writeShellScript "callExwm" ''
-               ${emacsPackageWithPkgs}/bin/emacs --daemon
-               ${emacsPackageWithPkgs}/bin/emacsclient -c -e "(exwm-init)"
-             '';
-  callExwmIndependently = pkgs.writeShellScript "callExwmIndependently" ''
-               ${emacsPackageWithPkgs}/bin/emacs --daemon
-               ${emacsPackageWithPkgs}/bin/emacsclient -c -e "(init-exwm)"
-             '';
+  callExwm =
+    pkgs.writeShellScript "callExwm" ''
+      ${emacsPackageWithPkgs}/bin/emacs --daemon
+      ${emacsPackageWithPkgs}/bin/emacsclient -c -e "(exwm-init)"
+    '';
+  callExwmIndependently =
+    pkgs.writeShellScript "callExwmIndependently" ''
+      ${emacsPackageWithPkgs}/bin/emacs --daemon
+      ${emacsPackageWithPkgs}/bin/emacsclient -c -e "(init-exwm)"
+    '';
 in
 {
   # services.emacs = {
