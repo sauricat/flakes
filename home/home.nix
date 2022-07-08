@@ -5,8 +5,8 @@ in
 {
   imports = [
     ./mapping.nix
-    ./exwm-company.nix
-    # ./emacs.nix
+    ./emacs-exwm.nix
+    ./wm-company.nix
     ./fish.nix
     ./firefox.nix
     ./compatibility.nix

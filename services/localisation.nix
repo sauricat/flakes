@@ -71,7 +71,20 @@
     hiddenUsers = [ "oxa" ];
   };
   services.xserver.desktopManager.plasma5.enable = true;
-  # services.xserver.windowManager.exwm.enable = true;
+
+  services.xserver.windowManager.session = lib.singleton {
+    name = "xsession";
+    start = pkgs.writeShellScript "start-x" ''
+      if [[ -f $HOME/.xsession ]]
+      then
+        exec ${pkgs.runtimeShell} -c $HOME/.xsession
+      else
+        exit 1
+      fi
+    '';
+  };
+
+  services.xserver.displayManager.defaultSession = "none+xsession";
 
   # Configure keymap in X11.
   services.xserver.layout = "us";

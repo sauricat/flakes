@@ -1,6 +1,6 @@
 ﻿;;; init --- Init file of emacs
 ;;; Commentary:
-
+"The shu init file of emacs and exwm."
 ;;; Code:
 (global-set-key (kbd "C-z") 'undo)
 (global-unset-key (kbd "C-x C-z"))
@@ -148,7 +148,7 @@
   "Init exwm without DE support."
   (progn
     (toggle-frame-fullscreen)
-    (start-process-shell-command "ibus-daemon" nil "ibus-daemon")
+    (start-process-shell-command "ibus" nil "ibus-daemon")
     (exwm-init)
     (start-process-shell-command "polybar" nil "polybar")
     (start-process-shell-command "nmapplet" nil "nm-applet")))

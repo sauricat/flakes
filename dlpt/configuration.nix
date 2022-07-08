@@ -16,7 +16,6 @@
       ../services/virtualisation.nix
       ../services/nix.nix
       ../services/console-l10n.nix
-      ../emacs
       ../other-package-managers/guix-daemon.nix
     ];
 

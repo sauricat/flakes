@@ -22,7 +22,7 @@ in
 {
   home.file =
     mkHomeFile ./rime ".config/ibus/rime" //
-    mkHomeFile ../emacs ".emacs.d" //
+    mkHomeFile ./emacs ".emacs.d" //
     mkHomeFile pkgs.lsp-bridge.outPath ".emacs.d/lsp-bridge" //
     mkHomeFile (pkgs.fetchFromGitHub { owner = "manateelazycat";
                                        repo = "awesome-tray";
