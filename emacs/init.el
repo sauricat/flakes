@@ -7,13 +7,24 @@
 (global-set-key (kbd "C-M-z") 'linum-mode)
 (global-set-key (kbd "C-M-/") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
-(setq inhibit-splash-screen t) ;; hide welcome screen
 (xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
 (pixel-scroll-precision-mode t) ;; smooth scrolling
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; (desktop-save-mode 1) ;; auto save window
-(setq mouse-drag-copy-region 1)
+(setq inhibit-splash-screen t ;; hide welcome screen
+      mouse-drag-copy-region 1)
+(setq-default indent-tabs-mode 0)
+(define-minor-mode show-trailing-whitespace-mode "Show trailing whitespace."
+  :init-value nil
+  :lighter nil
+  (progn (setq show-trailing-whitespace show-trailing-whitespace-mode)))
+(define-minor-mode require-final-newline-mode "Require final newline."
+  :init-value nil
+  :lighter nil
+  (progn (setq require-final-newline require-final-newline-mode)))
+(add-hook 'prog-mode-hook 'show-trailing-whitespace-mode)
+(add-hook 'prog-mode-hook 'require-final-newline-mode)
 
 (package-initialize)
 
@@ -25,8 +36,8 @@
 
 (use-package magit
   :bind (("C-x g g" . magit-status)
-	 ("C-x g b" . magit-blame)
-	 ("C-x g d" . magit-diff-buffer-file)))
+         ("C-x g b" . magit-blame)
+         ("C-x g d" . magit-diff-buffer-file)))
 
 ;; Window Management
 (use-package winum
@@ -35,7 +46,6 @@
 ;; EXWM
 (use-package exwm
   :config
-  (require 'exwm-config)
   (defun exwm-rename-buffer () ;; show app name in every exwm buffer
     (interactive)
     (exwm-workspace-rename-buffer
@@ -44,7 +54,7 @@
                (concat (substring exwm-title 0 49) "...")))))
   (add-hook 'exwm-update-class-hook 'exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
-  
+
   (fringe-mode '(10 . 10))
 
   (setq exwm-workspace-number 4)
@@ -56,12 +66,12 @@
   (exwm-input-set-key (kbd "s-w") 'exwm-workspace-swap)
   (exwm-input-set-key (kbd "s-<return>") 'multi-vterm)
   (exwm-input-set-key (kbd "s-d") 'counsel-linux-app)
-  
+
   (defun start-process-gui-command (cmd)
-    "A temporary solution when `start-process-shell-command' doesn't work for gui programs."
+    "A temporary solution when `start-process-shell-command' doesn't work for X apps."
     (progn (multi-vterm-dedicated-open) ;; temporary solution
-	   (vterm-send-string (format "%s\n" cmd))
-	   (multi-vterm-dedicated-close)))
+           (vterm-send-string (format "%s\n" cmd))
+           (multi-vterm-dedicated-close)))
   (defun wm-lock-screen ()
     (interactive)
     (start-process-gui-command "kscreenlocker_greet"))
@@ -91,7 +101,7 @@
                         `(lambda ()
                            (interactive)
                            (exwm-workspace-switch-create ,(- i 1)))))
-  
+
   ;; the simplest launcher, I keep it in only if dmenu eventually stopped working or something
   (exwm-input-set-key (kbd "<VoidSymbol>") ;; caps:none
                       (lambda (command)
@@ -103,28 +113,27 @@
   (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
 
   ;; simulation keys are keys that exwm will send to the exwm buffer upon inputting a key combination
-  (exwm-input-set-simulation-keys
-   '(([?\C-w] . ?\C-x)
-     ([?\M-w] . ?\C-c)
-     ([?\C-y] . ?\C-v)
-     ([?\C-x ?h] . ?\C-a)
-     ;; search
-     ([?\C-s] . ?\C-f)
-     ([?\C-x ?\C-s] . ?\C-s)
-     ;; deleted all movement
-     ;; ([?\C-b] . left)
-     ;; ([?\M-b] . C-left)
-     ;; ([?\C-f] . right)
-     ;; ([?\M-f] . C-right)
-     ;; ([?\C-p] . up)
-     ;; ([?\C-n] . down)
-     ;; ([?\C-a] . home)
-     ;; ([?\C-e] . end)
-     ;; ([?\M-v] . prior)
-     ;; ([?\C-v] . next)
-     ;; ([?\C-d] . delete)
-     ;; ([?\C-k] . (S-end delete))
-     )))
+  (setq exwm-input-simulation-keys '(([?\C-w] . ?\C-x)
+                                     ([?\M-w] . ?\C-c)
+                                     ([?\C-y] . ?\C-v)
+                                     ([?\C-x ?h] . ?\C-a)
+                                     ;; search
+                                     ([?\C-s] . ?\C-f)
+                                     ([?\C-x ?\C-s] . ?\C-s)
+                                     ;; deleted all movement
+                                     ;; ([?\C-b] . left)
+                                     ;; ([?\M-b] . C-left)
+                                     ;; ([?\C-f] . right)
+                                     ;; ([?\M-f] . C-right)
+                                     ;; ([?\C-p] . up)
+                                     ;; ([?\C-n] . down)
+                                     ;; ([?\C-a] . home)
+                                     ;; ([?\C-e] . end)
+                                     ;; ([?\M-v] . prior)
+                                     ;; ([?\C-v] . next)
+                                     ;; ([?\C-d] . delete)
+                                     ;; ([?\C-k] . (S-end delete))
+                                     )))
 (use-package desktop-environment
   :diminish
   :config
@@ -139,9 +148,10 @@
   "Init exwm without DE support."
   (progn
     (toggle-frame-fullscreen)
-    (exwm-init)
     (start-process-shell-command "ibus-daemon" nil "ibus-daemon")
-    (start-process-shell-command "polybar" nil "polybar")))
+    (exwm-init)
+    (start-process-shell-command "polybar" nil "polybar")
+    (start-process-shell-command "nmapplet" nil "nm-applet")))
 
 ;; Ivy tool set
 (use-package ivy
@@ -168,11 +178,12 @@
 ;; Zoxide find file
 (use-package zoxide
   :hook ((find-file
-	  counsel-find-file) . zoxide-add))
+          counsel-find-file) . zoxide-add))
 (use-package fzf
-  :bind (("C-c C-f" . fzf-directory)
-	 ("C-c g" . fzf-git-grep) ;; C-c C-g is improper since C-g is Quit
-	 ))
+  :bind (("C-c f" . fzf-directory)
+         ("C-c s" . fzf-grep)
+         ("C-c S-f" . fzf-git)
+         ("C-c S-s" . fzf-git-grep)))
 
 ;; Regex replace
 (use-package anzu
@@ -187,7 +198,7 @@
   :config
   (setq company-tooltip-align-annotations t
         company-tooltip-limit 10
-        company-show-numbers t
+        company-show-quick-access t
         company-idle-delay 1
         company-minimum-prefix-length 3))
 
@@ -195,7 +206,7 @@
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
+        doom-themes-enable-italic t)
 
   ;; FIXME: These below are now global. We should patch doom
   ;;        themes to let them display correctly in terminal.
@@ -217,8 +228,8 @@
 (use-package vterm)
 (use-package multi-vterm
   :bind (("C-c t c" . multi-vterm) ;; c means create
-	 ("C-c t p" . multi-vterm-prev)
-	 ("C-c t n" . multi-vterm-next)))
+         ("C-c t p" . multi-vterm-prev)
+         ("C-c t n" . multi-vterm-next)))
 
 ;; Parentheses and highlight TODO
 (show-paren-mode t)
@@ -257,18 +268,18 @@
    loaded."
     ;; <add other stuff here>
     (define-key dired-mode-map [remap dired-find-file]
-      'dired-single-buffer)
+                'dired-single-buffer)
     (define-key dired-mode-map [remap dired-mouse-find-file-other-window]
-      'dired-single-buffer-mouse)
+                'dired-single-buffer-mouse)
     (define-key dired-mode-map [remap dired-up-directory]
-      'dired-single-up-directory))
+                'dired-single-up-directory))
 
   ;; if dired's already loaded, then the keymap will be bound
   (if (boundp 'dired-mode-map)
       ;; we're good to go; just add our bindings
       (my-dired-init)
     ;; it's not loaded yet, so add our bindings to the load-hook
-    (add-hook 'dired-load-hook 'my-dired-init)))
+    (with-eval-after-load 'dired-mode (my-dired-init))))
 (use-package dirvish
   :config (dirvish-override-dired-mode))
 
@@ -304,8 +315,8 @@
 ;; (use-package lsp-mode
 ;;   :commands (lsp)
 ;;   :hook (((ruby-mode
-;; 	   nix-mode
-;; 	   rust-mode) . lsp))
+;;            nix-mode
+;;            rust-mode) . lsp))
 ;;   :init
 ;;   (setq lsp-auto-configure t
 ;;         lsp-auto-guess-root t
