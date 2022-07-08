@@ -43,13 +43,22 @@ in {
       modi = "drun,run,window,filebrowser";
     };
   };
+
+  programs.lf = {
+    enable = true;
+  };
+
+  services.udiskie = {
+    enable = true;
+    automount = true;
+  };
+
   services.polybar = {
     enable = true; # how to let exwm enable it?
-    package = pkgs.polybar.override {
-      alsaSupport = true;
-      iwSupport = true;
-      libpulseaudio = true;
-    };
+    package = pkgs.polybarFull;# .override {
+    #   alsaSupport = true;
+    #   libpulseaudio = true;
+    # };
     script = "polybar &";
     extraConfig = ''
       [bar/example]
@@ -75,12 +84,12 @@ in {
       separator = |
       separator-foreground = ${colors.disabled}
 
-      font-0 = monospace;1
+      font-0 = monospace:size=14;1
       font-1 = Noto Color Emoji:scale=10x;2
 
       modules-left = xworkspaces
       modules-center = date
-      modules-right = memory cpu ibus wlan eth pulseaudio battery
+      modules-right = memory cpu wlan eth pulseaudio ibus battery
 
       cursor-click = pointer
       cursor-scroll = ns-resize
@@ -137,18 +146,6 @@ in {
       label-muted = muted
       label-muted-foreground = ${colors.disabled}
 
-      [module/xkeyboard]
-      type = internal/xkeyboard
-      blacklist-0 = num lock
-
-      label-layout = %layout%
-      label-layout-foreground = ${colors.primary}
-
-      label-indicator-padding = 2
-      label-indicator-margin = 1
-      label-indicator-foreground = ${colors.background}
-      label-indicator-background = ${colors.secondary}
-
       [module/memory]
       type = internal/memory
       interval = 2
@@ -182,8 +179,13 @@ in {
 
       [module/battery]
       type = internal/battery
-      full-at = 99
-      low-at = 10
+      label-full = 🔌 %percentage%%
+      label-charging = 🔌 %percentage%%
+      label-discharging = 🔋 %percentage%%
+      label-low = 🪫 %percentagee%%
+
+      full-at = 100
+      low-at = 20
 
       ; $ ls -1 /sys/class/power_supply/
       battery = BAT0

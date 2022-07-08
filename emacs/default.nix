@@ -27,6 +27,7 @@ let
     gtk3 # for gtk-launch
     kscreenlocker
     alsa-utils brightnessctl upower tlp playerctl # for epkgs.desktop-environment
+    networkmanagerapplet
   ];
   callExwm =
     pkgs.writeShellScript "callExwm" ''
