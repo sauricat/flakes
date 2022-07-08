@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-  emacsPackage = pkgs.emacsGit;
+  emacsPackage = pkgs.emacsGitNativeComp;
   emacsPackageWithPkgs = 
     pkgs.emacsWithPackagesFromUsePackage {
       config = ./init.el;
