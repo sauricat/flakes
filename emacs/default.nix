@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 let
   emacsPackage = pkgs.emacsGitNativeComp;
-  emacsPackageWithPkgs = 
+  emacsPackageWithPkgs =
     pkgs.emacsWithPackagesFromUsePackage {
       config = ./init.el;
       alwaysEnsure = true;
@@ -14,13 +14,13 @@ let
       };
     };
   lsp-packages = with pkgs; [
-    lsp-bridge
     rust-analyzer
     rnix-lsp
     pyright
     haskell-language-server
     solargraph
     yaml-language-server
+    clang-tools
   ];
   exwm-independent-packages = with pkgs; [
     maim xclip # for printing screen and copying it to clipboard

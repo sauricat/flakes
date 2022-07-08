@@ -342,13 +342,28 @@
 ;;         lsp-lens-enable t))
 
 ;; Lsp-bridge
-(use-package posframe)
-(use-package markdown-mode)
-(use-package yasnippet)
-(add-to-list 'load-path "~/.emacs.d/lsp-bridge")
-(require 'lsp-bridge)
-(yas-global-mode 1)
-(global-lsp-bridge-mode)
+;; (use-package posframe)
+;; (use-package markdown-mode)
+;; (use-package yasnippet)
+;; (add-to-list 'load-path "~/.emacs.d/lsp-bridge")
+;; (require 'lsp-bridge)
+;; (yas-global-mode 1)
+;; (global-lsp-bridge-mode)
+
+;; Eglot
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) . ("clangd")))
+  (add-to-list 'eglot-server-programs '(python-mode . ("pyright")))
+  :hook
+  ((c-mode
+    c++-mode
+    python-mode
+    ruby-mode
+    rust-mode
+    haskell-mode
+    nix-mode
+    yaml-mode) . eglot-ensure))
 
 ;; Matrix Client
 (use-package ement)
