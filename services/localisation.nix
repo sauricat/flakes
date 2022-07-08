@@ -1,4 +1,4 @@
-# Named localisation, but actually services stuffs, including X11 server. 
+# Named localisation, but actually services stuffs, including X11 server.
 { pkgs, lib, ... }:
 {
   time.timeZone = "Asia/Shanghai";
@@ -34,7 +34,7 @@
   programs.gnupg.agent.pinentryFlavor = lib.mkOverride 900 "qt";
   programs.command-not-found.enable   = lib.mkOverride 900 true;
   services.flatpak.enable             = lib.mkOverride 900 true;
-  
+
   fonts = {
     enableDefaultFonts = true;
     fonts = with pkgs; [
@@ -62,29 +62,24 @@
     };
   };
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager = {
     sddm.enable = true;
     hiddenUsers = [ "oxa" ];
+    defaultSession = "none+xsession1";
   };
   services.xserver.desktopManager.plasma5.enable = true;
-
   services.xserver.windowManager.session = lib.singleton {
-    name = "xsession";
+    name = "xsession1";
     start = pkgs.writeShellScript "start-x" ''
-      if [[ -f $HOME/.xsession ]]
+      if [[ -f $HOME/.xsession1 ]]
       then
-        exec ${pkgs.runtimeShell} -c $HOME/.xsession
+        exec ${pkgs.runtimeShell} -c $HOME/.xsession1
       else
         exit 1
       fi
     '';
   };
-
-  services.xserver.displayManager.defaultSession = "none+xsession";
 
   # Configure keymap in X11.
   services.xserver.layout = "us";
@@ -99,6 +94,4 @@
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
   hardware.pulseaudio.extraConfig = "load-module module-switch-on-connect";
-
-
 }

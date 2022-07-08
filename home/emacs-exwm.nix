@@ -33,6 +33,8 @@ in
 {
   xsession = {
     enable = true;
+    scriptPath = ".xsession1";
+    profilePath = ".xprofile1";
     initExtra = "emacs --daemon";
     windowManager.command = "emacsclient -c -e '(init-exwm)'"; # ''
 #       echo -e "Launch EXWM with KDE Plasma? (Y/n)"
