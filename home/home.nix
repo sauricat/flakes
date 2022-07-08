@@ -22,14 +22,14 @@ in
     # internet:
     tdesktop aria2 element-desktop
     vlc /*syncplay*/ obs-studio
-    
+
     # work:
     libreoffice scribus gimp xournalpp
     okular pdftag ocrmypdf poppler_utils
 
     # devel:
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
-    xsel cachix zlib cmake pkg-config 
+    xsel cachix zlib cmake pkg-config
     glibc gpgme asciidoc doxygen meson fakechroot
     bash-completion cling racket rustc cargo
 
@@ -44,7 +44,7 @@ in
     #tdesktop
   ]);
   programs.home-manager.enable = true;
-  
+
   programs.git = {
     enable = true;
     userEmail = "linshu1729@protonmail.com";
@@ -66,7 +66,7 @@ in
   };
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "curses"; 
+    pinentryFlavor = "curses";
   };
 
   home.stateVersion = "21.11";

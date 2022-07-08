@@ -34,7 +34,8 @@ let
     echo $OUTPUT
     exit 0
   '';
-in {
+in
+{
   programs.rofi = {
     enable = true;
     theme = "Arc";
@@ -55,10 +56,7 @@ in {
 
   services.polybar = {
     enable = true; # how to let exwm enable it?
-    package = pkgs.polybarFull;# .override {
-    #   alsaSupport = true;
-    #   libpulseaudio = true;
-    # };
+    package = pkgs.polybarFull;
     script = "polybar &";
     extraConfig = ''
       [bar/example]
