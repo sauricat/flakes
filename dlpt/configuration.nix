@@ -16,7 +16,7 @@
       ../services/virtualisation.nix
       ../services/nix.nix
       ../services/console-l10n.nix
-      ../other-package-managers/guix-daemon.nix
+      ../services/guix.nix
     ];
 
   networking.hostName = "dlpt";
@@ -42,7 +42,7 @@
     options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
     options hid_apple fnmode=2
   '';
-  
+
   # Perform firmware updates.
   services.fwupd.enable = true;
 
@@ -66,8 +66,8 @@
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
 
   services.xserver.dpi = 140;
-  
+
   # Don't change this version.
-  system.stateVersion = "21.11"; 
+  system.stateVersion = "21.11";
 }
 

@@ -14,7 +14,7 @@
                      inputs.nixpkgs.follows = "nixpkgs";
                      inputs.flake-utils.follows = "flake-utils"; };
     home-manager = { url = "github:nix-community/home-manager";
-                     inputs.nixpkgs.follows = "nixpkgs"; }; 
+                     inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-cn = { url = "github:nixos-cn/flakes";
                  inputs.nixpkgs.follows = "nixpkgs"; };
     berberman = { url = "github:berberman/flakes";
@@ -34,11 +34,11 @@
         overlays = builtins.attrValues self.overlays;
       };
       # packages.home-manager = home-manager.defaultPackage.${system};
-    }) 
-    // 
-    { 
+    })
+    //
+    {
       overlays = {
-        sauricat = ( self: super:
+        sauricat = (self: super:
           let
             dirContents = builtins.readDir ./packages;
             genPackage = name: {
@@ -63,9 +63,9 @@
       };
       nixosConfigurations = {
         # dvm means Desktop Virtual Machine, an already abandoned configuration
-        "dvm" = nixpkgs.lib.nixosSystem {
+        "dvm" = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs.inputs = inputs;
+          specialArgs = { inherit inputs system; };
           modules = [
             ./dvm/configuration.nix
             self.nixosModules.bigcat
@@ -73,13 +73,13 @@
         };
 
         # dlpt means Dell LaPTop
-        "dlpt" = nixpkgs.lib.nixosSystem {
+        "dlpt" = nixpkgs.lib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs.inputs = inputs;
+          specialArgs = { inherit inputs system; };
           modules = [
             ./dlpt/configuration.nix
             nixos-hardware.nixosModules.dell-xps-13-7390
-            home-manager.nixosModules.home-manager 
+            home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -88,7 +88,6 @@
                 imports = [ (inputs.oxalica + /home/modules/shell) ];
                 xdg.stateHome = /home/oxa;
                 home.stateVersion = "21.05"; };
-              home-manager.extraSpecialArgs = { inherit inputs; };
             }
             self.nixosModules.bigcat
             ./cache/cachix.nix

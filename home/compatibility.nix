@@ -4,7 +4,7 @@
     # compatibility:
     wine winetricks samba
     steam-run #dpkg apt rpm
-    
+
     # nixos-cn:
     nixos-cn.wine-wechat
     nixos-cn.netease-cloud-music
@@ -15,7 +15,7 @@
     # my own overlay:
     wemeet pebl
   ];
-  
+
   systemd.user.services.killWine = {
     Unit = {
       Description = "Kill Wine and WeChat before shutting down, or it would get stuck.";

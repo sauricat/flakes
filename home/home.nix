@@ -1,7 +1,4 @@
 { inputs, config, pkgs, lib, ... }:
-let
-  system = "x86_64-linux";
-in
 {
   imports = [
     ./mapping.nix
@@ -14,7 +11,7 @@ in
   ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
-  home.packages = (with pkgs; [
+  home.packages = with pkgs; [
     # system:
     trash-cli bc
     man-pages tealdeer neofetch hyfetch kdeconnect
@@ -37,12 +34,8 @@ in
     /*megasync*/
 
     # nur:
-    nur.repos.dukzcry.cockpit
-  ]) ++ (with inputs.nixos-guix.packages.${system}; [
-    nixos-guix
-  ]) ++ (with inputs.nixpkgs-master.legacyPackages.${system};[
-    #tdesktop
-  ]);
+    # nur.repos.dukzcry.cockpit
+  ];
   programs.home-manager.enable = true;
 
   programs.git = {
