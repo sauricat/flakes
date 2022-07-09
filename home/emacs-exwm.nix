@@ -7,10 +7,14 @@ let
       alwaysEnsure = true;
       package = emacsPackage;
       extraEmacsPackages = epkgs: [ ];
-      override = epkgs : epkgs // {
+      override = epkgs: epkgs // {
         tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
           # Install all tree sitter grammars available from nixpkgs
           (grammars: builtins.filter lib.isDerivation (lib.attrValues grammars));
+        vterm = epkgs.melpaPackages.vterm.overrideAttrs (old: {
+          patches = (old.patches or [ ])
+                    ++ [ ./emacs/vterm-mouse-support.patch ];
+        });
       };
     };
   lspPackages = with pkgs; [

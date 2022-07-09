@@ -1,0 +1,138 @@
+diff --git a/elisp.c b/elisp.c
+index 24c7601..9cf1c55 100644
+--- a/elisp.c
++++ b/elisp.c
+@@ -56,6 +56,7 @@ emacs_value Feq;
+ emacs_value Fvterm_get_color;
+ emacs_value Fvterm_eval;
+ emacs_value Fvterm_selection;
++emacs_value Fvterm_toggle_mouse;
+ 
+ /* Set the function cell of the symbol named NAME to SFUN using
+    the 'fset' function.  */
+@@ -182,6 +183,18 @@ void set_cursor_blink(emacs_env *env, bool blink) {
+                (emacs_value[]){env->make_integer(env, blink)});
+ }
+ 
++void toggle_mouse(emacs_env *env, bool mouse) {
++  emacs_value Qvisible = mouse ? Qt : Qnil;
++  env->funcall(env, Fvterm_toggle_mouse, 1, (emacs_value[]){Qvisible});
++}
++
++void toggle_cursor_blinking(emacs_env *env, bool blinking) {
++  blinking = false;
++  emacs_value Qfalse = env->make_integer(env, -1);
++  emacs_value Qblinking = blinking ? Qt : Qfalse;
++  env->funcall(env, Fblink_cursor_mode, 1, (emacs_value[]){Qblinking});
++}
++
+ emacs_value vterm_get_color(emacs_env *env, int index) {
+   emacs_value idx = env->make_integer(env, index);
+   return env->funcall(env, Fvterm_get_color, 1, (emacs_value[]){idx});
+diff --git a/elisp.h b/elisp.h
+index 39be710..6c40977 100644
+--- a/elisp.h
++++ b/elisp.h
+@@ -59,6 +59,7 @@ extern emacs_value Feq;
+ extern emacs_value Fvterm_get_color;
+ extern emacs_value Fvterm_eval;
+ extern emacs_value Fvterm_selection;
++extern emacs_value Fvterm_toggle_mouse;
+ 
+ // Utils
+ void bind_function(emacs_env *env, const char *name, emacs_value Sfun);
+@@ -77,8 +78,14 @@ void insert(emacs_env *env, emacs_value string);
+ void goto_char(emacs_env *env, int pos);
+ void forward_line(emacs_env *env, int n);
+ void goto_line(emacs_env *env, int n);
++
+ void set_cursor_type(emacs_env *env, emacs_value cursor_type);
+ void set_cursor_blink(emacs_env *env, bool blink);
++
++void toggle_cursor(emacs_env *env, bool visible);
++void toggle_cursor_blinking(emacs_env *env, bool visible);
++void toggle_mouse(emacs_env *env, bool mouse);
++
+ void delete_lines(emacs_env *env, int linenum, int count, bool del_whole_line);
+ void recenter(emacs_env *env, emacs_value pos);
+ void set_window_point(emacs_env *env, emacs_value win, emacs_value point);
+diff --git a/vterm-module.c b/vterm-module.c
+index 72a1e21..b3dd8d8 100644
+--- a/vterm-module.c
++++ b/vterm-module.c
+@@ -578,6 +578,7 @@ static void term_redraw(Term *term, emacs_env *env) {
+ 
+   if (term->is_invalidated) {
+     int oldlinenum = term->linenum;
++    toggle_mouse(env, term->mouse);
+     refresh_scrollback(term, env);
+     refresh_screen(term, env);
+     term->linenum_added = term->linenum - oldlinenum;
+@@ -711,6 +713,8 @@ static int term_settermprop(VTermProp prop, VTermValue *val, void *user_data) {
+     break;
+   case VTERM_PROP_ALTSCREEN:
+     invalidate_terminal(term, 0, term->height);
++  case VTERM_PROP_MOUSE:
++    term->mouse = val->boolean;
+     break;
+   default:
+     return 0;
+@@ -971,6 +975,10 @@ static void term_process_key(Term *term, emacs_env *env, unsigned char *key,
+     vterm_keyboard_unichar(term->vt, '\n', 0);
+   } else if (is_key(key, len, "SPC")) {
+     vterm_keyboard_unichar(term->vt, ' ', modifier);
++  } else if (is_key(key, len, "<mouse-4>")) {
++    vterm_mouse_button(term->vt, 4, true, modifier);
++  } else if (is_key(key, len, "<mouse-5>")) {
++    vterm_mouse_button(term->vt, 5, true, modifier);
+   } else if (len <= 4) {
+     uint32_t codepoint;
+     if (utf8_to_codepoint(key, len, &codepoint)) {
+@@ -1270,6 +1278,7 @@ emacs_value Fvterm_new(emacs_env *env, ptrdiff_t nargs, emacs_value args[],
+   for (int i = 0; i < rows; i++) {
+     term->lines[i] = NULL;
+   }
++  term->mouse = false;
+ 
+   return env->make_user_ptr(env, term_finalize, term);
+ }
+@@ -1461,6 +1470,7 @@ int emacs_module_init(struct emacs_runtime *ert) {
+       env->make_global_ref(env, env->intern(env, "get-buffer-window-list"));
+   Fselected_window =
+       env->make_global_ref(env, env->intern(env, "selected-window"));
++  Fvterm_toggle_mouse = env->make_global_ref(env, env->intern(env, "vterm--toggle-mouse"));
+ 
+   Fvterm_set_title =
+       env->make_global_ref(env, env->intern(env, "vterm--set-title"));
+diff --git a/vterm-module.h b/vterm-module.h
+index 96f538f..eba834b 100644
+--- a/vterm-module.h
++++ b/vterm-module.h
+@@ -88,6 +88,7 @@ typedef struct Term {
+   Cursor cursor;
+   char *title;
+   bool title_changed;
++  bool mouse; // Send mouse events to the shell
+ 
+   char *directory;
+   bool directory_changed;
+diff --git a/vterm.el b/vterm.el
+index 630b50e..08882ab 100644
+--- a/vterm.el
++++ b/vterm.el
+@@ -1739,6 +1739,15 @@ can find them and remove them."
+     (buffer-string)))
+ 
+ 
++(defun vterm--toggle-mouse (bool)
++  (if bool
++      (progn
++        (define-key vterm-mode-map [mouse-4] #'vterm--self-insert)
++        (define-key vterm-mode-map [mouse-5] #'vterm--self-insert))
++    (local-set-key [mouse-4] nil)
++    (local-set-key [mouse-5] nil)))
++
++
+ (provide 'vterm)
+ ;; Local Variables:
+ ;; indent-tabs-mode: nil
