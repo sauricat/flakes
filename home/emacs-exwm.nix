@@ -30,24 +30,25 @@ let
     CLUTTER_IM_MODULE = "ibus";
   };
 in
-{
+rec {
   xsession = {
     enable = true;
-    scriptPath = ".xsession1";
-    profilePath = ".xprofile1";
+    scriptPath = ".xsessions/exwm.xsession";
+    profilePath = ".xsessions/exwm.xprofile";
     initExtra = "emacs --daemon";
-    windowManager.command = "emacsclient -c -e '(init-exwm)'"; # ''
-#       echo -e "Launch EXWM with KDE Plasma? (Y/n)"
-#       read -p ">> " flag
-#       if [[ "$flag" != "n" && "$flag" != "N" ]]
-#       then
-#         env KDEWM="emacsclient -c -e '(exwm-init)'" startplasma-x11
-#       else
-#         emacsclient -c -e '(init-exwm)'
-#       fi
-#     '';
+    windowManager.command = "emacsclient -c -e '(init-exwm)'";
     importedVariables = lib.attrNames exwmSessionVariables;
   };
+
+  # add the 2nd relevant xsession
+  home.file.".xsessions/exwm-plasma.xsession" = {
+    executable = true;
+    text = builtins.replaceStrings
+      [ xsession.windowManager.command ]
+      [ "env KDEWM=${pkgs.writeShellScript "exwm-plasma-integration" "${emacsPackageWithPkgs}/bin/emacsclient -c -e '(exwm-init)'"} startplasma-x11" ]
+      (config.home.file.${xsession.scriptPath}.text);
+  };
+
   home.sessionVariables = exwmSessionVariables // {
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };

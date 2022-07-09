@@ -66,20 +66,33 @@
   services.xserver.displayManager = {
     sddm.enable = true;
     hiddenUsers = [ "oxa" ];
-    defaultSession = "none+xsession1";
+    defaultSession = "none+exwm";
   };
   services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.windowManager.session = lib.singleton {
-    name = "xsession1";
-    start = pkgs.writeShellScript "start-x" ''
-      if [[ -f $HOME/.xsession1 ]]
-      then
-        exec ${pkgs.runtimeShell} -c $HOME/.xsession1
-      else
-        exit 1
-      fi
-    '';
-  };
+  services.xserver.windowManager.session = [
+    {
+      name = "exwm";
+      start = pkgs.writeShellScript "start-exwm" ''
+        if [[ -f $HOME/.xsessions/exwm.xsession ]]
+        then
+          exec ${pkgs.runtimeShell} -c $HOME/.xsessions/exwm.xsession
+        else
+          exit 1
+        fi
+      '';
+    }
+    {
+      name = "exwm-plasma";
+      start = pkgs.writeShellScript "start-exwm-plasma" ''
+        if [[ -f $HOME/.xsessions/exwm-plasma.xsession ]]
+        then
+          exec ${pkgs.runtimeShell} -c $HOME/.xsessions/exwm-plasma.xsession
+        else
+          exit 1
+        fi
+      '';
+    }
+  ];
 
   # Configure keymap in X11.
   services.xserver.layout = "us";
