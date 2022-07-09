@@ -53,6 +53,16 @@
     nix-direnv.enable = true;
   };
 
+  programs.tmux = {
+    enable = true;
+    baseIndex = 1;
+    clock24 = true;
+    historyLimit = 10000;
+    escapeTime = 1;
+    terminal = "tmux-256color";
+    extraConfig = "set -g mouse on";
+  };
+
   programs.gpg = {
     enable = true;
     homedir = "${config.home.homeDirectory}/clash-configuration/gnupg";

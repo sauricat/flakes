@@ -9,7 +9,7 @@
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
-(pixel-scroll-precision-mode t) ;; smooth scrolling
+;; (pixel-scroll-precision-mode t) ;; smooth scrolling
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; (desktop-save-mode 1) ;; auto save window
 (setq inhibit-splash-screen t ;; hide welcome screen
@@ -225,7 +225,11 @@
 ;; (awesome-tray-mode 1)
 
 ;; Terminal
-(use-package vterm)
+(use-package vterm
+  :config
+  (vterm--toggle-mouse t)
+  (define-key vterm-mode-map (kbd "<wheel-up>") [mouse-4])
+  (define-key vterm-mode-map (kbd "<wheel-down>") [mouse-5]))
 (use-package multi-vterm
   :bind (("C-c t c" . multi-vterm) ;; c means create
          ("C-c t p" . multi-vterm-prev)
