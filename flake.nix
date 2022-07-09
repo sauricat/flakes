@@ -38,15 +38,13 @@
     //
     {
       overlays = {
-        sauricat = (self: super:
-          let
-            dirContents = builtins.readDir ./packages;
-            genPackage = name: {
-              inherit name;
-              value = self.callPackage (./packages + "/${name}") {}; };
-            names = builtins.attrNames dirContents;
-          in builtins.listToAttrs (map genPackage names)
-        );
+        sauricat = self: super:
+          let dirContents = builtins.readDir ./packages;
+              genPackage = name: {
+                inherit name;
+                value = self.callPackage (./packages + "/${name}") {}; };
+              names = builtins.attrNames dirContents;
+          in builtins.listToAttrs (map genPackage names);
         nur = inputs.nur.overlay;
         emacs-overlay = inputs.emacs-overlay.overlay;
         nixos-cn = inputs.nixos-cn.overlay;
@@ -81,6 +79,7 @@
             nixos-hardware.nixosModules.dell-xps-13-7390
             home-manager.nixosModules.home-manager
             {
+              home-manager.extraSpecialArgs = specialArgs;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.shu = import ./home/home.nix;
