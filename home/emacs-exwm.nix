@@ -7,15 +7,23 @@ let
       alwaysEnsure = true;
       package = emacsPackage;
       extraEmacsPackages = epkgs: [ ];
-      override = epkgs: epkgs // {
-        tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
-          # Install all tree sitter grammars available from nixpkgs
-          (grammars: builtins.filter lib.isDerivation (lib.attrValues grammars));
-        vterm = epkgs.melpaPackages.vterm.overrideAttrs (old: {
-          patches = (old.patches or [ ])
-                    ++ [ ./emacs/vterm-mouse-support.patch ];
+      override = epkgs: epkgs // (
+        let
+          vterm-mouse-support = epkgs.melpaPackages.vterm.overrideAttrs (old: {
+            patches = (old.patches or [ ])
+                      ++ [ ./emacs/vterm-mouse-support.patch ];
+          });
+        in {
+          tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
+            # Install all tree sitter grammars available from nixpkgs
+            (grammars: builtins.filter lib.isDerivation (lib.attrValues grammars));
+          vterm = vterm-mouse-support;
+          multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
+            buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];
+            propagatedBuildInputs = lib.singleton vterm-mouse-support;
+            propagatedUserEnvPkgs = lib.singleton vterm-mouse-support;
+          });
         });
-      };
     };
   lspPackages = with pkgs; [
     rust-analyzer

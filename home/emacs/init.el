@@ -228,7 +228,9 @@
 (use-package vterm
   :hook
   (vterm-mode . (vterm--toggle-mouse t))
+  :bind ("C-c t t" . vterm)
   :config
+  (setq vterm-shell "tmux")
   (define-key vterm-mode-map (kbd "<wheel-up>") [mouse-4])
   (define-key vterm-mode-map (kbd "<wheel-down>") [mouse-5]))
 
