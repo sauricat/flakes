@@ -11,7 +11,7 @@
 
   systemd.services.clashClient = {
     description = "Clash client service";
-    wantedBy = [ "multi-user.target" ]; 
+    wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     serviceConfig = {
       Type = "simple";
@@ -22,7 +22,7 @@
     };
   };
 
-  networking.proxy.default = "http://127.0.0.1:7890"; 
+  networking.proxy.default = "http://127.0.0.1:7890";
   # networking.proxy.allProxy = "http://127.0.0.1:7890";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
