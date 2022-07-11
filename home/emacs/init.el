@@ -9,6 +9,7 @@
 (add-to-list 'load-path (expand-file-name "shu" user-emacs-directory))
 
 (require 'shu-exwm)
+(require 'shu-term)
 
 (global-set-key (kbd "C-z") 'undo)
 (global-unset-key (kbd "C-x C-z"))
@@ -120,20 +121,6 @@
 ;;       awesome-tray-mode-line-height 0.1)
 ;; (awesome-tray-mode 1)
 
-;; Terminal
-(use-package vterm
-  :hook
-  (vterm-mode . (vterm--toggle-mouse t))
-  :bind ("C-c t t" . vterm)
-  :config
-  (setq vterm-shell "tmux")
-  (define-key vterm-mode-map (kbd "<wheel-up>") [mouse-4])
-  (define-key vterm-mode-map (kbd "<wheel-down>") [mouse-5]))
-
-(use-package multi-vterm
-  :bind (("C-c t c" . multi-vterm) ;; c means create
-         ("C-c t p" . multi-vterm-prev)
-         ("C-c t n" . multi-vterm-next)))
 
 ;; Parentheses and highlight TODO
 (show-paren-mode t)
