@@ -48,6 +48,7 @@ let
     solargraph
     yaml-language-server
     clang-tools
+    elixir_ls
   ];
   exwmSessionVariables = {
     EDITOR = "emacsclient";

@@ -256,7 +256,8 @@
     rust-mode
     haskell-mode
     nix-mode
-    yaml-mode) . eglot-ensure))
+    yaml-mode
+    elixir-mode) . eglot-ensure))
 
 ;; Matrix Client
 (use-package ement)
