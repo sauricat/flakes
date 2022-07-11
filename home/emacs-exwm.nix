@@ -3,7 +3,17 @@ let
   emacsPackage = pkgs.emacsGitNativeComp;
   emacsPackageWithPkgs =
     pkgs.emacsWithPackagesFromUsePackage {
-      config = ./emacs/init.el;
+      config =
+        let
+          readRecursively = dir:
+            builtins.concatStringsSep "\n"
+              (lib.mapAttrsToList (name: value: if value == "regular"
+                                                then builtins.readFile (dir + "/${name}")
+                                                else (if value == "directory"
+                                                      then readRecursively (dir + "/${name}")
+                                                      else [ ]))
+                                  (builtins.readDir dir));
+        in readRecursively ./emacs;
       alwaysEnsure = true;
       package = emacsPackage;
       extraEmacsPackages = epkgs: [ ];
@@ -11,7 +21,7 @@ let
         let
           vterm-mouse-support = epkgs.melpaPackages.vterm.overrideAttrs (old: {
             patches = (old.patches or [ ])
-                      ++ [ ./emacs/vterm-mouse-support.patch ];
+                      ++ [ ./patch/vterm-mouse-support.patch ];
           });
         in {
           tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
