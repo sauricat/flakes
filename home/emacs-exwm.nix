@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, ... }:
 let
   emacsPackage = pkgs.emacsGitNativeComp;
   emacsPackageWithPkgs =
@@ -16,7 +16,12 @@ let
         in {
           tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
             # Install all tree sitter grammars available from nixpkgs
-            (grammars: builtins.filter lib.isDerivation (lib.attrValues grammars));
+            (grammars: builtins.filter lib.isDerivation (lib.attrValues (grammars // {
+              tree-sitter-nix = grammars.tree-sitter-nix.overrideAttrs (old: {
+                version = "fixed";
+                src = inputs.tree-sitter-nix-oxa;
+              });
+            })));
           vterm = vterm-mouse-support;
           multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
             buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];

@@ -1,4 +1,4 @@
-{ 
+{
   description = "The Shu NixOS configuration";
 
   inputs = {
@@ -24,6 +24,8 @@
     oxalica = { url = "github:oxalica/nixos-config";
                 # inputs.secrets.follows = "blank";
                 flake = false; };
+    tree-sitter-nix-oxa = { url = "github:oxalica/tree-sitter-nix";
+                            flake = false; };
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }:

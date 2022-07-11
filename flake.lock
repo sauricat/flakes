@@ -299,7 +299,8 @@
         "nixpkgs-master": "nixpkgs-master",
         "nur": "nur",
         "oxalica": "oxalica",
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay",
+        "tree-sitter-nix-oxa": "tree-sitter-nix-oxa"
       }
     },
     "rust-overlay": {
@@ -322,6 +323,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "tree-sitter-nix-oxa": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1639068943,
+        "narHash": "sha256-x2Kq7t0p5AOKIHtEUHMIC6emZNoF9GE2FdKbjEfUp0E=",
+        "owner": "oxalica",
+        "repo": "tree-sitter-nix",
+        "rev": "add8eb3050a0974c1854df419c192fa4f359bcb0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "tree-sitter-nix",
         "type": "github"
       }
     },
