@@ -7,13 +7,13 @@
     ./fish.nix
     ./firefox.nix
     ./compatibility.nix
-    ./python.nix
+    ./devel.nix
   ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = with pkgs; [
     # system:
-    trash-cli bc
+    trash-cli bc cachix
     man-pages tealdeer neofetch hyfetch kdeconnect
 
     # internet:
@@ -24,12 +24,6 @@
     libreoffice scribus gimp xournalpp
     okular pdftag ocrmypdf poppler_utils
 
-    # devel:
-    cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
-    xsel cachix zlib cmake pkg-config
-    glibc gpgme asciidoc doxygen meson fakechroot
-    bash-completion cling racket rustc cargo
-
     # non-oss:
     /*megasync*/
 
@@ -37,21 +31,6 @@
     # nur.repos.dukzcry.cockpit
   ];
   programs.home-manager.enable = true;
-
-  programs.git = {
-    enable = true;
-    userEmail = "linshu1729@protonmail.com";
-    userName = "sauricat";
-    extraConfig = {
-      init.defaultBranch = "main";
-    };
-    ignores = [ "*~" "\\#*\\#" ".\\#*" ]; # emacs
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
 
   programs.tmux = {
     enable = true;
