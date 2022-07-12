@@ -10,6 +10,7 @@
 
 (require 'shu-exwm)
 (require 'shu-term)
+;; (require 'shu-langserver-lsp)
 
 (global-set-key (kbd "C-z") 'undo)
 (global-unset-key (kbd "C-x C-z"))
@@ -47,8 +48,6 @@
 ;; Window Management
 (use-package winum
   :config (winum-mode))
-
-;; EXWM
 
 ;; Ivy tool set
 (use-package ivy
@@ -205,34 +204,7 @@
   (global-undo-tree-mode))
 
 ;; Language server
-;; (use-package lsp-mode
-;;   :commands (lsp)
-;;   :hook (((ruby-mode
-;;            nix-mode
-;;            rust-mode) . lsp))
-;;   :init
-;;   (setq lsp-auto-configure t
-;;         lsp-auto-guess-root t
-;;         lsp-idle-delay 0.500
-;;         lsp-session-file "~/.emacs/.cache/lsp-sessions"))
-;; (use-package lsp-ivy
-;;   :diminish
-;;   :after lsp-mode)
-;; (use-package lsp-ui
-;;   :after (lsp-mode)
-;;   :diminish
-;;   :commands (lsp-ui-mode)
-;;   :bind
-;;   (:map lsp-ui-mode-map
-;;         ("M-?" . lsp-ui-peek-find-references)
-;;         ("M-." . lsp-ui-peek-find-definitions)
-;;         ("C-c u" . lsp-ui-imenu))
-;;   :hook (lsp-mode . lsp-ui-mode)
-;;   :init
-;;   ;; https://github.com/emacs-lsp/lsp-mode/blob/master/docs/tutorials/how-to-turn-off.md
-;;   (setq lsp-enable-symbol-highlighting t
-;;         lsp-ui-doc-enable t
-;;         lsp-lens-enable t))
+
 
 ;; Lsp-bridge
 ;; (use-package posframe)
