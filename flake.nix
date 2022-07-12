@@ -7,6 +7,8 @@
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nur.url = "github:nix-community/NUR";
     flake-utils.url = "github:numtide/flake-utils";
+    flake-compat = { url = "github:edolstra/flake-compat";
+                     flake = false; };
     emacs-overlay = { url = "github:nix-community/emacs-overlay";
                       inputs.nixpkgs.follows = "nixpkgs";
                       inputs.flake-utils.follows = "flake-utils"; };
@@ -14,13 +16,16 @@
                      inputs.nixpkgs.follows = "nixpkgs";
                      inputs.flake-utils.follows = "flake-utils"; };
     home-manager = { url = "github:nix-community/home-manager";
-                     inputs.nixpkgs.follows = "nixpkgs"; };
+                     inputs.nixpkgs.follows = "nixpkgs";
+                     inputs.utils.follows = "flake-utils"; };
     nixos-cn = { url = "github:nixos-cn/flakes";
-                 inputs.nixpkgs.follows = "nixpkgs"; };
+                 inputs.nixpkgs.follows = "nixpkgs";
+                 inputs.flake-utils.follows = "flake-utils"; };
     berberman = { url = "github:berberman/flakes";
                   inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-guix = { url = "github:sauricat/nguix";
-                   inputs.nixpkgs.follows = "nixpkgs"; };
+                   inputs.nixpkgs.follows = "nixpkgs";
+                   inputs.flake-compat.follows = "flake-compat"; };
     oxalica = { url = "github:oxalica/nixos-config";
                 # inputs.secrets.follows = "blank";
                 flake = false; };
