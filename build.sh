@@ -58,7 +58,7 @@ if [[ -z "$hname" ]] ; then hname=$(hostname); fi
 
 if [[ -z "$1" ]]
 then
-    echo -e "\033[1;31mHint:\033[0m Next time you can type '\033[1;31m$0 -c $flag $subcommand $hname$other\033[0m' to execute the same operation.\n"
+    echo -e "\033[1;31mHint:\033[0m Next time you can type '\033[1;31m$0 -c $flag $subcommand $hname $other\033[0m' to execute the same operation.\n"
 fi
 
 
