@@ -4,7 +4,7 @@ These are Shu’s NixOS configuration files.
 
 Specifically, 
 - In `home/rime/` are Shu’s [Rime IM](https://rime.im/) configuration files;
-- In `emacs/` are Shu’s [Emacs](https://www.gnu.org/software/emacs) configuration files.
+- In `home/emacs/` are Shu’s [Emacs](https://www.gnu.org/software/emacs) configuration files.
 
 ## Usage
 
@@ -12,7 +12,27 @@ Specifically,
 
 2. Or you can simply refer to the following Nix Flake URL `github:sauricat/flakes` since this is a Flaked repository.
 
-## Structure
+## Flake Outputs
+
+```
+├───legacyPackages (omitted)
+├───nixosConfigurations
+│   ├───dlpt: NixOS configuration
+│   ├───dvm: NixOS configuration
+│   └───livecd: NixOS configuration
+├───nixosModules
+│   ├───bigcat: NixOS module (! contains all overlays and configs)
+│   └───smallcat: NixOS module (! only contains my own modules and packages)
+└───overlays
+    ├───berberman: Nixpkgs overlay
+    ├───emacs-overlay: Nixpkgs overlay
+    ├───nixos-cn: Nixpkgs overlay
+    ├───nur: Nixpkgs overlay
+    ├───rust-overlay: Nixpkgs overlay
+    └───sauricat: Nixpkgs overlay
+```
+
+## Directory Structure
 
 - Main entry: `flake.nix`, which includes all the repositories I take advantage of, and all basic configuration of my devices (and a liveCD).
 
@@ -20,7 +40,7 @@ Specifically,
 
 - Directory `home`: Configurations concerning [Home Manager](https://github.com/nix-community/home-manager), a necessary suite for NixOS newcomers (just as me owo) to manage their home directory.
 
-- Directory `other-package-managers`, `packages`: Experimental projects will be here. 
+- Directory `modules`, `packages`: Experimental projects will be here. They are the two parts of flake output `nixosModules.smallcat`.
 
 - Other directories and files: WYSIWYG.
 
