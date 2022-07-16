@@ -5,12 +5,29 @@
 
 (package-initialize)
 (setq use-package-always-ensure t)
-
+(setq backup-directory-alist '(("." . "~/.backups")))
 (add-to-list 'load-path (expand-file-name "shu" user-emacs-directory))
 
 (require 'shu-exwm)
 (require 'shu-term)
-;; (require 'shu-langserver-lsp)
+(defgroup shu ()
+  "Shu emacs config."
+  :tag "Shu"
+  :prefix "shu-"
+  :group 'applications)
+(defcustom shu-lsp nil
+  "Set which LSP to use."
+  :tag "LSP config"
+  :group 'shu
+  :type `(choice
+          (const :tag "disabled" ,nil)
+          (const :tag "lsp-mode" lsp-mode)
+          (const :tag "eglot" eglot)))
+(setq shu-lsp 'eglot)
+(require 'shu-langserver-lsp)
+(require 'shu-langserver-eglot)
+(require 'shu-c)
+
 
 (global-set-key (kbd "C-z") 'undo)
 (global-unset-key (kbd "C-x C-z"))
@@ -25,6 +42,7 @@
 (setq inhibit-splash-screen t ;; hide welcome screen
       mouse-drag-copy-region 1)
 (setq-default indent-tabs-mode 0)
+(setq backward-delete-char-untabify-method nil)
 (define-minor-mode show-trailing-whitespace-mode "Show trailing whitespace."
   :init-value nil
   :lighter nil
@@ -203,9 +221,6 @@
         )
   (global-undo-tree-mode))
 
-;; Language server
-
-
 ;; Lsp-bridge
 ;; (use-package posframe)
 ;; (use-package markdown-mode)
@@ -214,25 +229,6 @@
 ;; (require 'lsp-bridge)
 ;; (yas-global-mode 1)
 ;; (global-lsp-bridge-mode)
-
-;; Eglot
-(use-package eglot
-  :config
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) . ("clangd")))
-  (add-to-list 'eglot-server-programs '(python-mode . ("pyright")))
-  :hook
-  ((c-mode
-    c++-mode
-    python-mode
-    ruby-mode
-    rust-mode
-    haskell-mode
-    nix-mode
-    yaml-mode
-    elixir-mode) . eglot-ensure))
-
-;; Matrix Client
-(use-package ement)
 
 (provide 'init)
 ;;; init.el ends here
