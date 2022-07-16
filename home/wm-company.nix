@@ -8,6 +8,7 @@
     networkmanagerapplet
   ];
 
+  # A simple launcher
   programs.rofi = {
     enable = true;
     theme = "Arc";
@@ -19,11 +20,18 @@
 
   programs.lf = {
     enable = true;
+    extraConfig = "set previewer ${pkgs.pistol}/bin/pistol";
   };
 
   services.udiskie = {
     enable = true;
     automount = true;
+  };
+
+  # Avoid screen tearing
+  services.picom = {
+    enable = true;
+    fade = true;
   };
 
   systemd.user.services.polybar = lib.mkOverride 10 { }; # let exwm start it.
@@ -115,7 +123,7 @@
         [module/xworkspaces]
         type = internal/xworkspaces
 
-        label-active = EXWM Workspace #%name%: with %nwin% desktop apps
+        label-active = EXWM Workspace %name%: with %nwin% desktop app(s)
         label-active-background = ${colors.background-alt}
         label-active-underline= ${colors.primary}
         label-active-padding = 1
