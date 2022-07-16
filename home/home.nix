@@ -18,14 +18,14 @@
 
     # internet:
     tdesktop aria2 element-desktop
-    vlc /*syncplay*/ obs-studio
+    vlc syncplay obs-studio
 
     # work:
     libreoffice scribus gimp xournalpp
     okular pdftag ocrmypdf poppler_utils
 
     # non-oss:
-    /*megasync*/
+    megasync pdfstudioviewer
 
     # nur:
     # nur.repos.dukzcry.cockpit
