@@ -61,6 +61,15 @@
   # Fix cannot sleep issue.
   systemd.sleep.extraConfig = "SuspendState=freeze";
 
+  services.logind.extraConfig = ''
+    HandlePowerKey=suspend-then-hibernate
+    HandleLidSwitch=suspend-then-hibernate
+    HandleLidSwitchExternalPower=ignore
+    HandleLidSwitchDocked=ignore
+    IdleAction=suspend-then-hibernate
+    IdleActionSec=600
+  '';
+
   environment.systemPackages = [ pkgs.throttled ];
 
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
