@@ -23,7 +23,7 @@
   (exwm-input-set-key (kbd "s-k") 'exwm-workspace-delete)
   (exwm-input-set-key (kbd "s-w") 'exwm-workspace-swap)
   (exwm-input-set-key (kbd "s-<return>") 'multi-vterm)
-  (exwm-input-set-key (kbd "s-d") 'counsel-linux-app)
+  (exwm-input-set-key (kbd "s-S-s") 'counsel-linux-app)
 
   (defun start-process-gui-command (cmd)
     "A temporary solution when `start-process-shell-command' doesn't work for X apps."
@@ -61,7 +61,7 @@
                            (exwm-workspace-switch-create ,(- i 1)))))
 
   ;; the simplest launcher, I keep it in only if dmenu eventually stopped working or something
-  (exwm-input-set-key (kbd "<VoidSymbol>") ;; caps:none
+  (exwm-input-set-key (kbd "s-S-d") ;; caps:none
                       (lambda (command)
                         (interactive (list (read-shell-command "$ ")))
                         (start-process-shell-command command nil command)))

@@ -11,7 +11,7 @@
 (require 'shu-exwm)
 (require 'shu-term)
 (defgroup shu ()
-  "Shu emacs config."
+  "Shu EMACS config."
   :tag "Shu"
   :prefix "shu-"
   :group 'applications)
@@ -36,12 +36,16 @@
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
-;; (pixel-scroll-precision-mode t) ;; smooth scrolling
+
+(pixel-scroll-precision-mode t) ;; smooth scrolling
+(add-hook 'minibuffer-mode-hook #'(lambda () (pixel-scroll-precision-mode 0)))
+(add-hook 'minibuffer-exit-hook #'(lambda () (pixel-scroll-precision-mode t)))
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; (desktop-save-mode 1) ;; auto save window
 (setq inhibit-splash-screen t ;; hide welcome screen
       mouse-drag-copy-region 1)
-(setq-default indent-tabs-mode 0)
+(setq-default indent-tabs-mode -1)
 (setq backward-delete-char-untabify-method nil)
 (define-minor-mode show-trailing-whitespace-mode "Show trailing whitespace."
   :init-value nil
@@ -53,6 +57,7 @@
   (progn (setq require-final-newline require-final-newline-mode)))
 (add-hook 'prog-mode-hook 'show-trailing-whitespace-mode)
 (add-hook 'prog-mode-hook 'require-final-newline-mode)
+(add-hook 'prog-mode-hook #'(lambda () (indent-tabs-mode -1)))
 
 (use-package diminish
   :config
