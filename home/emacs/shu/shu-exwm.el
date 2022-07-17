@@ -32,7 +32,7 @@
            (multi-vterm-dedicated-close)))
   (defun wm-lock-screen ()
     (interactive)
-    (start-process-gui-command "kscreenlocker_greet"))
+    (start-process-gui-command "i3lock-shu"))
   (defun wm-screenshot ()
     (interactive)
     (start-process-gui-command "set a ~/Pictures/Screenshots/$(date +%s).png; maim $a; xclip -selection clipboard $a -t image/png"))
@@ -109,6 +109,7 @@
     (start-process-shell-command "ibus" nil "ibus-daemon")
     (exwm-init)
     (start-process-shell-command "polybar" nil "polybar")
-    (start-process-shell-command "nmapplet" nil "nm-applet")))
+    (start-process-shell-command "nmapplet" nil "nm-applet")
+    (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu")))
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.

@@ -1,11 +1,19 @@
 { pkgs, lib, ... }:
+let
+  i3lock-shu = pkgs.writeShellApplication {
+    name = "i3lock-shu";
+    runtimeInputs = with pkgs; [ gnugrep imagemagick xorg.xrandr i3lock ];
+    text = builtins.readFile ./shell/i3lock-shu.sh;
+    checkPhase = ""; # Don't do check.
+  };
+in
 {
   home.packages = with pkgs; [
     maim xclip # for printing screen and copying it to clipboard
     gtk3 # for gtk-launch
-    kscreenlocker
     alsa-utils brightnessctl upower tlp playerctl # for epkgs.desktop-environment
     networkmanagerapplet
+    i3lock-shu xautolock
   ];
 
   # A simple launcher
