@@ -110,6 +110,7 @@
     (exwm-init)
     (start-process-shell-command "polybar" nil "polybar")
     (start-process-shell-command "nmapplet" nil "nm-applet")
-    (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu")))
+    (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu")
+    (start-process-shell-command "xsslock" nil "xss-lock --transfer-sleep-lock -- i3lock-shu")))
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.
