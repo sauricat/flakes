@@ -39,7 +39,6 @@ in
   # Avoid screen tearing
   services.picom = {
     enable = true;
-    fade = true;
   };
 
   systemd.user.services.polybar = lib.mkOverride 10 { }; # let exwm start it.
