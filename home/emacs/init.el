@@ -36,6 +36,9 @@
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
+(setq-default cursor-type 'bar
+              blink-cursor-interval 0.7
+              blink-cursor-blinks 8)
 
 (pixel-scroll-precision-mode t) ;; smooth scrolling
 (add-hook 'minibuffer-mode-hook #'(lambda () (pixel-scroll-precision-mode 0)))
