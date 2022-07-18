@@ -9,14 +9,13 @@
   };
   users.groups."networkmanager".members = [ "shu" ];
 
-  systemd.services.clashClient = {
+  systemd.user.services.clashClient = {
     description = "Clash client service";
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
     serviceConfig = {
       Type = "simple";
-      User = "shu";
-      ExecStart = "${pkgs.clash}/bin/clash -f /home/shu/clash-configuration/clash.yaml";
+      ExecStart = "${pkgs.clash}/bin/clash -f %h/clash-configuration/clash.yaml";
       Restart = "on-failure";
       RestartPreventExitStatus = "23";
     };
