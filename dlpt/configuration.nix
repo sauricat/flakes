@@ -17,6 +17,7 @@
       ../services/nix.nix
       ../services/console-l10n.nix
       ../services/guix.nix
+      ../services/laptop-sleep.nix
     ];
 
   networking.hostName = "dlpt";
@@ -60,15 +61,6 @@
 
   # Fix cannot sleep issue.
   systemd.sleep.extraConfig = "SuspendState=freeze";
-
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend-then-hibernate
-    HandleLidSwitch=suspend-then-hibernate
-    HandleLidSwitchExternalPower=ignore
-    HandleLidSwitchDocked=ignore
-    IdleAction=suspend-then-hibernate
-    IdleActionSec=600
-  '';
 
   environment.systemPackages = [ pkgs.throttled ];
 
