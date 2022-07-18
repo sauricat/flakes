@@ -99,6 +99,8 @@
   services.xserver.xkbVariant = "altgr-intl"; # included xkbOption "eurosign:5"
   services.xserver.xkbOptions = "caps:none"; # xkeyboard-config(7)
 
+  services.autorandr.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
