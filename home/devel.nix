@@ -19,6 +19,7 @@ in
     userName = "sauricat";
     extraConfig = {
       init.defaultBranch = "main";
+      diff.renameLimit = 10000;
     };
     ignores = [ "*~" "\\#*\\#" ".\\#*" ]; # emacs
   };
