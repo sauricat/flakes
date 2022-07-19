@@ -7,12 +7,11 @@
     wifi.macAddress = "random";
     ethernet.macAddress = "random";
   };
-  users.groups."networkmanager".members = [ "shu" ];
+  users.groups.networkmanager.members = [ "shu" ];
 
   systemd.user.services.clashClient = {
     description = "Clash client service";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    wantedBy = [ "default.target" ];
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.clash}/bin/clash -f %h/clash-configuration/clash.yaml";
@@ -27,7 +26,7 @@
 
   programs.proxychains = {
     enable = true;
-    proxies."clash" = {
+    proxies.clash = {
       enable = true;
       type = "http";
       host = "127.0.0.1";
