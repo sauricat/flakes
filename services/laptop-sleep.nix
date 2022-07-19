@@ -1,11 +1,11 @@
 { ... }:
 {
   services.logind.extraConfig = ''
-    HandlePowerKey=suspend-then-hibernate
-    HandleLidSwitch=suspend-then-hibernate
+    HandlePowerKey=suspend
+    HandleLidSwitch=suspend
     HandleLidSwitchExternalPower=ignore
     HandleLidSwitchDocked=ignore
-    IdleAction=suspend-then-hibernate
+    IdleAction=suspend
     IdleActionSec=600
   '';
   systemd.user.services.beforeSleep = {
