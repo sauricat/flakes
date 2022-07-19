@@ -44,6 +44,22 @@
         "type": "github"
       }
     },
+    "epkgs-toggle-one-window": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1635755644,
+        "narHash": "sha256-lSPe7hZ05PZj3Yk6yPYhXTyd5bezhvGuq3Vhnf5mHvk=",
+        "owner": "manateelazycat",
+        "repo": "toggle-one-window",
+        "rev": "8ca741ca6be97c6049043aec6cec2e2bfbca5d19",
+        "type": "github"
+      },
+      "original": {
+        "owner": "manateelazycat",
+        "repo": "toggle-one-window",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -281,6 +297,7 @@
       "inputs": {
         "berberman": "berberman",
         "emacs-overlay": "emacs-overlay",
+        "epkgs-toggle-one-window": "epkgs-toggle-one-window",
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",

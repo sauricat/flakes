@@ -229,6 +229,9 @@
         )
   (global-undo-tree-mode))
 
+(use-package toggle-one-window
+  :bind ("C-c C-t" . toggle-one-window))
+
 ;; Lsp-bridge
 ;; (use-package posframe)
 ;; (use-package markdown-mode)

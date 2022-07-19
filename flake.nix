@@ -26,11 +26,14 @@
     nixos-guix = { url = "github:sauricat/nguix";
                    inputs.nixpkgs.follows = "nixpkgs";
                    inputs.flake-compat.follows = "flake-compat"; };
+
     oxalica = { url = "github:oxalica/nixos-config";
                 # inputs.secrets.follows = "blank";
                 flake = false; };
     tree-sitter-nix-oxa = { url = "github:oxalica/tree-sitter-nix";
                             flake = false; };
+    epkgs-toggle-one-window = { url = "github:manateelazycat/toggle-one-window";
+                                flake = false; };
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }:

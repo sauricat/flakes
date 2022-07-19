@@ -38,6 +38,12 @@ let
             propagatedBuildInputs = lib.singleton vterm-mouse-support;
             propagatedUserEnvPkgs = lib.singleton vterm-mouse-support;
           });
+          toggle-one-window = epkgs.trivialBuild rec {
+            pname = "toggle-one-window";
+            ename = pname;
+            version = "git";
+            src = inputs.epkgs-toggle-one-window;
+          };
         });
     };
   lspPackages = with pkgs; [
