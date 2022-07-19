@@ -27,10 +27,10 @@ in stdenv.mkDerivation {
   buildInputs = [ ];
   dontUnpack = true;
   installPhase = ''
-    mkdir $out
+    mkdir -p $out/share/emacs/site-lisp
     sed '1c #!${pythonEnv}/bin/python3' $src/lsp_bridge.py > $out/lsp_bridge.py
     sed '266c (defcustom lsp-bridge-python-command "${pythonEnv}/bin/python3"' $src/lsp-bridge.el > $out/lsp-bridge.el
-    cp -rn $src/* $out
+    cp -rn $src/* $out/share/emacs/site-lisp
   '';
   meta = {
     description = "Emacs LSP Bridge";
