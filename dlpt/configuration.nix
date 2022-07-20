@@ -18,6 +18,7 @@
       ../services/console-l10n.nix
       ../services/guix.nix
       ../services/laptop-sleep.nix
+      ../services/steam.nix
     ];
 
   networking.hostName = "dlpt";
