@@ -1,28 +1,32 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../basics.nix
-      ../user.nix
-      ../services/localisation.nix
-      ../services/bluetooth.nix
-      ../services/multitouch.nix
-      ../services/network.nix
-      ../services/virtualisation.nix
-      ../services/nix.nix
-      ../services/console-l10n.nix
-      ../services/guix.nix
-      ../services/laptop-sleep.nix
-      ../services/steam.nix
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  networking.hostName = "dlpt";
-  networking.interfaces.wlp0s20f3.useDHCP = false;
+  # hardware-configuration.nix
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "uas" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.kernelModules = [ ];
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/915ab4c6-fd53-4d09-b00a-ba4049aba3a9";
+    fsType = "btrfs";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/6A20-9B7E";
+    fsType = "vfat";
+  };
+
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/8e7351b7-dee3-4993-b63b-f87fcf83536f"; }
+  ];
+
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # configuration.nix
+  networking.useDHCP = false;
+  networking.interfaces.wlp0s20f3.useDHCP = true;
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub = {
@@ -37,7 +41,7 @@
 
   # Virtual Cam & Mic support
   # https://www.reddit.com/r/NixOS/comments/p8bqvu/how_to_install_v4l2looback_kernel_module/
-  boot.kernelModules = [ "v4l2loopback" "snd-aloop" ];
+  boot.kernelModules = [ "kvm-intel" "v4l2loopback" "snd-aloop" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [
     v4l2loopback.out ];
   boot.extraModprobeConfig = ''
