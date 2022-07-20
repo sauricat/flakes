@@ -18,11 +18,10 @@ Specifically,
 ├───legacyPackages (omitted)
 ├───nixosConfigurations
 │   ├───dlpt: NixOS configuration
-│   ├───dvm: NixOS configuration
 │   └───livecd: NixOS configuration
 ├───nixosModules
 │   ├───bigcat: NixOS module (! contains all overlays and configs)
-│   └───smallcat: NixOS module (! only contains my own modules and packages)
+│   └───smallcat: NixOS module (! only contains modules and packages)
 └───overlays
     ├───berberman: Nixpkgs overlay
     ├───emacs-overlay: Nixpkgs overlay
@@ -36,7 +35,7 @@ Specifically,
 
 - Main entry: `flake.nix`, which includes all the repositories I take advantage of, and all basic configuration of my devices (and a liveCD).
 
-- Directory `dlpt`, `dvm`: These are my 2 devices, virtual and physical. 
+- Directory `hosts`: Device-specific configuration. 
 
 - Directory `home`: Configurations concerning [Home Manager](https://github.com/nix-community/home-manager), a necessary suite for NixOS newcomers (just as me owo) to manage their home directory.
 
