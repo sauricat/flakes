@@ -3,11 +3,8 @@
 {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-graphical-plasma5.nix")
-    ./services/localisation.nix
-    # ./services/network.nix
-    ./basics.nix
   ];
-
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_5_18;
   isoImage = {
     isoBaseName = "livecd";
     volumeID = "LIVECD";
@@ -18,6 +15,6 @@
   environment.systemPackages = with pkgs; [
     neofetch firefox
   ];
-  
+
   system.stateVersion = "21.11";
 }

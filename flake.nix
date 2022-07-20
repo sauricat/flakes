@@ -38,7 +38,7 @@
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }: let
     makeMyConfigurations = conflist: builtins.foldl' (a: b: a // b) { } (builtins.map
-      ({ host, system, extraModules? [ ], enableHomeManager? false }: {
+      ({ host, system, extraModules? [ ], enableUser? false, enableHomeManager? false }: {
         ${host} = nixpkgs.lib.nixosSystem rec {
           inherit system;
           specialArgs = { inherit inputs system; };
@@ -46,7 +46,6 @@
             self.nixosModules.bigcat
             ./hosts/${host}.nix
             ./basics.nix
-            ./user.nix
             ./cache/cachix.nix
             { networking.hostName = host; }
           ] ++ (if enableHomeManager
@@ -62,6 +61,9 @@
                            home.stateVersion = "21.05"; };
                        }
                      ]
+                else [ ])
+            ++ (if enableUser
+                then [ ./user.nix ]
                 else [ ]);
         };
       }) conflist);
@@ -78,7 +80,7 @@
         let dirContents = builtins.readDir ./packages;
             genPackage = name: {
               inherit name;
-              value = self.callPackage (./packages + "/${name}") {}; };
+              value = self.callPackage (./packages + "/${name}") { }; };
             names = builtins.attrNames dirContents;
         in builtins.listToAttrs (map genPackage names);
       nur = inputs.nur.overlay;
@@ -97,12 +99,7 @@
         imports = [ ./modules ];
       };
     };
-    nixosConfigurations = {
-      livecd = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./livecd.nix ];
-      };
-    } // makeMyConfigurations [
+    nixosConfigurations = makeMyConfigurations [
       {
         host = "dlpt";
         system = "x86_64-linux";
@@ -120,7 +117,15 @@
         ] ++ [
           nixos-hardware.nixosModules.dell-xps-13-7390
         ];
+        enableUser = true;
         enableHomeManager = true;
+      } {
+        host = "livecd";
+        system = "x86_64-linux";
+        extraModules = nixosPrivate [
+          "localisation"
+          "network"
+        ];
       }
     ];
   };
