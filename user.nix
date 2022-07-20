@@ -5,7 +5,7 @@
   users.users = {
     shu = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+      extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
       shell = pkgs.fish;
     };
     oxa = {
@@ -17,6 +17,5 @@
       ];
     };
   };
-  
   security.pam.services.shu.enableKwallet = true;
 }

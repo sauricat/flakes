@@ -4,10 +4,9 @@
   networking.wireless.enable = false;  # Must be false for enabling networkmanager.
   networking.networkmanager = {
     enable = true;
-    wifi.macAddress = "random";
-    ethernet.macAddress = "random";
+    # wifi.macAddress = "random";
+    # ethernet.macAddress = "random";
   };
-  users.groups.networkmanager.members = [ "shu" ];
 
   systemd.user.services.clashClient = {
     description = "Clash client service";
