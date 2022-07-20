@@ -25,7 +25,7 @@
     okular pdftag ocrmypdf poppler_utils
 
     # non-oss:
-    megasync pdfstudioviewer
+    megasync
 
     # nur:
     # nur.repos.dukzcry.cockpit
