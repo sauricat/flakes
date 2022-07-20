@@ -19,10 +19,11 @@
 
   (defun start-process-gui-command (cmd)
     "A temporary solution when `start-process-shell-command' doesn't work for X apps."
-    ;; (progn (multi-vterm-dedicated-open) ;; temporary solution
-    ;;        (vterm-send-string (format "%s\n" cmd))
-    ;;        (multi-vterm-dedicated-close))
-    (start-process-shell-command cmd nil cmd))
+    (progn (multi-vterm-dedicated-open) ;; temporary solution
+           (message cmd)
+           (vterm-send-string (format "%s\n" cmd))
+           (multi-vterm-dedicated-close)))
+    ;; (start-process-shell-command cmd nil cmd))
   (defun wm-lock-screen ()
     (interactive)
     (start-process-gui-command "i3lock-shu"))
