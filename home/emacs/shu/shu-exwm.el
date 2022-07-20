@@ -17,19 +17,12 @@
 
   (setq exwm-workspace-number 4)
 
-  ;; this is a way to declare truly global/always working keybindings
-  ;; this is a nifty way to go back from char mode to line mode without using the mouse
-  (exwm-input-set-key (kbd "s-r") 'exwm-reset)
-  (exwm-input-set-key (kbd "s-k") 'exwm-workspace-delete)
-  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-swap)
-  (exwm-input-set-key (kbd "s-<return>") 'multi-vterm)
-  (exwm-input-set-key (kbd "s-d") 'counsel-linux-app)
-
   (defun start-process-gui-command (cmd)
     "A temporary solution when `start-process-shell-command' doesn't work for X apps."
-    (progn (multi-vterm-dedicated-open) ;; temporary solution
-           (vterm-send-string (format "%s\n" cmd))
-           (multi-vterm-dedicated-close)))
+    ;; (progn (multi-vterm-dedicated-open) ;; temporary solution
+    ;;        (vterm-send-string (format "%s\n" cmd))
+    ;;        (multi-vterm-dedicated-close))
+    (start-process-shell-command cmd nil cmd))
   (defun wm-lock-screen ()
     (interactive)
     (start-process-gui-command "i3lock-shu"))
@@ -42,6 +35,13 @@
   (defun wm-d-launcher ()
     (interactive)
     (start-process-gui-command "rofi -show drun"))
+
+  (exwm-input-set-key (kbd "s-r") 'exwm-reset) ;; reset to line mode
+  (exwm-input-set-key (kbd "s-d") 'exwm-workspace-delete)
+  (exwm-input-set-key (kbd "s-a") 'exwm-workspace-add)
+  (exwm-input-set-key (kbd "s-w") 'exwm-workspace-swap)
+  (exwm-input-set-key (kbd "s-k") 'kill-this-buffer)
+  (exwm-input-set-key (kbd "s-<return>") 'multi-vterm)
   (exwm-input-set-key (kbd "s-s") 'wm-d-launcher)
   (exwm-input-set-key (kbd "<print>") 'wm-screenshot-area)
   (exwm-input-set-key (kbd "s-<print>") 'wm-screenshot)
@@ -54,14 +54,30 @@
   (exwm-input-set-key (kbd "s-S-<down>") 'windmove-swap-states-down)
   (exwm-input-set-key (kbd "s-S-<right>") 'windmove-swap-states-right)
   (exwm-input-set-key (kbd "s-S-<left>") 'windmove-swap-states-left)
-  (dotimes (i 10)
-    (exwm-input-set-key (kbd (format "s-%d" i))
+  (exwm-input-set-key (kbd "s-p") 'windmove-up)
+  (exwm-input-set-key (kbd "s-n") 'windmove-down)
+  (exwm-input-set-key (kbd "s-f") 'windmove-right)
+  (exwm-input-set-key (kbd "s-b") 'windmove-left)
+  (exwm-input-set-key (kbd "s-P") 'windmove-swap-states-up)
+  (exwm-input-set-key (kbd "s-N") 'windmove-swap-states-down)
+  (exwm-input-set-key (kbd "s-F") 'windmove-swap-states-right)
+  (exwm-input-set-key (kbd "s-B") 'windmove-swap-states-left)
+  (dotimes (i 11)
+    (exwm-input-set-key (kbd (format "s-%d" (mod i 10)))
                         `(lambda ()
                            (interactive)
-                           (exwm-workspace-switch-create ,(- i 1)))))
+                           (exwm-workspace-switch-create ,(- i 1))))
+    (exwm-input-set-key (kbd (concat "s-"
+                                     (pcase (mod i 10)
+                                       (1 "!") (2 "@") (3 "#") (4 "$") (5 "%")
+                                       (6 "^") (7 "&") (8 "*") (9 "(") (0 ")"))))
+                        `(lambda ()
+                           (interactive)
+                           (exwm-workspace-move-window ,(- i 1))
+                           (exwm-workspace-switch ,(- i 1)))))
 
   ;; the simplest launcher, I keep it in only if dmenu eventually stopped working or something
-  (exwm-input-set-key (kbd "s-a") ;; caps:none
+  (exwm-input-set-key (kbd "s-S") ;; caps:none
                       (lambda (command)
                         (interactive (list (read-shell-command "$ ")))
                         (start-process-shell-command command nil command)))
