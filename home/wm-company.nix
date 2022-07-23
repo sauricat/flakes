@@ -2,7 +2,7 @@
 let
   i3lock-shu = pkgs.writeShellApplication {
     name = "i3lock-shu";
-    runtimeInputs = with pkgs; [ gnugrep imagemagick xorg.xrandr i3lock ];
+    runtimeInputs = with pkgs; [ gnugrep imagemagick xorg.xrandr i3lock-color ];
     text = builtins.readFile ./shell/i3lock-shu.sh;
     checkPhase = ""; # Don't do check.
   };
@@ -12,8 +12,7 @@ in
     maim xclip # for printing screen and copying it to clipboard
     gtk3 # for gtk-launch
     alsa-utils brightnessctl upower tlp playerctl # for epkgs.desktop-environment
-    networkmanagerapplet
-    i3lock-shu xautolock xss-lock
+    i3lock-shu libnotify
   ];
 
   # A simple launcher
@@ -39,9 +38,24 @@ in
   # Avoid screen tearing
   services.picom = {
     enable = true;
+    fade = true;
+    fadeDelta = 5;
   };
 
-  systemd.user.services.polybar = lib.mkOverride 10 { }; # let exwm start it.
+  services.screen-locker = {
+    enable = true;
+    inactiveInterval = 5;
+    lockCmd = "${i3lock-shu}/bin/i3lock-shu";
+    xautolock = {
+      enable = true;
+      detectSleep = true;
+      extraOptions = [
+        "-notify 5"
+        "-notifier \"${pkgs.libnotify}/bin/notify-send 'Locking...'\""
+      ];
+    };
+  };
+
   services.polybar =
     let
       colors = rec {
