@@ -34,6 +34,8 @@
                             flake = false; };
     epkgs-toggle-one-window = { url = "github:manateelazycat/toggle-one-window";
                                 flake = false; };
+    epkgs-exwm-ns = { url = "github:timor/exwm-ns";
+                      flake = false; };
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }: let

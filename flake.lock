@@ -44,6 +44,22 @@
         "type": "github"
       }
     },
+    "epkgs-exwm-ns": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1604918985,
+        "narHash": "sha256-QZCEcpqWZgjppp/P48+DtC4XoR/4UAlXXxJA5FYLoLI=",
+        "owner": "timor",
+        "repo": "exwm-ns",
+        "rev": "0230bb989d5c4c2d5474c35ba77882b65dc19bd9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "timor",
+        "repo": "exwm-ns",
+        "type": "github"
+      }
+    },
     "epkgs-toggle-one-window": {
       "flake": false,
       "locked": {
@@ -297,6 +313,7 @@
       "inputs": {
         "berberman": "berberman",
         "emacs-overlay": "emacs-overlay",
+        "epkgs-exwm-ns": "epkgs-exwm-ns",
         "epkgs-toggle-one-window": "epkgs-toggle-one-window",
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_2",

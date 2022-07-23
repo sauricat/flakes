@@ -44,6 +44,13 @@ let
             version = "git";
             src = inputs.epkgs-toggle-one-window;
           };
+          exwm-ns = epkgs.trivialBuild rec {
+            pname = "exwm-ns";
+            ename = pname;
+            version = "git";
+            src = inputs.epkgs-exwm-ns;
+            patches = [ ./patch/exwm-ns.patch ];
+          };
         });
     };
   lspPackages = with pkgs; [

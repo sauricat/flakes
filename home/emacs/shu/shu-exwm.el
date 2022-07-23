@@ -9,7 +9,6 @@
          (message cmd)
          (vterm-send-string (format "%s\n" cmd))
          (multi-vterm-dedicated-close)))
-;; (start-process-shell-command cmd nil cmd))
 (defun shu-exwm-lock-screen ()
   "Lock screen."
   (interactive)
@@ -115,6 +114,7 @@
                                      ;; search
                                      ([?\C-s] . ?\C-f)
                                      ([?\C-x ?\C-s] . ?\C-s))))
+(use-package exwm-ns)
 (use-package desktop-environment
   :diminish
   :config
@@ -129,6 +129,7 @@
   "Init exwm without DE support."
   (progn
     (toggle-frame-fullscreen)
-    (exwm-init)))
+    (exwm-init)
+    (exwm-ns-init)))
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.
