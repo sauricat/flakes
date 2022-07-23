@@ -36,6 +36,7 @@
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
+(fringe-mode '(10 . 10))
 (setq-default cursor-type 'bar
               blink-cursor-interval 0.7
               blink-cursor-blinks 8)

@@ -93,7 +93,7 @@
   (add-hook 'exwm-update-class-hook 'exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
 
-  (fringe-mode '(10 . 10))
+
 
   (setq exwm-workspace-number 4)
 
@@ -114,28 +114,14 @@
                                      ([?\C-x ?h] . ?\C-a)
                                      ;; search
                                      ([?\C-s] . ?\C-f)
-                                     ([?\C-x ?\C-s] . ?\C-s)
-                                     ;; deleted all movement
-                                     ;; ([?\C-b] . left)
-                                     ;; ([?\M-b] . C-left)
-                                     ;; ([?\C-f] . right)
-                                     ;; ([?\M-f] . C-right)
-                                     ;; ([?\C-p] . up)
-                                     ;; ([?\C-n] . down)
-                                     ;; ([?\C-a] . home)
-                                     ;; ([?\C-e] . end)
-                                     ;; ([?\M-v] . prior)
-                                     ;; ([?\C-v] . next)
-                                     ;; ([?\C-d] . delete)
-                                     ;; ([?\C-k] . (S-end delete))
-                                     )))
+                                     ([?\C-x ?\C-s] . ?\C-s))))
 (use-package desktop-environment
   :diminish
   :config
-  (define-key desktop-environment-mode-map (kbd "s-l") 'wm-lock-screen)
+  (define-key desktop-environment-mode-map (kbd "s-l") 'shu-exwm-lock-screen)
   (define-key desktop-environment-mode-map (kbd "S-<print>") nil)
-  (define-key desktop-environment-mode-map (kbd "<print>") 'wm-screenshot-area)
-  (define-key desktop-environment-mode-map (kbd "<XF86ScreenSaver>") 'wm-lock-screen)
+  (define-key desktop-environment-mode-map (kbd "<print>") 'shu-exwm-screenshot-area)
+  (define-key desktop-environment-mode-map (kbd "<XF86ScreenSaver>") 'shu-exwm-lock-screen)
   (setq desktop-environment-update-exwm-global-keys :prefix)
   (setq exwm-layout-show-all-buffers t)
   (desktop-environment-mode))
@@ -143,7 +129,6 @@
   "Init exwm without DE support."
   (progn
     (toggle-frame-fullscreen)
-    (start-process-shell-command "ibus" nil "ibus-daemon")
     (exwm-init)))
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.

@@ -59,6 +59,8 @@ let
   exwmSessionVariables = {
     EDITOR = "emacsclient";
     XMODIFIERS = "@im=ibus";
+    XRESOURCES = "/home/shu/.Xresources";
+    LC_CTYPE = "ja_JP.UTF-8";
     GTK_IM_MODULE = "ibus";
     QT_IM_MODULE = "ibus";
     CLUTTER_IM_MODULE = "ibus";
@@ -69,9 +71,14 @@ rec {
     enable = true;
     scriptPath = ".xsessions/exwm.xsession";
     profilePath = ".xsessions/exwm.xprofile";
-    initExtra = "emacs --daemon";
-    windowManager.command = "emacsclient -c -e '(init-exwm)'";
+    initExtra = ''
+      ibus-daemon -xrRd
+    '';
+    windowManager.command = "emacs --daemon; emacsclient -c -e '(init-exwm)'";
     importedVariables = lib.attrNames exwmSessionVariables;
+  };
+  xresources.properties = {
+    "Emacs*useXIM" = true;
   };
 
   # add the 2nd relevant xsession
