@@ -31,6 +31,7 @@
     filelight
     plasma5Packages.bismuth
   ];
+  programs.fish.enable = true;
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
   # Some defaults, override "basics.nix"
