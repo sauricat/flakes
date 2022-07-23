@@ -6,7 +6,8 @@
 (use-package vterm
   ;; :hook
   ;; (vterm-mode . (vterm--toggle-mouse t))
-  ;; :config
+  :config
+  (setq vterm-shell "/run/current-system/sw/bin/fish")
   ;; (setq vterm-shell "tmux new-session -t main")
   ;; (define-key vterm-mode-map (kbd "<wheel-up>") [mouse-4])
   ;; (define-key vterm-mode-map (kbd "<wheel-down>") [mouse-5])
@@ -24,18 +25,23 @@
   (sit-for 0.5)
   (rename-buffer (format "*%s@%s*"
                          (process-name vterm--process)
-                         (vterm--get-pwd))))
+                         (replace-regexp-in-string
+                          "\\(.*\\)/" "\\1"
+                          (replace-regexp-in-string
+                           ".*/\\([^/]*/[^/]*/[^/]*\\)/" ".../\\1/"
+                           (vterm--get-pwd))))))
 (defun shu-vterm-auto-rename ()
   "Rename vterm buffer with current directory info."
   (interactive)
-  (sit-for 0.1) ;; I don't know why it works. Or Emacs crashes.
-  (rename-buffer (format "*%s@%s*"
-                         (process-name vterm--process)
-                         (vterm--get-pwd))))
+  (unless (eq multi-vterm-dedicated-buffer (current-buffer))
+    (sit-for 0.1) ;; I don't know why it works. Or Emacs crashes.
+    (rename-buffer (format "*%s@%s*"
+                           (process-name vterm--process)
+                           (vterm--get-pwd)))))
 
 (define-key vterm-mode-map [return] 'shu-vterm-auto-rename-send-return)
-(defvar multi-vterm-buffer-name "vterm")
-(add-hook 'vterm-mode-hook 'shu-vterm-auto-rename)
+(setq multi-vterm-buffer-name "vterm")
+;; (add-hook 'vterm-mode-hook 'shu-vterm-auto-rename)
 
 (provide 'shu-term)
 ;;; shu-term.el ends here.
