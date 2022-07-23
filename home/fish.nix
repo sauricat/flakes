@@ -9,17 +9,17 @@ in
   programs.fish = {
     enable = true;
     shellAbbrs = {
-      # Pride commands 
+      # Pride commands
       l = "exa -Fabl"; ls = "exa -F"; lt = "exa -Fabls modified";
       g = "git";
       b = "bsdtar";
-      t = "trash"; 
+      t = "trash";
 
       # Other commands
       n = "nix"; nre = "nix repl '<nixpkgs>'"; nse = "nix search nixpkgs";
       ptree = "procs --tree";
       tree = "exa -TF";
-      
+
       # FIXME: abbrs cannot be sticked together
       s = "sudo";
       p = "proxychains4";
@@ -39,15 +39,18 @@ in
       f = "fd $argv /nix/store";
       rm = "echo 'Directly `rm` is disabled, use `trash` (or alias `t`) instead.'";
       rwhich = "which $argv | xargs realpath";
+      eman = ''
+        emacsclient -e "(man \"$argv\")"
+      '';
 
       # Prompt
       fish_greeting = "";
-      fish_prompt = lib.strings.removePrefix "function fish_prompt" 
+      fish_prompt = lib.strings.removePrefix "function fish_prompt"
         (lib.strings.removeSuffix "end\n" # stubborn, need further improvement
           (builtins.readFile ./fish/fish_prompt.fish));
     };
 
-    shellInit = myinit; 
+    shellInit = myinit;
   };
 
   programs.zoxide = { enable = true;
