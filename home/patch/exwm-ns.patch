@@ -1,0 +1,16 @@
+diff --git a/exwm-ns.el b/exwm-ns.el
+index 0118b80..920bf1b 100644
+--- a/exwm-ns.el
++++ b/exwm-ns.el
+@@ -34,8 +34,9 @@
+   `(dbus-register-method :session exwm-ns-dbus-service exwm-ns-dbus-path exwm-ns-dbus-interface ,method ,handler))
+ 
+ (defun exwm-ns-register-service ()
+-  (case (dbus-register-service :session exwm-ns-dbus-service)
+-    ((:primary-owner :already-owner) (message "D-Bus service org.freedesktop.Notifications registered."))
++  (pcase (dbus-register-service :session exwm-ns-dbus-service)
++    (:primary-owner (message "D-Bus service org.freedesktop.Notifications registered."))
++    (:already-owner (message "D-Bus service org.freedesktop.Notifications registered."))
+     (t (message "Could not register D-Bus service org.freedesktop.Notifications."))))
+ 
+ (defun exwm-ns-register-methods ()

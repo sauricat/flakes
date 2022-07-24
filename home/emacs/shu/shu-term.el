@@ -23,21 +23,14 @@
   (interactive)
   (vterm-send-return)
   (sit-for 0.5)
-  (rename-buffer (format "*%s@%s*"
-                         (process-name vterm--process)
-                         (replace-regexp-in-string
-                          "\\(.*\\)/" "\\1"
-                          (replace-regexp-in-string
-                           ".*/\\([^/]*/[^/]*/[^/]*\\)/" ".../\\1/"
-                           (vterm--get-pwd))))))
-(defun shu-vterm-auto-rename ()
-  "Rename vterm buffer with current directory info."
-  (interactive)
   (unless (eq multi-vterm-dedicated-buffer (current-buffer))
-    (sit-for 0.1) ;; I don't know why it works. Or Emacs crashes.
-    (rename-buffer (format "*%s@%s*"
-                           (process-name vterm--process)
-                           (vterm--get-pwd)))))
+     (rename-buffer (format "*%s@%s*"
+                            (process-name vterm--process)
+                            (replace-regexp-in-string
+                             "\\(.*\\)/" "\\1"
+                             (replace-regexp-in-string
+                              ".*/\\([^/]*/[^/]*/[^/]*\\)/" ".../\\1/"
+                              (vterm--get-pwd)))))))
 
 (define-key vterm-mode-map [return] 'shu-vterm-auto-rename-send-return)
 (setq multi-vterm-buffer-name "vterm")

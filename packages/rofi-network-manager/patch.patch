@@ -1,0 +1,11 @@
+--- a/rofi-network-manager.sh
++++ b/rofi-network-manager.sh
+@@ -16,7 +16,7 @@ WLAN_INT=0
+ 
+ function initialization() {
+ 	source "$DIR/rofi-network-manager.conf" || source "${XDG_CONFIG_HOME:-$HOME/.config}/rofi/rofi-network-manager.conf" || exit
+-	RASI_DIR="$DIR/rofi-network-manager.rasi" && [[ -f "$DIR/rofi-network-manager.rasi" ]] || RASI_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/rofi-network-manager.rasi" && [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/rofi/rofi-network-manager.rasi" ]] || exit
++	{ RASI_DIR="$DIR/rofi-network-manager.rasi" && [[ -f "$DIR/rofi-network-manager.rasi" ]]; } || { RASI_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rofi/rofi-network-manager.rasi" && [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/rofi/rofi-network-manager.rasi" ]]; } || exit
+ 	for i in "${WIRELESS_INTERFACES[@]}"; do
+ 		WIRELESS_INTERFACES_PRODUCT+=("$(nmcli -f general.product device show "$i" | awk '{print $2}')")
+ 	done

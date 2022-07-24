@@ -12,7 +12,7 @@ in
     maim xclip # for printing screen and copying it to clipboard
     gtk3 # for gtk-launch
     alsa-utils brightnessctl upower tlp playerctl # for epkgs.desktop-environment
-    i3lock-shu libnotify
+    i3lock-shu xss-lock xautolock libnotify
   ];
 
   # A simple launcher
@@ -42,20 +42,7 @@ in
     fadeDelta = 5;
   };
 
-  services.screen-locker = {
-    enable = true;
-    inactiveInterval = 5;
-    lockCmd = "${i3lock-shu}/bin/i3lock-shu";
-    xautolock = {
-      enable = true;
-      detectSleep = true;
-      extraOptions = [
-        "-notify 5"
-        "-notifier \"${pkgs.libnotify}/bin/notify-send 'Locking...'\""
-      ];
-    };
-  };
-
+  systemd.user.services.polybar = lib.mkOverride 10 { }; # let exwm start it.
   services.polybar =
     let
       colors = rec {
@@ -175,8 +162,8 @@ in
         [network-base]
         type = internal/network
         interval = 5
-        format-connected = <label-connected>
-        format-disconnected = <label-disconnected>
+        format-connected = %{A1:${pkgs.rofi-network-manager}/bin/rofi-network-manager:}<label-connected>%{A}
+        format-disconnected = %{A1:${pkgs.rofi-network-manager}/bin/rofi-network-manager:}<label-disconnected>%{A}
 
         [module/wlan]
         inherit = network-base

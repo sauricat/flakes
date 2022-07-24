@@ -33,6 +33,8 @@
     (define-key map (kbd "s-a") 'exwm-workspace-add)
     (define-key map (kbd "s-w") 'exwm-workspace-swap)
     (define-key map (kbd "s-k") 'kill-current-buffer)
+    (define-key map (kbd "s-K") (lambda () (interactive)
+                                  (kill-current-buffer)(delete-window)))
     (define-key map (kbd "s-<return>") 'multi-vterm)
     (define-key map (kbd "s-s") 'shu-exwm-d-launcher)
     (define-key map (kbd "<print>") 'shu-exwm-screenshot-area)
@@ -130,6 +132,9 @@
   (progn
     (toggle-frame-fullscreen)
     (exwm-init)
-    (exwm-ns-init)))
+    (exwm-ns-init)
+    (start-process-shell-command "polybar" nil "polybar")
+    (start-process-shell-command "xsslock" nil "xss-lock --transfer-sleep-lock -- i3lock-shu")
+    (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"notify-send 'Locking...'\"")))
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.

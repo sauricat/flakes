@@ -16,13 +16,13 @@ for screen in "${screens[@]}"; do
             -gravity NorthWest -geometry +${screen#*+} -composite \
             -quality 11 png24:"$picresized"
 done
-exec i3lock-color --indicator --force-clock -i "$picresized"\
+exec i3lock-color -i "$picresized"\
      --pass-{media,volume,power,screen}-keys\
      --line-color=ffffff00 --separator-color=ffffff22\
-     --{time,date,verif,wrong,modif,greeter}-color=ffffffcc\
-     --ring-color=902ce0cc --{ringver,keyhl}-color=397effcc --{ringwrong,bshl}-color=ff2f37cc\
-     --inside-color=000000cc --insidever-color=000000cc --insidewrong-color=000000cc\
-     --date-str= --time-str="%F %H:%M"\
+     --{time,date,verif,wrong,modif,greeter,ring}-color=ffffffcc\
+     --{ringwrong,bshl}-color=ff397ecc --{ringver,keyhl}-color=39ff37cc\
+     --inside{,ver,wrong}-color=001534c7 --radius=9 --ring-width=2.0\
+     --date-str= --time-str="%F %H:%M" --force-clock\
      --{verif,wrong,lock,lockfailed,noinput,greeter}-text= --no-modkey-text\
-     --ind-pos="x+w/2:y+h/2" --time-pos="ix:iy+10"\
-     --{verif,wrong,greeter}-size=20 --time-size=16
+     --ind-pos="x+w-228:y+h-32"  --time-pos="x+w-24:y+h-24" --time-align=2\
+     --{verif,wrong,greeter}-size=20 --time-size=24

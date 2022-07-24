@@ -17,41 +17,40 @@ let
       alwaysEnsure = true;
       package = emacsPackage;
       extraEmacsPackages = epkgs: [ ];
-      override = epkgs: epkgs // (
-        let
-          vterm-mouse-support = epkgs.melpaPackages.vterm.overrideAttrs (old: {
-            patches = (old.patches or [ ])
-                      ++ [ ./patch/vterm-mouse-support.patch ];
-          });
-        in {
-          tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
-            # Install all tree sitter grammars available from nixpkgs
-            (grammars: builtins.filter lib.isDerivation (lib.attrValues (grammars // {
-              tree-sitter-nix = grammars.tree-sitter-nix.overrideAttrs (old: {
-                version = "fixed";
-                src = inputs.tree-sitter-nix-oxa;
-              });
-            })));
-          vterm = vterm-mouse-support;
-          multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
-            buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];
-            propagatedBuildInputs = lib.singleton vterm-mouse-support;
-            propagatedUserEnvPkgs = lib.singleton vterm-mouse-support;
-          });
-          toggle-one-window = epkgs.trivialBuild rec {
-            pname = "toggle-one-window";
-            ename = pname;
-            version = "git";
-            src = inputs.epkgs-toggle-one-window;
-          };
-          exwm-ns = epkgs.trivialBuild rec {
-            pname = "exwm-ns";
-            ename = pname;
-            version = "git";
-            src = inputs.epkgs-exwm-ns;
-            patches = [ ./patch/exwm-ns.patch ];
-          };
+      override = epkgs: epkgs // (let
+        vterm-mouse-support = epkgs.melpaPackages.vterm.overrideAttrs (old: {
+          patches = (old.patches or [ ])
+                    ++ [ ./patch/vterm-mouse-support.patch ];
         });
+      in {
+        tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
+          # Install all tree sitter grammars available from nixpkgs
+          (grammars: builtins.filter lib.isDerivation (lib.attrValues (grammars // {
+            tree-sitter-nix = grammars.tree-sitter-nix.overrideAttrs (old: {
+              version = "fixed";
+              src = inputs.tree-sitter-nix-oxa;
+            });
+          })));
+        vterm = vterm-mouse-support;
+        multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
+          buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];
+          propagatedBuildInputs = lib.singleton vterm-mouse-support;
+          propagatedUserEnvPkgs = lib.singleton vterm-mouse-support;
+        });
+        toggle-one-window = epkgs.trivialBuild rec {
+          pname = "toggle-one-window";
+          ename = pname;
+          version = "git";
+          src = inputs.epkgs-toggle-one-window;
+        };
+        exwm-ns = epkgs.trivialBuild rec {
+          pname = "exwm-ns";
+          ename = pname;
+          version = "git";
+          src = inputs.epkgs-exwm-ns;
+          patches = [ ./patch/exwm-ns.patch ];
+        };
+      });
     };
   lspPackages = with pkgs; [
     rust-analyzer
