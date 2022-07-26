@@ -65,7 +65,6 @@ let
   exwmSessionVariables = {
     EDITOR = "emacsclient";
     XMODIFIERS = "@im=ibus";
-    XRESOURCES = "/home/shu/.Xresources";
     LC_CTYPE = "ja_JP.UTF-8";
     GTK_IM_MODULE = "ibus";
     QT_IM_MODULE = "ibus";
