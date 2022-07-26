@@ -34,6 +34,8 @@
 (global-set-key (kbd "C-M-z") 'linum-mode)
 (global-set-key (kbd "C-M-/") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
+(define-key global-map (kbd "<mouse-8>") (kbd "M-w"))
+(define-key global-map (kbd "<mouse-9>") (kbd "C-y"))
 (xterm-mouse-mode t) ;; use mouse in -nw mode
 (tool-bar-mode 0) (menu-bar-mode 0) (scroll-bar-mode 0)
 (fringe-mode '(10 . 10))
@@ -48,7 +50,7 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 ;; (desktop-save-mode 1) ;; auto save window
 (setq inhibit-splash-screen t ;; hide welcome screen
-      mouse-drag-copy-region 1)
+      mouse-drag-copy-region nil)
 (setq-default indent-tabs-mode -1)
 (setq backward-delete-char-untabify-method nil)
 (define-minor-mode show-trailing-whitespace-mode "Show trailing whitespace."

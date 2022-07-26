@@ -112,6 +112,8 @@
   (setq exwm-input-simulation-keys '(([?\C-w] . ?\C-x)
                                      ([?\M-w] . ?\C-c)
                                      ([?\C-y] . ?\C-v)
+                                     ([mouse-8] . ?\C-c)
+                                     ([mouse-9] . ?\C-v)
                                      ([?\C-x ?h] . ?\C-a)
                                      ;; search
                                      ([?\C-s] . ?\C-f)
