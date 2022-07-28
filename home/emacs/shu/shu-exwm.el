@@ -133,8 +133,8 @@
   (setq exwm-manage-configurations
         '(((string= exwm-class-name "firefox") workspace 1)
           ((string= exwm-class-name "thunderbird") workspace 2)
-          ((string= exwm-class-name "TelegramDesktop") floating t border-width 5)
-          ((string= exwm-class-name "Element") floating t border-width 5)
+          ;; ((string= exwm-class-name "TelegramDesktop") floating t border-width 5)
+          ;; ((string= exwm-class-name "Element") floating t border-width 5)
           ((string= exwm-class-name "Qemu-kvm") char-mode t))))
 
 (use-package exwm-ns)
