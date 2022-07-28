@@ -107,6 +107,7 @@
         system = "x86_64-linux";
         extraModules = [ nixos-hardware.nixosModules.dell-xps-13-7390 ];
         extraLocalModules = [ "localisation"
+                              "kde"
                               "bluetooth"
                               "multitouch"
                               "network"
@@ -138,7 +139,8 @@
         host = "livecd";
         system = "x86_64-linux";
         extraLocalModules = [ "localisation"
-                              "network" ];
+                              "kde"
+                              "network" ]; # FIXME delete redundant things
       }
     ];
   };

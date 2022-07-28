@@ -26,10 +26,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    firefox plasma-browser-integration
+    firefox
     ark
     filelight
-    plasma5Packages.bismuth
   ];
   programs.fish.enable = true;
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
@@ -72,31 +71,20 @@
     hiddenUsers = [ "oxa" ];
     defaultSession = "none+exwm";
   };
-  services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.windowManager.session = [
-    {
-      name = "exwm";
-      start = pkgs.writeShellScript "start-exwm" ''
-        if [[ -f $HOME/.xsessions/exwm.xsession ]]
-        then
-          exec ${pkgs.runtimeShell} -c $HOME/.xsessions/exwm.xsession
-        else
-          exit 1
-        fi
-      '';
-    }
-    {
-      name = "exwm-plasma";
-      start = pkgs.writeShellScript "start-exwm-plasma" ''
-        if [[ -f $HOME/.xsessions/exwm-plasma.xsession ]]
-        then
-          exec ${pkgs.runtimeShell} -c $HOME/.xsessions/exwm-plasma.xsession
-        else
-          exit 1
-        fi
-      '';
-    }
-  ];
+
+  services.xserver.windowManager.session = lib.singleton {
+    name = "exwm";
+    start = pkgs.writeShellScript "start-exwm" ''
+      if [[ -f $HOME/.xsessions/exwm.xsession ]]
+      then
+        exec ${pkgs.runtimeShell} -c $HOME/.xsessions/exwm.xsession
+      else
+        exit 1
+      fi
+    '';
+  };
+
+  xdg.portal.enable = true;
 
   # Configure keymap in X11.
   services.xserver.layout = "us";
