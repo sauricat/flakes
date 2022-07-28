@@ -138,7 +138,7 @@
       } {
         host = "livecd";
         system = "x86_64-linux";
-        extraLocalModules = [ "localisation"
+        extraLocalModules = [ "internationalisation"
                               "kde"
                               "network" ]; # FIXME delete redundant things
       }
