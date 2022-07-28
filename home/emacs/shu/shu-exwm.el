@@ -162,10 +162,11 @@
     (start-process-shell-command "polybar" nil "polybar")
     (start-process-shell-command "xsslock" nil "xss-lock --transfer-sleep-lock -- i3lock-shu")
     (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"notify-send 'Locking...'\"")
-    (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
+    ;; (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
     (exwm-workspace-switch 0)
-    (generate-new-buffer "Background Image")
-    (shu-toggle-frame-transparency)))
+    ;; (generate-new-buffer "Background Image")
+    ;; (shu-toggle-frame-transparency)
+    ))
 
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.
