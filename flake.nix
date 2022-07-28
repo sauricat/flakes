@@ -32,6 +32,9 @@
                 flake = false; };
     tree-sitter-nix-oxa = { url = "github:oxalica/tree-sitter-nix";
                             flake = false; };
+
+    epkgs-ligature = { url = "github:mickeynp/ligature.el";
+                       flake = false; };
     epkgs-toggle-one-window = { url = "github:manateelazycat/toggle-one-window";
                                 flake = false; };
     epkgs-exwm-ns = { url = "github:timor/exwm-ns";

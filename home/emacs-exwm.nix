@@ -50,6 +50,12 @@ let
           src = inputs.epkgs-exwm-ns;
           patches = [ ./patch/exwm-ns.patch ];
         };
+        ligature = epkgs.trivialBuild rec {
+          pname = "ligature";
+          ename = pname;
+          version = "git";
+          src = inputs.epkgs-ligature;
+        };
       });
     };
   lspPackages = with pkgs; [
