@@ -43,36 +43,33 @@
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }: let
     makeMyConfigurations = conflist: builtins.foldl' (a: b: a // b) { } (builtins.map
-      ({ host, system, extraModules? [ ], enableUser? false, enableHomeManager? false }: {
-        ${host} = nixpkgs.lib.nixosSystem rec {
+      ({ host, system, extraModules? [ ], extraLocalModules? [ ], enableUser? false, enableHomeManager? false }: {
+        ${host} = let
+          basicModules = [ self.nixosModules.bigcat
+                           ./hosts/${host}.nix
+                           ./basics.nix
+                           ./cache/cachix.nix
+                           { networking.hostName = host; } ];
+        in nixpkgs.lib.nixosSystem rec {
           inherit system;
           specialArgs = { inherit inputs system; };
-          modules = extraModules ++ [
-            self.nixosModules.bigcat
-            ./hosts/${host}.nix
-            ./basics.nix
-            ./cache/cachix.nix
-            { networking.hostName = host; }
-          ] ++ (if enableHomeManager
-                then [ home-manager.nixosModules.home-manager
-                       {
-                         home-manager.extraSpecialArgs = specialArgs;
-                         home-manager.useGlobalPkgs = true;
-                         home-manager.useUserPackages = true;
-                         home-manager.users.shu = import ./home/home.nix;
-                         home-manager.users.oxa = {
-                           imports = [ (inputs.oxalica + "/home/modules/shell") ];
-                           xdg.stateHome = "/home/oxa";
-                           home.stateVersion = "21.05"; };
-                       }
-                     ]
-                else [ ])
-            ++ (if enableUser
-                then [ ./user.nix ]
-                else [ ]);
+          modules = basicModules
+                    ++ extraModules
+                    ++ builtins.map (name: ./local-modules/${name}.nix) extraLocalModules
+                    ++ (if enableHomeManager then [ home-manager.nixosModules.home-manager
+                                                    { home-manager.extraSpecialArgs = specialArgs;
+                                                      home-manager.useGlobalPkgs = true;
+                                                      home-manager.useUserPackages = true;
+                                                      home-manager.users.shu = import ./home/home.nix;
+                                                      home-manager.users.oxa = {
+                                                        imports = [ (inputs.oxalica + "/home/modules/shell") ];
+                                                        xdg.stateHome = "/home/oxa";
+                                                        home.stateVersion = "21.05"; }; } ]
+                                             else [ ])
+                    ++ (if enableUser then [ ./user.nix ]
+                                      else [ ]);
         };
       }) conflist);
-    nixosPrivate = builtins.map (name: ./services/${name}.nix);
   in flake-utils.lib.eachDefaultSystem (system: {
     legacyPackages = import nixpkgs {
       inherit system;
@@ -108,29 +105,24 @@
       {
         host = "dlpt";
         system = "x86_64-linux";
-        extraModules = nixosPrivate [
-          "localisation"
-          "bluetooth"
-          "multitouch"
-          "network"
-          "virtualisation"
-          "nix"
-          "console-l10n"
-          "guix"
-          "laptop-sleep"
-          "steam"
-        ] ++ [
-          nixos-hardware.nixosModules.dell-xps-13-7390
-        ];
+        extraModules = [ nixos-hardware.nixosModules.dell-xps-13-7390 ];
+        extraLocalModules = [ "localisation"
+                              "bluetooth"
+                              "multitouch"
+                              "network"
+                              "virtualisation"
+                              "nix"
+                              "console-l10n"
+                              "guix"
+                              "laptop-sleep"
+                              "steam" ];
         enableUser = true;
         enableHomeManager = true;
       } {
         host = "livecd";
         system = "x86_64-linux";
-        extraModules = nixosPrivate [
-          "localisation"
-          "network"
-        ];
+        extraLocalModules = [ "localisation"
+                              "network" ];
       }
     ];
   };
