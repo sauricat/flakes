@@ -14,7 +14,7 @@
   ];
 
   programs.command-not-found.enable = lib.mkDefault false;
-  
+
   # programs.gnupg.agent = {
   #   enable = true;
   #   pinentryFlavor = lib.mkDefault "tty";
