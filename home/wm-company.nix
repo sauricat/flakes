@@ -13,6 +13,7 @@ in
     gtk3 # for gtk-launch
     alsa-utils brightnessctl upower tlp playerctl # for epkgs.desktop-environment
     i3lock-shu xss-lock xautolock libnotify
+    feh
   ];
 
   # A simple launcher

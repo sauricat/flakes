@@ -3,24 +3,37 @@
 "Configuration of exwm."
 ;;; Code:
 
+(setq frame-alpha-lower-limit 0)
+(add-to-list 'default-frame-alist `(alpha . (100, 100)))
+(defun shu-toggle-frame-transparency ()
+  "Toggle frame transparency."
+  (interactive)
+  (if (< (car (frame-parameter (selected-frame) 'alpha)) 50)
+      (set-frame-parameter (selected-frame) 'alpha '(100 100))
+    (set-frame-parameter (selected-frame) 'alpha '(0 0))))
+
 (defun shu-exwm-start-process-gui-command (cmd)
   "A temporary solution when `start-process-shell-command' doesn't work for X apps (marked as CMD)."
   (progn (multi-vterm-dedicated-open) ;; temporary solution
          (message cmd)
          (vterm-send-string (format "%s\n" cmd))
          (multi-vterm-dedicated-close)))
+
 (defun shu-exwm-lock-screen ()
   "Lock screen."
   (interactive)
   (shu-exwm-start-process-gui-command "i3lock-shu"))
+
 (defun shu-exwm-screenshot ()
   "Take a screenshot."
   (interactive)
   (shu-exwm-start-process-gui-command "set a ~/Pictures/Screenshots/$(date +%s).png; maim $a; xclip -selection clipboard $a -t image/png"))
+
 (defun shu-exwm-screenshot-area ()
   "Take a screenshot of a mouse selected area."
   (interactive)
   (shu-exwm-start-process-gui-command "set a ~/Pictures/Screenshots/$(date +%s).png; maim -s $a; xclip -selection clipboard $a -t image/png"))
+
 (defun shu-exwm-d-launcher ()
   "Open rofi desktop app launcher."
   (interactive)
@@ -28,6 +41,7 @@
 
 (defvar shu-exwm-keymap
   (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "s-`") 'shu-toggle-frame-transparency)
     (define-key map (kbd "s-r") 'exwm-reset) ;; reset to line mode
     (define-key map (kbd "s-d") 'exwm-workspace-delete)
     (define-key map (kbd "s-a") 'exwm-workspace-add)
@@ -94,8 +108,6 @@
   (add-hook 'exwm-update-class-hook 'exwm-rename-buffer)
   (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
 
-
-
   (setq exwm-workspace-number 4)
 
   (mapcar (lambda (item)
@@ -108,7 +120,7 @@
   (push ?\C-q exwm-input-prefix-keys)
   (define-key exwm-mode-map [?\C-q] #'exwm-input-send-next-key)
 
-  ;; simulation keys are keys that exwm will send to the exwm buffer upon inputting a key combination
+  ;; simulation kkeys are keys that exwm will send to the exwm buffer upon inputting a key combination
   (setq exwm-input-simulation-keys '(([?\C-w] . ?\C-x)
                                      ([?\M-w] . ?\C-c)
                                      ([?\C-y] . ?\C-v)
@@ -117,8 +129,16 @@
                                      ([?\C-x ?h] . ?\C-a)
                                      ;; search
                                      ([?\C-s] . ?\C-f)
-                                     ([?\C-x ?\C-s] . ?\C-s))))
+                                     ([?\C-x ?\C-s] . ?\C-s)))
+  (setq exwm-manage-configurations
+        '(((string= exwm-class-name "firefox") workspace 1)
+          ((string= exwm-class-name "thunderbird") workspace 2)
+          ((string= exwm-class-name "TelegramDesktop") floating t border-width 5)
+          ((string= exwm-class-name "Element") floating t border-width 5)
+          ((string= exwm-class-name "Qemu-kvm") char-mode t))))
+
 (use-package exwm-ns)
+
 (use-package desktop-environment
   :diminish
   :config
@@ -129,14 +149,23 @@
   (setq desktop-environment-update-exwm-global-keys :prefix)
   (setq exwm-layout-show-all-buffers t)
   (desktop-environment-mode))
+
 (defun init-exwm ()
   "Init exwm without DE support."
   (progn
+    ;; (add-to-list 'default-frame-alist `(alpha . (90, 90)))
     (toggle-frame-fullscreen)
     (exwm-init)
     (exwm-ns-init)
+    (start-process-shell-command "firefox" nil "firefox")
+    (start-process-shell-command "thunderbird" nil "thunderbird")
     (start-process-shell-command "polybar" nil "polybar")
     (start-process-shell-command "xsslock" nil "xss-lock --transfer-sleep-lock -- i3lock-shu")
-    (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"notify-send 'Locking...'\"")))
+    (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"notify-send 'Locking...'\"")
+    (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
+    (exwm-workspace-switch 0)
+    (generate-new-buffer "Background Image")
+    (shu-toggle-frame-transparency)))
+
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.
