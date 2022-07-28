@@ -66,7 +66,9 @@ fi
 # 1. LiveCD
 if [[ "$flag" == "b" || "$flag" == "B" ]]
 then
-    exec nix build path:.#nixosConfigurations.livecd.config.system.build.isoImage
+    rsync -rL --delete ~/clash-configuration ./clash-configuration-temp
+    nix build path:.\#nixosConfigurations.livecd.config.system.build.isoImage
+    exec rm -rf ./clash-configuration-temp
 fi
 
 
