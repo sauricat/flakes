@@ -13,7 +13,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    neofetch firefox
+    neofetch
+    firefox
+    emacs # a basic version of emacs
   ];
 
   system.stateVersion = "21.11";
