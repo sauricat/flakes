@@ -17,7 +17,7 @@
     man-pages tealdeer neofetch hyfetch kdeconnect
 
     # internet:
-    tdesktop aria2 element-desktop
+    tdesktop aria2 element-desktop thunderbird
     vlc syncplay obs-studio
 
     # work:
