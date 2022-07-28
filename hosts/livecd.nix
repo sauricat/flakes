@@ -4,7 +4,10 @@
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-graphical-plasma5.nix")
   ];
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_5_18;
+  boot.kernelPackages = pkgs.linuxPackages_testing;
+  # Since there are rc kernel packages, we need to disable zfs support.
+  boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
+
   isoImage = {
     isoBaseName = "livecd";
     volumeID = "LIVECD";
