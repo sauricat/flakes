@@ -79,7 +79,10 @@ rec {
     initExtra = ''
       ibus-daemon -xrRd
     '';
-    windowManager.command = "emacs --daemon; emacsclient -c -e '(init-exwm)'";
+    windowManager.command = ''
+      emacs --daemon
+      emacsclient -c -e '(init-exwm)'
+    '';
     importedVariables = lib.attrNames exwmSessionVariables;
   };
   xresources.properties = {
