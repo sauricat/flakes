@@ -67,6 +67,8 @@
   # Fix cannot sleep issue.
   systemd.sleep.extraConfig = "SuspendState=freeze";
 
+  powerManagement.resumeCommands = "${pkgs.msr-tools}/bin/wrmsr -a 0x19a 0x0";
+
   environment.systemPackages = [ pkgs.throttled ];
 
   console.font = "${pkgs.terminus_font}/share/consolefonts/ter-v28n.psf.gz";
