@@ -18,9 +18,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.asusctl ];
+
     systemd.services.asusd = {
       description = "ASUS Notebook Control";
-      before = [ "multi-user.target" ];
+      wantedBy = [ "multi-user.target" ];
       startLimitIntervalSec = 200;
       startLimitBurst = 2;
       environment."IS_SERVICE" = "1";
