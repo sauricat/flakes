@@ -16,7 +16,7 @@ let
                                            (builtins.readDir fromDir)));
   mkHomeFile = fromDir: toDir:
     lib.mapAttrs'
-      (name: value: lib.nameValuePair name ({ source = value; }))
+      (name: value: lib.nameValuePair name ({ source = lib.mkDefault value; }))
       (copyDirRecursively fromDir toDir);
 in
 {

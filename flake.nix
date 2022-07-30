@@ -52,7 +52,7 @@
                            { networking.hostName = host; } ];
         in nixpkgs.lib.nixosSystem rec {
           inherit system;
-          specialArgs = { inherit inputs system; };
+          specialArgs = { inherit inputs system host; };
           modules = basicModules
                     ++ extraModules
                     ++ builtins.map (name: ./local-modules/${name}.nix) extraLocalModules

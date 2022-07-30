@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, lib, ... }:
+{ inputs, pkgs, config, lib, host, ... }:
 let
   emacsPackage = pkgs.emacsGitNativeComp;
   emacsPackageWithPkgs =
@@ -81,6 +81,38 @@ let
     name = "Bibata-Modern-Ice";
     size = 24;
   };
+  exwmExtraKeymap = {
+    iwkr = ''
+      (define-key map (kbd "<XF86KbdBrightnessUp>")
+                  (lambda () (interactive)
+                    (start-process-shell-command "ledup" nil "asusctl --next-kbd-bright")))
+      (define-key map (kbd "<XF86KbdBrightnessDown>")
+                  (lambda () (interactive)
+                    (start-process-shell-command "leddown" nil "asusctl --prev-kbd-bright")))
+      (define-key map (kbd "<XF86Launch1>") (kbd "<print>"))
+      (define-key map (kbd "s-S") (kbd "<print>"))
+      (define-key map (kbd "<XF86Launch3>")
+                  (lambda (number)
+                    (interactive (list (read-from-minibuffer "Set your battery charge limit <20-100>: ")))
+                    (let ((command (concat "asusctl --chg-limit " number)))
+                      (start-process-shell-command command nil command))))
+      (define-key map (kbd "<XF86Launch4>")
+                  (lambda () (interactive)
+                    (shell-command "asusctl profile --next")
+                    (minibuffer-message
+                     (string-replace "\n" "" (eshell-command-result "asusctl profile --profile-get")))))
+      (define-key map (kbd "s-q")
+        (lambda (command)
+          (interactive (list (read-shell-command "$ ")))
+          (start-process-shell-command command nil command)))
+    '';
+    dlpt = ''
+      (define-key map (kbd "s-S")
+        (lambda (command)
+          (interactive (list (read-shell-command "$ ")))
+          (start-process-shell-command command nil command)))
+    '';
+  };
 in
 rec {
   xsession = {
@@ -146,4 +178,9 @@ rec {
     x11.enable = true;
   } // cursorTheme;
 
+  # override mapping.nix
+  home.file.".emacs.d/shu/shu-exwm.el".source = pkgs.writeText "shu-exwm.el"
+    (builtins.replaceStrings (lib.singleton " map);MARK")
+      (lib.singleton (exwmExtraKeymap.${host} or "" + " map);MARK"))
+      (builtins.readFile ./emacs/shu/shu-exwm.el));
 }

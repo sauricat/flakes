@@ -3,15 +3,6 @@
 "Configuration of exwm."
 ;;; Code:
 
-(setq frame-alpha-lower-limit 0)
-(add-to-list 'default-frame-alist `(alpha . (100, 100)))
-(defun shu-toggle-frame-transparency ()
-  "Toggle frame transparency."
-  (interactive)
-  (if (< (car (frame-parameter (selected-frame) 'alpha)) 50)
-      (set-frame-parameter (selected-frame) 'alpha '(100 100))
-    (set-frame-parameter (selected-frame) 'alpha '(0 0))))
-
 (defun shu-exwm-start-process-gui-command (cmd)
   "A temporary solution when `start-process-shell-command' doesn't work for X apps (marked as CMD)."
   (progn (multi-vterm-dedicated-open) ;; temporary solution
@@ -90,11 +81,7 @@
                              (interactive)
                              (exwm-workspace-move-window ,(- i 1))
                              (exwm-workspace-switch ,(- i 1)))))
-    (define-key map (kbd "s-S")
-                        (lambda (command)
-                          (interactive (list (read-shell-command "$ ")))
-                          (start-process-shell-command command nil command)))
-    map)
+    map);MARK ;; see ../../emacs-exwm.nix
   "Keymap for shu's exwm shortkeys.")
 
 (use-package exwm
@@ -133,8 +120,9 @@
   (setq exwm-manage-configurations
         '(((string= exwm-class-name "firefox") workspace 1)
           ((string= exwm-class-name "thunderbird") workspace 2)
-          ;; ((string= exwm-class-name "TelegramDesktop") floating t border-width 5)
-          ;; ((string= exwm-class-name "Element") floating t border-width 5)
+          ((string= exwm-class-name "TelegramDesktop") floating t border-width 5)
+          ((string= exwm-class-name "Element") floating t border-width 5)
+          ((string= exwm-class-name ".blueman-manager-wrapped") floating t border-width 5)
           ((string= exwm-class-name "Qemu-kvm") char-mode t))))
 
 (use-package exwm-ns)
@@ -162,11 +150,9 @@
     (start-process-shell-command "polybar" nil "polybar")
     (start-process-shell-command "xsslock" nil "xss-lock --transfer-sleep-lock -- i3lock-shu")
     (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"notify-send 'Locking...'\"")
+    (start-process-shell-command "blueman" nil "blueman-applet")
     ;; (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
-    (exwm-workspace-switch 0)
-    ;; (generate-new-buffer "Background Image")
-    ;; (shu-toggle-frame-transparency)
-    ))
+    (exwm-workspace-switch 0)))
 
 (provide 'shu-exwm)
 ;;; shu-exwm.el ends here.
