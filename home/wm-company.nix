@@ -2,10 +2,19 @@
 let
   i3lock-shu = pkgs.writeShellApplication {
     name = "i3lock-shu";
-    runtimeInputs = with pkgs; [ gnugrep imagemagick xorg.xrandr i3lock-color ];
+    runtimeInputs = with pkgs;
+      [ procps gnugrep imagemagick xorg.xrandr i3lock-color onboard ];
     text = builtins.readFile ./shell/i3lock-shu.sh;
     checkPhase = ""; # Don't do check.
   };
+  onboard-toggle = pkgs.writeShellScript "onboard-toggle" ''
+    if [[ -n $(${pkgs.procps}/bin/pgrep onboard) ]]
+    then
+      ${pkgs.procps}/bin/pkill onboard
+    else
+      ${pkgs.onboard}/bin/onboard &
+    fi
+  '';
 in
 {
   home.packages = with pkgs; [
@@ -14,6 +23,7 @@ in
     alsa-utils brightnessctl upower tlp playerctl # for epkgs.desktop-environment
     i3lock-shu xss-lock xautolock libnotify
     feh
+    onboard # touchscreen support
   ];
 
   # A simple launcher
@@ -87,7 +97,7 @@ in
         font-0 = monospace:size=14;1
         font-1 = Noto Color Emoji:scale=10x;2
 
-        modules-left = xworkspaces
+        modules-left = xworkspaces screen-keyboard
         modules-center = date
         modules-right = memory cpu wlan eth pulseaudio battery
 
@@ -202,6 +212,10 @@ in
 
         label = %date%
         label-foreground = ${colors.primary}
+
+        [module/screen-keyboard]
+        type = custom/text
+        content = %{A1:${onboard-toggle}:}%{F${colors.primary}}Scr Kbd%{F-}%{A}
 
         [settings]
         screenchange-reload = true
