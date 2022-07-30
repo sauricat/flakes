@@ -153,7 +153,7 @@
                               "nix"
                               "console-l10n"
                               # "guix"
-                              "laptop-sleep"
+                              "laptop-poweroff" # temporary solution
                               "steam" ];
         enableUser = true;
         enableHomeManager = true;
