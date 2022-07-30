@@ -18,23 +18,22 @@
       hash = "sha256-tZ0vK4djzDWl931O3vFvRt8ztlMoHr2Hvg8vE5hIBEs=";
     };
   in
-    map (name: { inherit name; patch = "${repo}/${name}"; }) [
-      "sys-kernel_arch-sources-g14_files-0004-5.15+--more-uarches-for-kernel.patch"
-      # "sys-kernel_arch-sources-g14_files-0005-lru-multi-generational.patch"
-      "sys-kernel_arch-sources-g14_files-0043-ALSA-hda-realtek-Fix-speakers-not-working-on-Asus-Fl.patch"
-      "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
-      "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
-      "sys-kernel_arch-sources-g14_files-0049-ALSA-hda-realtek-Add-quirk-for-ASUS-M16-GU603H.patch"
-      "sys-kernel_arch-sources-g14_files-0050-asus-flow-x13-support_sw_tablet_mode.patch"
-      "sys-kernel_arch-sources-g14_files-8017-add_imc_networks_pid_0x3568.patch"
-      "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
-      "sys-kernel_arch-sources-g14_files-9001-v5.16.11-s0ix-patch-2022-02-23.patch"
-      "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
-      "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
-      "sys-kernel_arch-sources-g14_files-9006-amd-c3-entry.patch"
-      "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
-      "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch"
-    ];
+    map (name: { inherit name; patch = "${repo}/${name}"; })
+      [ "sys-kernel_arch-sources-g14_files-0004-5.15+--more-uarches-for-kernel.patch"
+        # "sys-kernel_arch-sources-g14_files-0005-lru-multi-generational.patch"
+        "sys-kernel_arch-sources-g14_files-0043-ALSA-hda-realtek-Fix-speakers-not-working-on-Asus-Fl.patch"
+        "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
+        "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
+        "sys-kernel_arch-sources-g14_files-0049-ALSA-hda-realtek-Add-quirk-for-ASUS-M16-GU603H.patch"
+        "sys-kernel_arch-sources-g14_files-0050-asus-flow-x13-support_sw_tablet_mode.patch"
+        "sys-kernel_arch-sources-g14_files-8017-add_imc_networks_pid_0x3568.patch"
+        "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
+        "sys-kernel_arch-sources-g14_files-9001-v5.16.11-s0ix-patch-2022-02-23.patch"
+        "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
+        "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
+        "sys-kernel_arch-sources-g14_files-9006-amd-c3-entry.patch"
+        "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
+        "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/2e8935cb-c1e6-4c77-b183-96d46b7978d0";
@@ -59,6 +58,8 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  powerManagement.enable = true;
   powerManagement.cpuFreqGovernor = "ondemand";
 
   # Use the systemd-boot EFI boot loader.
@@ -70,12 +71,21 @@
     efiInstallAsRemovable = true;
     device = "nodev"; # "nodev" for efi only
     theme = pkgs.nixos-grub2-theme;
+    extraFiles."acpi_override" = ./iwkr/acpi_override;
   };
   boot.loader.efi.efiSysMountPoint = "/boot";
 
   services.xserver.dpi = 140;
 
   services.asusd.enable = true;
+  services.fwupd.enable = true;
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
+  boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  systemd.sleep.extraConfig = "SuspendState=mem";
 
   # Don't change this version.
   system.stateVersion = "21.11";
