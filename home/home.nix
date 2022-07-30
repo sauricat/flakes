@@ -50,6 +50,10 @@
     enable = true;
     pinentryFlavor = "curses";
   };
+  programs.password-store = {
+    enable = true;
+    package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
+  };
 
   home.stateVersion = "21.11";
 }
