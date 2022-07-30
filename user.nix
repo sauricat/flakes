@@ -21,5 +21,4 @@
       ];
     };
   };
-  security.pam.services.shu.enableKwallet = true;
 }
