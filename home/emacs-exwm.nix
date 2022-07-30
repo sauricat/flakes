@@ -76,6 +76,11 @@ let
     QT_IM_MODULE = "ibus";
     CLUTTER_IM_MODULE = "ibus";
   };
+  cursorTheme = {
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 24;
+  };
 in
 rec {
   xsession = {
@@ -111,4 +116,34 @@ rec {
   home.packages = lib.singleton emacsPackageWithPkgs
                   ++ lspPackages
                   ++ [ pkgs.zoxide pkgs.fzf ];
+
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita";
+    };
+    iconTheme.name = "Adwaita";
+    inherit cursorTheme;
+    font = {
+      name = "sans-serif";
+      size = 10;
+    };
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style = {
+      package = pkgs.adwaita-qt;
+      name = "adwaita";
+    };
+  };
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    x11.enable = true;
+  } // cursorTheme;
+
 }
