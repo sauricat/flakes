@@ -78,18 +78,39 @@
     };
   }) // {
     overlays = {
-      sauricat = self: super:
-        let dirContents = builtins.readDir ./packages;
-            genPackage = name: {
-              inherit name;
-              value = self.callPackage (./packages + "/${name}") { }; };
-            names = builtins.attrNames dirContents;
-        in builtins.listToAttrs (map genPackage names);
+      # My packages.
+      sauricat = self: super: let
+        dirContents = builtins.readDir ./packages;
+        genPackage = name: {
+          inherit name;
+          value = self.callPackage (./packages + "/${name}") { }; };
+        names = builtins.attrNames dirContents;
+      in builtins.listToAttrs (map genPackage names);
+
+      # My inputs.
       nur = inputs.nur.overlay;
       emacs-overlay = inputs.emacs-overlay.overlay;
       nixos-cn = inputs.nixos-cn.overlay;
       rust-overlay = inputs.rust-overlay.overlays.default;
       berberman = inputs.berberman.overlay;
+
+      # Many sddm themes requires lib qt-graphical-effects, while the sddm module in nixpkgs does not provide such an
+      # option. Therefore I have to override sddm package myself.
+      sddm-enable-themes = self: super: {
+        sddm = super.sddm.overrideAttrs (old: {
+          buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
+        });
+        libsForQt5 = super.libsForQt5 // {
+          sddm = super.libsForQt5.sddm.overrideAttrs (old: {
+            buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
+          });
+        };
+        plasma5Packages = super.plasma5Packages // {
+          sddm = super.plasma5Packages.sddm.overrideAttrs (old: {
+            buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
+          });
+        };
+      };
     };
     nixosModules = {
       smallcat = { ... }: {
@@ -124,6 +145,7 @@
         system = "x86_64-linux";
         extraModules = [ ];
         extraLocalModules = [ "localisation"
+                              "nokde"
                               "bluetooth"
                               "multitouch"
                               "network"
