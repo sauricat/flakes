@@ -6,7 +6,7 @@
     steam-run #dpkg apt rpm
 
     # nixos-cn:
-    nixos-cn.wine-wechat
+    # nixos-cn.wine-wechat
     nixos-cn.netease-cloud-music
 
     # berberman:
