@@ -9,21 +9,23 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "HyFetch";
-  version = "1.1.3rc1";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "hykilpikonna";
     repo = pname;
-    rev = "62c044cab33fd4b2bc65c9d008cc78ce2880e499";
-    hash = "sha256-L2MXnEGWALwxm4M4Dzn5BU0tY9I7X7koCj0B6ExPhEk=";
+    rev = "42d6aa490afa171cc92224b0f0b963e56e2afd94";
+    sha256 = "sha256-ihYclh8iI3KDTV8MFN7VZq+RUQ+0yEZQ0jAYmmExwHg=";
   };
 
   propagatedBuildInputs = with python3Packages; [
     typing-extensions
     setuptools
-    numpy
   ];
 
+  postInstall = ''
+    chmod +x $out/lib/python3.10/site-packages/hyfetch/scripts/neowofetch
+  '';
   doCheck = false;
 
   meta = with lib; {
