@@ -36,10 +36,8 @@ then
 else
     kill $pidfeh
 fi
-if [[ -z $(pgrep onboard) ]]
+if [[ -n $(pgrep onboard) ]]
 then
-    $existsonboard=
-else
     pkill onboard
     $existsonboard=0
 fi
