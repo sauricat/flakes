@@ -3,9 +3,22 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      linux-firmware = prev.linux-firmware.overrideAttrs (old: {
+        version = "20220725";
+        src = final.fetchzip {
+          url = "https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-150864a4d73e8c448eb1e2c68e65f07635fe1a66.tar.gz";
+          sha256 = "sha256-fZuEKbVwFsmfsz3n36CPptasOXJ+TO0L6gQL0INJgiE=";
+        };
+        outputHash = "sha256-uWPfRzXZ+VPD2V0TH8nXr+1gtYumgDI/Dy3RUdnUoRU=";
+      });
+    })
+  ];
+
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" ]; # "amdgpu-pro" "amdgpu" "radeon" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = pkgs.linuxPackages_testing;
   # Since there are rc kernel packages, we need to disable zfs support.
@@ -84,8 +97,17 @@
     interval = "weekly";
   };
   boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
-  systemd.sleep.extraConfig = "SuspendState=mem";
+  boot.kernelParams = [
+    "mem_sleep_default=deep"
+    "console=tty1"
+    "loglevel=9"
+    "nomodeset"
+    # "amdgpu.aspm=0"
+    # "amdgpu.runpm=0"
+    # "amdgpu.bapm=0"
+    # "pcie_aspm=off"
+    # "amd_pmc.enable_stb=1"
+  ];
 
   # Don't change this version.
   system.stateVersion = "21.11";

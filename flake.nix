@@ -151,7 +151,7 @@
                               "network"
                               "virtualisation"
                               "nix"
-                              "console-l10n"
+                              # "console-l10n"
                               # "guix"
                               "laptop-poweroff" # temporary solution
                               "steam" ];
