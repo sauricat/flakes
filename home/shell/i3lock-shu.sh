@@ -36,10 +36,11 @@ then
 else
     kill $pidfeh
 fi
+existsonboard=nil
 if [[ -n $(pgrep onboard) ]]
 then
     pkill onboard
-    $existsonboard=0
+    existsonboard=0
 fi
 i3lock-color -i "$picresized"\
              --pass-{media,volume,power,screen}-keys\
@@ -57,7 +58,7 @@ while [[ -n $(pgrep i3lock-color) ]]
 do
     sleep 0.5
 done
-if [[ -z $existsonboard ]]
+if [[ $existsonboard == "nil" ]]
 then
     kill $pidonboardnew
 fi
