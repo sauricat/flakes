@@ -254,7 +254,7 @@
   (global-undo-tree-mode))
 
 (use-package toggle-one-window
-  :bind ("C-c C-t" . toggle-one-window))
+  :bind ("C-c 1" . toggle-one-window))
 
 ;; Lsp-bridge
 ;; (use-package posframe)
