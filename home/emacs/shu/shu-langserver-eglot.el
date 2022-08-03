@@ -9,6 +9,7 @@
       (add-to-list 'eglot-server-programs '((c++-mode c-mode) . ("clangd")))
       (add-to-list 'eglot-server-programs '(python-mode . ("pyright")))
       (add-to-list 'eglot-server-programs '(elixir-mode . ("elixir-ls")))
+      (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
       :hook
       ((c-mode     ;; -> see ./shu-c.el
 	c++-mode   ;; -> see ./shu-c.el

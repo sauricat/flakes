@@ -60,7 +60,7 @@ let
     };
   lspPackages = with pkgs; [
     rust-analyzer
-    rnix-lsp
+    nil # rnix-lsp
     pyright
     haskell-language-server
     solargraph
