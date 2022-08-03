@@ -139,12 +139,14 @@
 (use-package company
   :diminish company-mode
   :hook (after-init . global-company-mode)
+  :bind ("M-<tab>". company-complete-selection)
   :config
   (setq company-tooltip-align-annotations t
         company-tooltip-limit 10
         company-show-quick-access t
-        company-idle-delay 1
-        company-minimum-prefix-length 3))
+        company-idle-delay 0
+        company-tooltip-idle-delay 0
+        company-minimum-prefix-length 1))
 
 ;; Theme
 (use-package doom-themes
