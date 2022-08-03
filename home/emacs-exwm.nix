@@ -149,13 +149,13 @@ rec {
                   ++ lspPackages
                   ++ [ pkgs.zoxide pkgs.fzf ];
 
-  gtk = {
+  gtk = rec {
     enable = true;
     theme = {
       package = pkgs.gnome-themes-extra;
       name = "Adwaita";
     };
-    iconTheme.name = "Adwaita";
+    iconTheme = theme;
     inherit cursorTheme;
     font = {
       name = "sans-serif";
@@ -166,7 +166,7 @@ rec {
 
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme = "gnome";
     style = {
       package = pkgs.adwaita-qt;
       name = "adwaita";
