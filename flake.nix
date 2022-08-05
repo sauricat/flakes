@@ -5,7 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
-    nur.url = "github:nix-community/NUR";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = { url = "github:edolstra/flake-compat";
                      flake = false; };
@@ -93,7 +92,6 @@
       in builtins.listToAttrs (map genPackage names);
 
       # My inputs.
-      nur = inputs.nur.overlay;
       emacs-overlay = inputs.emacs-overlay.overlay;
       nixos-cn = inputs.nixos-cn.overlay;
       rust-overlay = inputs.rust-overlay.overlays.default;

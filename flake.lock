@@ -177,6 +177,32 @@
         "type": "github"
       }
     },
+    "lsp-nil": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1659614301,
+        "narHash": "sha256-YR4zUayyNRYapgUa2BaWHSQv/ejWzd5nkTkeQJoxcTk=",
+        "owner": "oxalica",
+        "repo": "nil",
+        "rev": "35d2bac1fb7646a913ae61e56e0a46a5ff0f2e25",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "nil",
+        "type": "github"
+      }
+    },
     "nixos-cn": {
       "inputs": {
         "flake-utils": [
@@ -271,21 +297,6 @@
         "type": "github"
       }
     },
-    "nur": {
-      "locked": {
-        "lastModified": 1659268073,
-        "narHash": "sha256-zMzbRkhbdvRmLFUPMVZVUCCtBa8RKvYCtOgh/USL4KQ=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "309719c81407c5f2f50f94c68d26db276c4d4864",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
-      }
-    },
     "nvfetcher": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -335,12 +346,12 @@
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
+        "lsp-nil": "lsp-nil",
         "nixos-cn": "nixos-cn",
         "nixos-guix": "nixos-guix",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",
-        "nur": "nur",
         "oxalica": "oxalica",
         "rust-overlay": "rust-overlay",
         "tree-sitter-nix-oxa": "tree-sitter-nix-oxa"
