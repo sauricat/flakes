@@ -39,6 +39,11 @@
                                 flake = false; };
     epkgs-exwm-ns = { url = "github:timor/exwm-ns";
                       flake = false; };
+
+    lsp-nil = { url = "github:oxalica/nil";
+                inputs.flake-utils.follows = "flake-utils";
+                inputs.nixpkgs.follows = "nixpkgs";
+                inputs.rust-overlay.follows = "rust-overlay"; };
   };
 
   outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }: let
@@ -93,6 +98,7 @@
       nixos-cn = inputs.nixos-cn.overlay;
       rust-overlay = inputs.rust-overlay.overlays.default;
       berberman = inputs.berberman.overlay;
+      lsp-nil = self: super: { inherit (inputs.lsp-nil.packages.${self.system}) nil; };
 
       # Many sddm themes requires lib qt-graphical-effects, while the sddm module in nixpkgs does not provide such an
       # option. Therefore I have to override sddm package myself.
