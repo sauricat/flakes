@@ -3,7 +3,7 @@ let
   i3lock-shu = pkgs.writeShellApplication {
     name = "i3lock-shu";
     runtimeInputs = with pkgs;
-      [ procps gnugrep imagemagick xorg.xrandr i3lock-color onboard ];
+      [ procps gnugrep imagemagick xorg.xrandr i3lock-color onboard feh ];
     text = builtins.readFile ./shell/i3lock-shu.sh;
     checkPhase = ""; # Don't do check.
   };
