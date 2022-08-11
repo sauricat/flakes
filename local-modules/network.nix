@@ -35,6 +35,11 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [ ];
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
