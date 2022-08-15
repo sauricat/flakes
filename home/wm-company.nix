@@ -1,3 +1,4 @@
+
 { pkgs, lib, ... }:
 let
   i3lock-shu = pkgs.writeShellApplication {
@@ -27,12 +28,17 @@ in
   ];
 
   # A simple launcher
+  xdg.dataFile."rofi/themes/custom.rasi".text = builtins.readFile ./rofi/awel.rasi; # "Arc";
   programs.rofi = {
     enable = true;
-    theme = "Arc";
+    theme = { };
     package = pkgs.rofi;
+
+    terminal = "${pkgs.kitty}/bin/kitty";
     extraConfig = {
       modi = "drun,run,window,filebrowser";
+      show-icons = true;
+      icon-theme = "Adwaita";
     };
   };
 
