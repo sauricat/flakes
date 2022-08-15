@@ -39,6 +39,13 @@
     enable = true;
     joinNetworks = [ ];
   };
+  programs.ssh = {
+    extraConfig = ''
+      Host Pod042A
+          HostName 192.168.195.126
+          User kuniklo
+    '';
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
