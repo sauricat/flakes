@@ -20,15 +20,15 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ]; # "amdgpu-pro" "amdgpu" "radeon" ];
   boot.extraModulePackages = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  boot.kernelPackages = pkgs.linuxPackages_5_18;
   # Since there are rc kernel packages, we need to disable zfs support.
   boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
   boot.kernelPatches = let
     repo = pkgs.fetchFromGitLab {
       owner = "dragonn";
       repo = "linux-g14";
-      rev = "5.18";
-      hash = "sha256-tZ0vK4djzDWl931O3vFvRt8ztlMoHr2Hvg8vE5hIBEs=";
+      rev = "8267df3a0f35aa752f8cecec411bc565ef5e7827"; # tag 5.18 at 2022-08-12
+      hash = "sha256-XbiHvVQa37Mt/KXXB0vjnY09iMNqtPbfqZ8WdThwFL4=";
     };
   in
     map (name: { inherit name; patch = "${repo}/${name}"; })
@@ -38,13 +38,13 @@
         "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
         "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
         "sys-kernel_arch-sources-g14_files-0049-ALSA-hda-realtek-Add-quirk-for-ASUS-M16-GU603H.patch"
-        "sys-kernel_arch-sources-g14_files-0050-asus-flow-x13-support_sw_tablet_mode.patch"
+        # "sys-kernel_arch-sources-g14_files-0050-asus-flow-x13-support_sw_tablet_mode.patch"
         "sys-kernel_arch-sources-g14_files-8017-add_imc_networks_pid_0x3568.patch"
         "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
-        "sys-kernel_arch-sources-g14_files-9001-v5.16.11-s0ix-patch-2022-02-23.patch"
+        # "sys-kernel_arch-sources-g14_files-9001-v5.16.11-s0ix-patch-2022-02-23.patch"
         "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
         "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
-        "sys-kernel_arch-sources-g14_files-9006-amd-c3-entry.patch"
+        # "sys-kernel_arch-sources-g14_files-9006-amd-c3-entry.patch"
         "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
         "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch" ];
 
