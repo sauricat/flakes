@@ -20,7 +20,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ]; # "amdgpu-pro" "amdgpu" "radeon" ];
   boot.extraModulePackages = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_5_18;
+  boot.kernelPackages = pkgs.linuxPackages_testing;
   # Since there are rc kernel packages, we need to disable zfs support.
   boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
   boot.kernelPatches = let
@@ -38,15 +38,20 @@
         "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
         "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
         "sys-kernel_arch-sources-g14_files-0049-ALSA-hda-realtek-Add-quirk-for-ASUS-M16-GU603H.patch"
-        # "sys-kernel_arch-sources-g14_files-0050-asus-flow-x13-support_sw_tablet_mode.patch"
         "sys-kernel_arch-sources-g14_files-8017-add_imc_networks_pid_0x3568.patch"
         "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
-        # "sys-kernel_arch-sources-g14_files-9001-v5.16.11-s0ix-patch-2022-02-23.patch"
         "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
         "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
-        # "sys-kernel_arch-sources-g14_files-9006-amd-c3-entry.patch"
         "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
-        "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch" ];
+        "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch"
+        "v2-0001-asus-wmi-Adjust-tablet-lidflip-handling-to-use-en.patch"
+        "v2-0001-asus-wmi-Implement-TUF-laptop-keyboard-RGB-contro.patch"
+        "v2-0002-asus-wmi-Add-support-for-ROG-X13-tablet-mode.patch"
+        "v2-0002-asus-wmi-Implement-TUF-laptop-keyboard-LED-modes.patch"
+        "v2-0003-asus-wmi-Implement-TUF-laptop-keyboard-power-stat.patch"
+        "v2-0004-asus-wmi-Document-previously-added-attributes.patch"
+        "v2-0005-asus-wmi-Convert-all-attr-show-to-use-sysfs_emit.patch"
+        "v2-0006-asus-wmi-Add-support-for-dGPU-only-mode.patch" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/2e8935cb-c1e6-4c77-b183-96d46b7978d0";
