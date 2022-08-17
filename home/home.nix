@@ -54,5 +54,8 @@
     enable = true;
     package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
   };
+
+  home.sessionVariables.MOZ_USE_XINPUT2 = "1";
+
   home.stateVersion = "21.11";
 }
