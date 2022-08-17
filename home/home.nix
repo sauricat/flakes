@@ -21,7 +21,7 @@
     vlc syncplay obs-studio
 
     # work:
-    libreoffice scribus gimp xournalpp
+    libreoffice scribus gimp xournalpp krita
     okular pdftag ocrmypdf poppler_utils
 
     # non-oss:
@@ -54,6 +54,5 @@
     enable = true;
     package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
   };
-
   home.stateVersion = "21.11";
 }
