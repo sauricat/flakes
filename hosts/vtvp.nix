@@ -42,6 +42,10 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.v2ray = {
+    enable = true;
+    configFile = "/root/v2-server.json";
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
