@@ -47,6 +47,8 @@
     configFile = "/root/v2-server.json";
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
