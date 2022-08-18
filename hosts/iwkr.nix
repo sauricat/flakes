@@ -1,4 +1,41 @@
-{ pkgs, lib, config, modulesPath, inputs, system, ... }: {
+{ pkgs, lib, config, modulesPath, inputs, system, ... }: let
+  asusPatchesRepo = pkgs.fetchFromGitLab {
+    owner = "dragonn";
+    repo = "linux-g14";
+    rev = "7fe86b290b7b77ab55ea25033dafe47b5ac01b6f"; # tag 5.18 at 2022-08-12
+    hash = "sha256-EZmnfxPyltuxoG+Xx3UvnZJiAH5weV6D9QF2XpyGCVI=";
+  };
+  asusPatches = map (name: { inherit name; patch = "${asusPatchesRepo}/${name}"; })
+    [ "sys-kernel_arch-sources-g14_files-0004-5.15+--more-uarches-for-kernel.patch"
+      # "sys-kernel_arch-sources-g14_files-0005-lru-multi-generational.patch"
+      "sys-kernel_arch-sources-g14_files-0043-ALSA-hda-realtek-Fix-speakers-not-working-on-Asus-Fl.patch"
+      "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
+      "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
+      "sys-kernel_arch-sources-g14_files-0049-ALSA-hda-realtek-Add-quirk-for-ASUS-M16-GU603H.patch"
+      "sys-kernel_arch-sources-g14_files-8017-add_imc_networks_pid_0x3568.patch"
+      "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
+      "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
+      "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
+      "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
+      "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch"
+      "0001-Fixes-98829e84dc67-asus-wmi-Add-dgpu-disable-method.patch"
+      "0002-Fixes-382b91db8044-asus-wmi-Add-egpu-enable-method.patch"
+      "0003-Fixes-ca91ea34778f-asus-wmi-Add-panel-overdrive-func.patch"
+      "0004-asus-wmi-Refactor-disable_gpu-attribute.patch"
+      "0005-asus-wmi-Refactor-egpu_enable-attribute.patch"
+      "0006-asus-wmi-Refactor-panel_od-attribute.patch"
+      "0007-asus-wmi-Convert-all-attr-show-to-use-sysfs_emit.patch"
+      "0008-asus-wmi-Support-the-hardware-GPU-MUX-on-some-laptop.patch"
+      "0009-asus-wmi-Adjust-tablet-lidflip-handling-to-use-enum.patch"
+      "0010-asus-wmi-Add-support-for-ROG-X13-tablet-mode.patch"
+      # "0011-asus-wmi-Modify-behaviour-of-Fn-F5-fan-key.patch"
+      "0012-asus-wmi-Support-the-GPU-fan-on-TUF-laptops.patch"
+      "0013-sound-realtek-Add-pincfg-for-ASUS-G533Z.patch"
+      "0014-sound-realtek-Add-pincfg-for-ASUS-G513.patch"
+      # "0015-HID-amd_sfh-Add-keyguard-for-ASUS-ROG-X13-tablet.patch"
+      "0016-asus-wmi-Implement-TUF-laptop-keyboard-LED-modes.patch"
+      "0017-asus-wmi-Implement-TUF-laptop-keyboard-power-states.patch" ];
+in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -23,44 +60,11 @@
   boot.kernelPackages = inputs.nixpkgs-master.legacyPackages.${system}.linuxPackages_testing;
   # Since there are rc kernel packages, we need to disable zfs support.
   boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
-  boot.kernelPatches = let
-    repo = pkgs.fetchFromGitLab {
-      owner = "dragonn";
-      repo = "linux-g14";
-      rev = "7fe86b290b7b77ab55ea25033dafe47b5ac01b6f"; # tag 5.18 at 2022-08-12
-      hash = "sha256-EZmnfxPyltuxoG+Xx3UvnZJiAH5weV6D9QF2XpyGCVI=";
-    };
-  in
-    map (name: { inherit name; patch = "${repo}/${name}"; })
-      [ "sys-kernel_arch-sources-g14_files-0004-5.15+--more-uarches-for-kernel.patch"
-        # "sys-kernel_arch-sources-g14_files-0005-lru-multi-generational.patch"
-        "sys-kernel_arch-sources-g14_files-0043-ALSA-hda-realtek-Fix-speakers-not-working-on-Asus-Fl.patch"
-        "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
-        "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
-        "sys-kernel_arch-sources-g14_files-0049-ALSA-hda-realtek-Add-quirk-for-ASUS-M16-GU603H.patch"
-        "sys-kernel_arch-sources-g14_files-8017-add_imc_networks_pid_0x3568.patch"
-        "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
-        "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
-        "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
-        "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
-        "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch"
-        "0001-Fixes-98829e84dc67-asus-wmi-Add-dgpu-disable-method.patch"
-        "0002-Fixes-382b91db8044-asus-wmi-Add-egpu-enable-method.patch"
-        "0003-Fixes-ca91ea34778f-asus-wmi-Add-panel-overdrive-func.patch"
-        "0004-asus-wmi-Refactor-disable_gpu-attribute.patch"
-        "0005-asus-wmi-Refactor-egpu_enable-attribute.patch"
-        "0006-asus-wmi-Refactor-panel_od-attribute.patch"
-        "0007-asus-wmi-Convert-all-attr-show-to-use-sysfs_emit.patch"
-        "0008-asus-wmi-Support-the-hardware-GPU-MUX-on-some-laptop.patch"
-        "0009-asus-wmi-Adjust-tablet-lidflip-handling-to-use-enum.patch"
-        "0010-asus-wmi-Add-support-for-ROG-X13-tablet-mode.patch"
-        # "0011-asus-wmi-Modify-behaviour-of-Fn-F5-fan-key.patch"
-        "0012-asus-wmi-Support-the-GPU-fan-on-TUF-laptops.patch"
-        "0013-sound-realtek-Add-pincfg-for-ASUS-G533Z.patch"
-        "0014-sound-realtek-Add-pincfg-for-ASUS-G513.patch"
-        # "0015-HID-amd_sfh-Add-keyguard-for-ASUS-ROG-X13-tablet.patch"
-        "0016-asus-wmi-Implement-TUF-laptop-keyboard-LED-modes.patch"
-        "0017-asus-wmi-Implement-TUF-laptop-keyboard-power-states.patch" ];
+  boot.kernelPatches = lib.singleton {
+    name = "amd-pstate";
+    patch = null;
+    extraConfig = "X86_AMD_PSTATE y";
+  } ++ asusPatches;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/2e8935cb-c1e6-4c77-b183-96d46b7978d0";
@@ -76,10 +80,6 @@
     { device = "/dev/disk/by-uuid/5df5da95-bac5-498d-bff9-94b2014fbf57"; }
   ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
 
@@ -87,7 +87,7 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   powerManagement.enable = true;
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = "schedutil"; # "ondemand";
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = false;
