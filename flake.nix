@@ -162,6 +162,11 @@
         enableUser = true;
         enableHomeManager = true;
       } {
+        host = "vtvp"; # Vultr VPS
+        system = "x86_64-linux";
+        enableUser = true;
+        extraLocalModules = [ "nix" ];
+      } {
         host = "livecd";
         system = "x86_64-linux";
         extraLocalModules = [ "internationalisation"
