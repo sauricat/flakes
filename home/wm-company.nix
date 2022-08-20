@@ -16,6 +16,8 @@ let
       ${pkgs.onboard}/bin/onboard &
     fi
   '';
+  pavu-toggle = pkgs.writeShellScript "pavu-toggle"
+    "${pkgs.procps}/bin/pkill -f -x ${pkgs.pavucontrol}/bin/pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
 in
 {
   home.packages = with pkgs; [
@@ -25,6 +27,7 @@ in
     i3lock-shu xss-lock xautolock libnotify
     feh
     onboard # touchscreen support
+    papirus-icon-theme
   ];
 
   # A simple launcher
@@ -38,7 +41,7 @@ in
     extraConfig = {
       modi = "drun,run,window,filebrowser";
       show-icons = true;
-      icon-theme = "Adwaita";
+      icon-theme = "Papirus-Light";
     };
   };
 
@@ -73,7 +76,7 @@ in
       };
     in
     {
-      enable = true; # how to let exwm enable it?
+      enable = true;
       package = pkgs.polybarFull;
       script = "polybar &";
       extraConfig = ''
@@ -103,7 +106,7 @@ in
         font-0 = monospace:size=14;1
         font-1 = Noto Color Emoji:scale=10x;2
 
-        modules-left = xworkspaces screen-keyboard
+        modules-left = xworkspaces screen-keyboard pavucontrol
         modules-center = date
         modules-right = memory cpu wlan eth pulseaudio battery
 
@@ -222,6 +225,10 @@ in
         [module/screen-keyboard]
         type = custom/text
         content = %{A1:${onboard-toggle}:}%{F${colors.primary}}Scr Kbd%{F-}%{A}
+
+        [module/pavucontrol]
+        type = custom/text
+        content = %{A1:${pavu-toggle}:}%{F${colors.primary}}Au%{F-}%{A}
 
         [settings]
         screenchange-reload = true

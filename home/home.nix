@@ -18,7 +18,7 @@
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
-    vlc syncplay obs-studio
+    vlc syncplay obs-studio hydroxide
 
     # work:
     libreoffice scribus gimp xournalpp krita
@@ -54,8 +54,26 @@
     enable = true;
     package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
   };
+  systemd.user.services.hydroxide = {
+    Unit.Description = "ProtonMail Bridge";
+    Service = {
+      ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
+      Restart = "on-failure";
+      RestartSec = 10;
+      Slice = "background.slice";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 
   home.sessionVariables.MOZ_USE_XINPUT2 = "1";
 
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = "org.kde.okular.desktop";
+      "image/*" = "org.kde.gwenview.desktop";
+      "video/*" = "vlc.desktop";
+    };
+  };
   home.stateVersion = "21.11";
 }

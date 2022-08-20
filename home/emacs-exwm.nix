@@ -166,11 +166,11 @@ rec {
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
-    style = {
-      package = pkgs.adwaita-qt;
-      name = "adwaita";
-    };
+    # platformTheme = "gnome";
+    # style = {
+    #   package = pkgs.adwaita-qt;
+    #   name = "adwaita";
+    # };
   };
 
   home.pointerCursor = {
