@@ -20,6 +20,7 @@ in
     extraConfig = {
       init.defaultBranch = "main";
       diff.renameLimit = 10000;
+      pull.ff = "only";
     };
     ignores = [ "*~" "\\#*\\#" ".\\#*" ]; # emacs
   };
