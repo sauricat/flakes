@@ -98,7 +98,7 @@ in {
     efiInstallAsRemovable = true;
     device = "nodev"; # "nodev" for efi only
     theme = pkgs.nixos-grub2-theme;
-    extraFiles."acpi_override" = ./iwkr/acpi_override;
+    # extraFiles."acpi_override" = ./iwkr/acpi_override;
   };
   boot.loader.efi.efiSysMountPoint = "/boot";
 
@@ -110,9 +110,9 @@ in {
     enable = true;
     interval = "weekly";
   };
-  boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
+  # boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
   boot.kernelParams = [
-    "mem_sleep_default=deep"
+    # "mem_sleep_default=deep"
     "console=tty1"
     "loglevel=9"
     "nomodeset"
