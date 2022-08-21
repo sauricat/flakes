@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     ark
-    dolphin
+    gnome.nautilus
     gwenview
     kitty
     okular

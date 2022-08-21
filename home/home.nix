@@ -21,7 +21,7 @@
     vlc syncplay obs-studio hydroxide
 
     # work:
-    libreoffice scribus gimp xournalpp krita
+    libreoffice scribus gimp xournalpp krita calibre
     okular pdftag ocrmypdf poppler_utils
 
     # non-oss:
@@ -50,10 +50,12 @@
     enable = true;
     pinentryFlavor = "curses";
   };
-  programs.password-store = {
-    enable = true;
-    package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
-  };
+  # programs.password-store = {
+  #   enable = true;
+  #   package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
+  # };
+  services.gnome-keyring.enable = true;
+
   systemd.user.services.hydroxide = {
     Unit.Description = "ProtonMail Bridge";
     Service = {
