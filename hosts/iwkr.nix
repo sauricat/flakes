@@ -54,8 +54,8 @@ in {
   ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ]; # "amdgpu-pro" "amdgpu" "radeon" ];
+  # boot.initrd.kernelModules = [ "amd_pstate" ]; # already in boot.kernelPatches
+  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = inputs.nixpkgs-master.legacyPackages.${system}.linuxPackages_testing;
   # Since there are rc kernel packages, we need to disable zfs support.
@@ -87,10 +87,8 @@ in {
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   powerManagement.enable = true;
-  powerManagement.cpuFreqGovernor = "schedutil"; # "ondemand";
+  powerManagement.cpuFreqGovernor = "schedutil";
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = false;
   boot.loader.grub = {
     enable = true;
     version = 2;
@@ -98,7 +96,7 @@ in {
     efiInstallAsRemovable = true;
     device = "nodev"; # "nodev" for efi only
     theme = pkgs.nixos-grub2-theme;
-    # extraFiles."acpi_override" = ./iwkr/acpi_override;
+    extraFiles."acpi_override" = ./iwkr/acpi_override;
   };
   boot.loader.efi.efiSysMountPoint = "/boot";
 
@@ -110,17 +108,11 @@ in {
     enable = true;
     interval = "weekly";
   };
-  # boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
+  boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
+
   boot.kernelParams = [
-    # "mem_sleep_default=deep"
-    "console=tty1"
-    "loglevel=9"
-    "nomodeset"
-    # "amdgpu.aspm=0"
-    # "amdgpu.runpm=0"
-    # "amdgpu.bapm=0"
-    # "pcie_aspm=off"
-    # "amd_pmc.enable_stb=1"
+    "mem_sleep_default=deep" # acpi override company
+    "amd_iommu=off" "idle=nomwait" "amdgpu.gpu_recovery=1" # https://wiki.archlinux.org/title/Laptop/ASUS#Black_screen_after_sleep
   ];
 
   # Don't change this version.
