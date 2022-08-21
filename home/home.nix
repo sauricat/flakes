@@ -73,6 +73,8 @@
       "application/pdf" = "org.kde.okular.desktop";
       "image/*" = "org.kde.gwenview.desktop";
       "video/*" = "vlc.desktop";
+      "text/html" = "firefox.desktop";
+      "text/plain" = "emacsclient.desktop";
     };
   };
   home.stateVersion = "21.11";
