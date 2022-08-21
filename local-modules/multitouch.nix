@@ -2,7 +2,8 @@
 
 {
   # Enable touchpad and touchscreen support (enabled default in most desktopManager).
-  
+
+  environment.systemPackages = with pkgs; [ libwacom ];
   services.xserver.libinput = {
     enable = true;
     touchpad = {
@@ -16,9 +17,8 @@
     };
   };
 
-  # FIXME: touch screen can only touch by pen but not touch by fingers
-  #services.xserver.wacom.enable = true;
-  #services.xserver.digimend.enable = true;
+  services.xserver.wacom.enable = true;
+  # services.xserver.digimend.enable = true;
 
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
