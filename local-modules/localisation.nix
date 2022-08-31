@@ -1,7 +1,6 @@
 # Named localisation, but actually services stuffs, including X11 server.
 { pkgs, lib, ... }:
 {
-  time.timeZone = "Asia/Shanghai";
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {

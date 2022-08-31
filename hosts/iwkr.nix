@@ -115,6 +115,7 @@ in {
     "amd_iommu=off" "idle=nomwait" "amdgpu.gpu_recovery=1" # https://wiki.archlinux.org/title/Laptop/ASUS#Black_screen_after_sleep
   ];
 
+  time.timeZone = "America/Vancouver";
   # Don't change this version.
   system.stateVersion = "21.11";
 

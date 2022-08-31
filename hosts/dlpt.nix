@@ -75,6 +75,8 @@
 
   services.xserver.dpi = 140;
 
+  time.timeZone = "Asia/Shanghai";
+
   # Don't change this version.
   system.stateVersion = "21.11";
 }
