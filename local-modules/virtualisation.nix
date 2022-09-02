@@ -8,4 +8,7 @@
   users.groups."libvirtd".members = [ "shu" ];
 
   environment.systemPackages = with pkgs; [ virt-manager ];
+
+  virtualisation.docker.enable = true;
+  users.groups."docker".members = [ "shu" ];
 }
