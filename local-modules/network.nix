@@ -42,7 +42,7 @@
   programs.ssh = {
     extraConfig = ''
       Host Pod042A
-          HostName 192.168.195.126
+          HostName 10.147.17.126
           User kuniklo
     '';
   };
