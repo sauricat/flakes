@@ -187,8 +187,7 @@
         host = "livecd";
         system = "x86_64-linux";
         extraLocalModules = [ "internationalisation"
-                              "kde"
-                              "network" ]; # FIXME delete redundant things
+                              "kde" ]; # FIXME delete redundant things
       }
     ];
   };
