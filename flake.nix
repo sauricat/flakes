@@ -162,6 +162,23 @@
         enableUser = true;
         enableHomeManager = true;
       } {
+        host = "wlsn"; # "TTC Wilson".
+        system = "x86_64-linux";
+        extraModules = [ ];
+        extraLocalModules = [ "localisation"
+                              "nokde"
+                              "bluetooth"
+                              "multitouch"
+                              "network"
+                              "virtualisation"
+                              "nix"
+                              "console-l10n"
+                              # "guix"
+                              # "laptop-sleep"
+                              "steam" ];
+        enableUser = true;
+        enableHomeManager = true;
+      } {
         host = "vtvp"; # Vultr VPS
         system = "x86_64-linux";
         enableUser = true;
