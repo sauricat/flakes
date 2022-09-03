@@ -45,7 +45,7 @@ fi
 existsonboard=nil
 if [[ -n $(pgrep onboard) ]]
 then
-    pkill onboard
+    onboard-toggle
     existsonboard=0
 fi
 i3lock-color -i "$picresized" \
@@ -59,13 +59,16 @@ i3lock-color -i "$picresized" \
              --ind-pos="x+w-228:y+h-24" \
              --time-pos="x+w-24:y+h-16" --time-align=2 \
              --{verif,wrong,greeter}-size=20 --time-size=24 &
-onboard &
-pidonboardnew=$!
-while [[ -n $(pgrep i3lock-color) ]]
-do
-    sleep 0.5
-done
-if [[ $existsonboard == "nil" ]]
+if [[ $(hostname) == "iwkr" ]]
 then
-    kill $pidonboardnew
+    onboard &
+    pidonboardnew=$!
+    while [[ -n $(pgrep i3lock-color) ]]
+    do
+        sleep 0.5
+    done
+    if [[ $existsonboard == "nil" ]]
+    then
+        onboard-toggle
+    fi
 fi
