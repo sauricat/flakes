@@ -128,23 +128,6 @@
     };
     nixosConfigurations = makeMyConfigurations [
       {
-        host = "dlpt"; # "Dell Laptop".
-        system = "x86_64-linux";
-        extraModules = [ nixos-hardware.nixosModules.dell-xps-13-7390 ];
-        extraLocalModules = [ "localisation"
-                              "kde"
-                              "bluetooth"
-                              "multitouch"
-                              "network"
-                              "virtualisation"
-                              "nix"
-                              "console-l10n"
-                              "guix"
-                              "laptop-sleep"
-                              "steam" ];
-        enableUser = true;
-        enableHomeManager = true;
-      } {
         host = "iwkr"; # "Iwakura Lain".
         system = "x86_64-linux";
         extraModules = [ ];

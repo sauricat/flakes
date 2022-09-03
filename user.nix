@@ -8,7 +8,6 @@
       shell = pkgs.fish;
       homeMode = "755";
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJxx5vcqSdqUvmqFRdgA+prL2mBALY8tlrcJDp1ntdi0 shu@dlpt"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOtqhzrEH5VnSSxcLn7MJKbCw7QFhQmX8hkSmsEMq8/I shu@iwkr"
       ];
     };
