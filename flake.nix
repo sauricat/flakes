@@ -157,7 +157,7 @@
                               "nix"
                               "console-l10n"
                               # "guix"
-                              # "laptop-sleep"
+                              "desktop-server"
                               "steam" ];
         enableUser = true;
         enableHomeManager = true;
@@ -169,8 +169,7 @@
       } {
         host = "livecd";
         system = "x86_64-linux";
-        extraLocalModules = [ "internationalisation"
-                              "kde" ]; # FIXME delete redundant things
+        extraLocalModules = [ "kde" "internationalisation" ];
       }
     ];
   };
