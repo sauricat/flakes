@@ -45,7 +45,7 @@ fi
 existsonboard=nil
 if [[ -n $(pgrep onboard) ]]
 then
-    onboard-toggle
+    pkill onboard
     existsonboard=0
 fi
 i3lock-color -i "$picresized" \
@@ -69,6 +69,6 @@ then
     done
     if [[ $existsonboard == "nil" ]]
     then
-        onboard-toggle
+        pkill onboard
     fi
 fi
