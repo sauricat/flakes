@@ -111,7 +111,7 @@ in {
   boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
 
   boot.kernelParams = [
-    "mem_sleep_default=deep" # acpi override company
+    # "mem_sleep_default=deep" # acpi override company
     "amd_iommu=off" "idle=nomwait" "amdgpu.gpu_recovery=1" # https://wiki.archlinux.org/title/Laptop/ASUS#Black_screen_after_sleep
   ];
 
