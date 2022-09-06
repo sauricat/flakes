@@ -141,7 +141,8 @@
                               "console-l10n"
                               # "guix"
                               "laptop-sleep"
-                              "steam" ];
+                              "steam"
+                              "printer" ];
         enableUser = true;
         enableHomeManager = true;
       } {
@@ -158,7 +159,8 @@
                               "console-l10n"
                               # "guix"
                               "desktop-server"
-                              "steam" ];
+                              "steam"
+                              "printer" ];
         enableUser = true;
         enableHomeManager = true;
       } {
