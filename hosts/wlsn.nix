@@ -62,6 +62,11 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl.enable = true;
+  services.picom = {
+    vSync = true;
+    backend = "xrender";
+    settings.unredir-if-possible = false;
+  };
 
   time.timeZone = "America/Toronto";
   # Don't change this version.
