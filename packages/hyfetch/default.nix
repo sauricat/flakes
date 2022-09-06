@@ -9,13 +9,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "HyFetch";
-  version = "1.3.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "hykilpikonna";
     repo = pname;
     rev = version;
-    sha256 = "sha256-8Mp3MV9HVzXzT/W6F/lD34tT0uOgqyydg31PlR3sMUA=";
+    sha256 = "sha256-aVALjuFXg3ielDfxEDMTOtaPghsBg9+vKRbR3aDTalQ=";
   };
 
   propagatedBuildInputs = with python3Packages; [
