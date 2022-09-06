@@ -55,6 +55,14 @@
   };
   services.xserver.dpi = 120;
 
+  services.xserver.displayManager.autoLogin = {
+    enable = true;
+    user = "shu";
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.opengl.enable = true;
+
   time.timeZone = "America/Toronto";
   # Don't change this version.
   system.stateVersion = "21.11";
