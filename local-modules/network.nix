@@ -8,7 +8,7 @@
     # ethernet.macAddress = "random";
   };
 
-  systemd.user.services.clashClient = {
+  systemd.user.services.clashClient = if config.networking.hostName != "wlsn" then {
     description = "Clash client service";
     wantedBy = [ "default.target" ];
     serviceConfig = {
@@ -17,9 +17,9 @@
       Restart = "on-failure";
       RestartPreventExitStatus = "23";
     };
-  };
+  } else {};
 
-  networking.proxy.default = "http://127.0.0.1:7890";
+  networking.proxy.default = if config.networking.hostName != "wlsn" then "http://127.0.0.1:7890" else "";
   # networking.proxy.allProxy = "http://127.0.0.1:7890";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
@@ -44,6 +44,10 @@
       Host Pod042A
           HostName 10.147.17.126
           User kuniklo
+      Host iwkr
+          HostName 10.147.17.192
+      Host wlsn
+          HostName 10.147.17.134
     '';
   };
 
