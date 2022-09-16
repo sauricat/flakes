@@ -48,6 +48,9 @@
           HostName 10.147.17.192
       Host wlsn
           HostName 10.147.17.134
+      Host *
+          PubkeyAcceptedAlgorithms +ssh-rsa
+          HostkeyAlgorithms +ssh-rsa
     '';
   };
 
