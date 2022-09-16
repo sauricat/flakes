@@ -67,6 +67,7 @@ let
     yaml-language-server
     clang-tools
     elixir_ls
+    lua53Packages.digestif
   ];
   exwmSessionVariables = {
     EDITOR = "emacsclient";

@@ -11,15 +11,16 @@
       (add-to-list 'eglot-server-programs '(elixir-mode . ("elixir-ls")))
       (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
       :hook
-      ((c-mode     ;; -> see ./shu-c.el
-	c++-mode   ;; -> see ./shu-c.el
+      ((c-mode c++-mode ;; -> see ./shu-c.el
 	python-mode
 	ruby-mode
 	rust-mode
 	haskell-mode
 	nix-mode
 	yaml-mode
-	elixir-mode) . eglot-ensure)))
+	elixir-mode
+        tex-mode context-mode texinfo-mode bibtex-mode ;; -> see ./shu-tex.el
+        ) . eglot-ensure)))
 
 (provide 'shu-langserver-eglot)
 ;;; shu-langserver-eglot.el ends here

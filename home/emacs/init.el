@@ -27,6 +27,7 @@
 (require 'shu-langserver-lsp)
 (require 'shu-langserver-eglot)
 (require 'shu-c)
+(require 'shu-tex)
 
 
 (global-set-key (kbd "C-z") 'undo)
