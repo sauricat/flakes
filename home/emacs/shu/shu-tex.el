@@ -8,4 +8,5 @@
       tex-run-command "xelatex"
       tex-print-file-extension ".pdf"
       tex-dvi-view-command "emacsclient -e \"(find-file-other-window \\\"*\\\")\"")
+(provide 'shu-tex)
 ;;; shu-tex.el ends here
