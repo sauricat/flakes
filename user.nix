@@ -4,7 +4,7 @@
   users.users = {
     shu = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "docker" "libvirtd" ];
+      extraGroups = [ "wheel" "networkmanager" "docker" "libvirtd" "lp" "scanner" ];
       shell = pkgs.fish;
       homeMode = "755";
       openssh.authorizedKeys.keys = [
