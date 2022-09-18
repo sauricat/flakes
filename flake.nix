@@ -81,8 +81,9 @@
       overlays = builtins.attrValues self.overlays;
     };
   }) // {
-    overlays = {
+    overlays = rec {
       # My packages.
+      default = sauricat;
       sauricat = self: super: let
         dirContents = builtins.readDir ./packages;
         genPackage = name: {
@@ -116,7 +117,8 @@
         };
       };
     };
-    nixosModules = {
+    nixosModules = rec {
+      default = smallcat;
       smallcat = { ... }: {
         nixpkgs.overlays = [ self.overlays.sauricat ];
         imports = [ ./modules ];
