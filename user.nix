@@ -24,9 +24,15 @@
       isNormalUser = true;
       extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFpbFRWmtQiIYuoZ4JCjEFd2thcT+pMkeh3xzugLHGOd kuniklo@Pod042A"
+        # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFpbFRWmtQiIYuoZ4JCjEFd2thcT+pMkeh3xzugLHGOd kuniklo@Pod042A"
       ];
     };
   };
   nix.settings.trusted-users = [ "@wheel" ];
+  nix.sshServe = {
+    enable = if config.networking.hostName == "wlsn" then true else false;
+    keys = config.users.users.shu.openssh.authorizedKeys.keys
+           ++ config.users.users.oxa.openssh.authorizedKeys.keys
+           ++ config.users.users.kuniklo.openssh.authorizedKeys.keys;
+  };
 }
