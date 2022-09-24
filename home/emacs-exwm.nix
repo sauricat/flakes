@@ -31,12 +31,12 @@ let
               src = inputs.tree-sitter-nix-oxa;
             });
           })));
-        vterm = vterm-mouse-support;
-        multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
-          buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];
-          propagatedBuildInputs = lib.singleton vterm-mouse-support;
-          propagatedUserEnvPkgs = lib.singleton vterm-mouse-support;
-        });
+        # vterm = vterm-mouse-support;
+        # multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
+        #   buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];
+        #   propagatedBuildInputs = lib.singleton vterm-mouse-support;
+        #   propagatedUserEnvPkgs = lib.singleton vterm-mouse-support;
+        # });
         toggle-one-window = epkgs.trivialBuild rec {
           pname = "toggle-one-window";
           ename = pname;
