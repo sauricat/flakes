@@ -4,6 +4,7 @@
 { lib
 , stdenv
 , python3Packages
+, pciutils
 , fetchFromGitHub
 }:
 
@@ -18,13 +19,14 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-aVALjuFXg3ielDfxEDMTOtaPghsBg9+vKRbR3aDTalQ=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = (with python3Packages; [
     typing-extensions
     setuptools
-  ];
+  ]) ++ [ pciutils ];
 
   postInstall = ''
     chmod +x $out/lib/python3.10/site-packages/hyfetch/scripts/neowofetch
+    sed -e 's:lspci:${pciutils}/bin/lspci:g' $out/lib/python3.10/site-packages/hyfetch/scripts/neowofetch > $out/bin/neowofetch
   '';
   doCheck = false;
 
