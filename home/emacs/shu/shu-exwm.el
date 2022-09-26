@@ -151,6 +151,7 @@
     (start-process-shell-command "xsslock" nil "xss-lock --transfer-sleep-lock -- i3lock-shu")
     (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"i3lock-shu --grace-mode 5\"")
     (start-process-shell-command "blueman" nil "blueman-applet")
+    (start-process-shell-command "megasync" nil "megasync")
     ;; (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
     (exwm-workspace-switch 0)))
 
