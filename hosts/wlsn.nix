@@ -6,7 +6,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -60,13 +60,16 @@
     user = "shu";
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
-  services.picom = {
-    vSync = true;
-    backend = "xrender";
-    settings.unredir-if-possible = false;
-  };
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  # Former 1070 Graphics Card Config
+  # services.xserver.videoDrivers = [ "nvidia" ];
+  # hardware.opengl.enable = true;
+  # services.picom = {
+  #   vSync = true;
+  #   backend = "xrender";
+  #   settings.unredir-if-possible = false;
+  # };
 
   time.timeZone = "America/Toronto";
   # Don't change this version.
