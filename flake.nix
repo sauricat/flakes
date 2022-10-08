@@ -116,6 +116,8 @@
           });
         };
       };
+
+      temp = self: super: { libusb = self.libusb1; };
     };
     nixosModules = rec {
       default = smallcat;

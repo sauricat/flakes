@@ -15,7 +15,7 @@
   home.packages = with pkgs; [
     # system:
     trash-cli bc cachix
-    man-pages tealdeer neofetch hyfetch kdeconnect
+    man-pages tealdeer neofetch hyfetch plasma5Packages.kdeconnect-kde
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
