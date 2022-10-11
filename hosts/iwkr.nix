@@ -2,39 +2,51 @@
   asusPatchesRepo = pkgs.fetchFromGitLab {
     owner = "dragonn";
     repo = "linux-g14";
-    rev = "7fe86b290b7b77ab55ea25033dafe47b5ac01b6f"; # tag 5.18 at 2022-08-12
-    hash = "sha256-EZmnfxPyltuxoG+Xx3UvnZJiAH5weV6D9QF2XpyGCVI=";
+    rev = "067032b3b35a80f580cc4132d7d53986c7a24184"; # tag 5.19- at 2022-10-10
+    hash = "sha256-CVKiFlgNtkz497rTKBARUuqT6fgpJ56IQM5Og6pW2qQ=";
   };
   asusPatches = map (name: { inherit name; patch = "${asusPatchesRepo}/${name}"; })
-    [ "sys-kernel_arch-sources-g14_files-0004-5.15+--more-uarches-for-kernel.patch"
+    [
+      "0001-acpi-proc-idle-skip-dummy-wait.patch"
+      # "0001-asus-wmi-Expand-support-of-GPU-fan-to-read-RPM-and-l.patch"
+      "0001-asus-wmi-tuf-gpu-fan.patch"
+      # "0001-HID-amd_sfh-Add-keyguard-for-ASUS-ROG-X13-tablet.patch"
+      "0001-platform-x86-asus-wmi-Convert-all-attr-show-to-use-s.patch"
+      # "0001-s2idle-use-microsoft-guid.patch"
+      "0002-platform-x86-asus-wmi-Use-kobj_to_dev.patch"
+      # "0002-s2idle-use-microsoft-guid.patch"
+      "0003-platform-x86-asus-wmi-Document-the-dgpu_disable-sysf.patch"
+      # "0003-s2idle-use-microsoft-guid.patch"
+      "0004-platform-x86-asus-wmi-Document-the-egpu_enable-sysfs.patch"
+      # "0004-s2idle-use-microsoft-guid.patch"
+      "0005-platform-x86-asus-wmi-Document-the-panel_od-sysfs-at.patch"
+      # "0005-s2idle-use-microsoft-guid.patch"
+      "0006-platform-x86-asus-wmi-Refactor-disable_gpu-attribute.patch"
+      # "0006-s2idle-use-microsoft-guid.patch"
+      "0007-platform-x86-asus-wmi-Refactor-egpu_enable-attribute.patch"
+      # "0007-s2idle-use-microsoft-guid.patch"
+      "0008-platform-x86-asus-wmi-Refactor-panel_od-attribute.patch"
+      # "0008-s2idle-use-microsoft-guid.patch"
+      "0009-platform-x86-asus-wmi-Simplify-some-of-the-_check_pr.patch"
+      "0010-platform-x86-asus-wmi-Support-the-hardware-GPU-MUX-o.patch"
+      "0011-platform-x86-asus-wmi-Adjust-tablet-lidflip-handling.patch"
+      "0012-platform-x86-asus-wmi-Add-support-for-ROG-X13-tablet.patch"
+      "0013-platform-x86-asus-wmi-Simplify-tablet-mode-switch-pr.patch"
+      "0014-platform-x86-asus-wmi-Simplify-tablet-mode-switch-ha.patch"
+      "0017-asus-wmi-Implement-TUF-laptop-keyboard-LED-modes.patch"
+      "0018-asus-wmi-Implement-TUF-laptop-keyboard-power-states.patch"
+      "0019-HID-amd_sfh-Add-keyguard-for-ASUS-ROG-X13-tablet.patch"
+      "0020-asus-wmi-Modify-behaviour-of-Fn-F5-fan-key.patch"
+      "0021-rog-x16-patch-test1.patch"
+      "0022-gv601r-tablet-mode-test.patch"
+      "0023-mediatek-bt-add-e0e2.patch"
+      "0024-pahole-124-fix.patch"
+      "sys-kernel_arch-sources-g14_files-0004-5.15+--more-uarches-for-kernel.patch"
       # "sys-kernel_arch-sources-g14_files-0005-lru-multi-generational.patch"
-      "sys-kernel_arch-sources-g14_files-0043-ALSA-hda-realtek-Fix-speakers-not-working-on-Asus-Fl.patch"
       "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
       "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
       "sys-kernel_arch-sources-g14_files-0049-ALSA-hda-realtek-Add-quirk-for-ASUS-M16-GU603H.patch"
-      "sys-kernel_arch-sources-g14_files-8017-add_imc_networks_pid_0x3568.patch"
-      "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
-      "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
-      "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
-      "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
-      "sys-kernel_arch-sources-g14_files-9012-Improve-usability-for-amd-pstate.patch"
-      "0001-Fixes-98829e84dc67-asus-wmi-Add-dgpu-disable-method.patch"
-      "0002-Fixes-382b91db8044-asus-wmi-Add-egpu-enable-method.patch"
-      "0003-Fixes-ca91ea34778f-asus-wmi-Add-panel-overdrive-func.patch"
-      "0004-asus-wmi-Refactor-disable_gpu-attribute.patch"
-      "0005-asus-wmi-Refactor-egpu_enable-attribute.patch"
-      "0006-asus-wmi-Refactor-panel_od-attribute.patch"
-      "0007-asus-wmi-Convert-all-attr-show-to-use-sysfs_emit.patch"
-      "0008-asus-wmi-Support-the-hardware-GPU-MUX-on-some-laptop.patch"
-      "0009-asus-wmi-Adjust-tablet-lidflip-handling-to-use-enum.patch"
-      "0010-asus-wmi-Add-support-for-ROG-X13-tablet-mode.patch"
-      # "0011-asus-wmi-Modify-behaviour-of-Fn-F5-fan-key.patch"
-      "0012-asus-wmi-Support-the-GPU-fan-on-TUF-laptops.patch"
-      "0013-sound-realtek-Add-pincfg-for-ASUS-G533Z.patch"
-      "0014-sound-realtek-Add-pincfg-for-ASUS-G513.patch"
-      # "0015-HID-amd_sfh-Add-keyguard-for-ASUS-ROG-X13-tablet.patch"
-      "0016-asus-wmi-Implement-TUF-laptop-keyboard-LED-modes.patch"
-      "0017-asus-wmi-Implement-TUF-laptop-keyboard-power-states.patch" ];
+    ];
 in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
