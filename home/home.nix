@@ -24,10 +24,10 @@
     # work:
     libreoffice scribus gimp xournalpp krita calibre
     okular pdftag ocrmypdf poppler_utils
-    goldendict
+    goldendict zotero
 
     # non-oss:
-    megasync zoom-us
+    megasync zoom-us obsidian
 
     # nur:
     # nur.repos.dukzcry.cockpit
