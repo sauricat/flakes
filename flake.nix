@@ -117,7 +117,9 @@
         };
       };
 
-      temp = self: super: { libusb = self.libusb1; };
+      rime-with-plugin = self: super: {
+        librime = (super.librime.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ super.luajit ]; })).override { plugins = [ self.librime-lua ]; };
+      };
     };
     nixosModules = rec {
       default = smallcat;
