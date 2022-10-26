@@ -7,8 +7,10 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-intel" "hid-apple" ];
+  boot.extraModprobeConfig = ''
+      options hid_apple fnmode=2
+  ''; # fix keyboard fn keys dysfunction
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/f59df329-504c-418b-a7d4-8c2f2cfa4175";
@@ -45,8 +47,6 @@
     theme = pkgs.nixos-grub2-theme;
   };
   boot.loader.efi.efiSysMountPoint = "/boot";
-
-  # boot.kernelParams = [ "nomodeset" ];
 
   services.fwupd.enable = true;
   services.fstrim = {
