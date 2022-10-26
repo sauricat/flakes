@@ -46,6 +46,7 @@
     enable = true;
     configFile = "/root/v2-server.json";
   };
+  services.tailscale.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
