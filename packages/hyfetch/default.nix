@@ -10,13 +10,13 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "HyFetch";
-  version = "1.4.1";
+  version = "1.4.2";
 
   src = fetchFromGitHub {
     owner = "hykilpikonna";
     repo = pname;
     rev = version;
-    sha256 = "sha256-aVALjuFXg3ielDfxEDMTOtaPghsBg9+vKRbR3aDTalQ=";
+    sha256 = "sha256-5TzIhbyrhQmuxR/Vs3XpOj/8FnykmBiDj6sXfFZK0uM=";
   };
 
   propagatedBuildInputs = (with python3Packages; [
@@ -43,7 +43,7 @@ python3Packages.buildPythonPackage rec {
     '';
     homepage = "https://github.com/hykilpikonna/HyFetch";
     license = licenses.mit;
-    maintainers = with maintainers; [ hykilpikonna ];
+    maintainers = with maintainers; [ sauricat ];
     mainProgram = "hyfetch";
   };
 }
