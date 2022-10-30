@@ -13,4 +13,6 @@
   ];
   systemd.targets."bluetooth".after = [ "systemd-tmpfiles-setup.service" ];
 
+  services.udisks2.enable = true;
+
 }

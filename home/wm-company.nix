@@ -28,6 +28,7 @@ in
     feh
     onboard # touchscreen support
     papirus-icon-theme
+    udiskie
   ];
 
   # A simple launcher
