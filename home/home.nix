@@ -19,7 +19,7 @@
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
-    vlc syncplay obs-studio hydroxide
+    vlc /*syncplay*/ obs-studio hydroxide
 
     # work:
     libreoffice scribus gimp xournalpp krita calibre
