@@ -120,10 +120,11 @@
   (setq exwm-manage-configurations
         '(((string= exwm-class-name "firefox") workspace 1)
           ((string= exwm-class-name "thunderbird") workspace 2)
-          ((string= exwm-class-name "TelegramDesktop") floating t border-width 5)
-          ((string= exwm-class-name "Element") floating t border-width 5)
-          ((string= exwm-class-name ".blueman-manager-wrapped") floating t border-width 5)
-          ((string= exwm-class-name "Qemu-kvm") char-mode t))))
+          ((string= exwm-class-name "TelegramDesktop") floating t border-width 2)
+          ((string= exwm-class-name "Element") floating t border-width 2)
+          ((string= exwm-class-name ".blueman-manager-wrapped") floating t border-width 2 x 0 y 2)
+          ((string= exwm-class-name "Qemu-kvm") char-mode t)
+          ((string= exwm-class-name "MEGAsync") floating t x 0 y 0))))
 
 (use-package exwm-ns)
 
@@ -152,6 +153,7 @@
     (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"i3lock-shu --grace-mode 5\"")
     (start-process-shell-command "blueman" nil "blueman-applet")
     (start-process-shell-command "megasync" nil "megasync")
+    (start-process-shell-command "dolphin" nil "dolphin --daemon")
     ;; (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
     (exwm-workspace-switch 0)))
 
