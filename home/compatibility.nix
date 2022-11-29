@@ -7,13 +7,13 @@
 
     # nixos-cn:
     # nixos-cn.wine-wechat
-    nixos-cn.netease-cloud-music
+    # nixos-cn.netease-cloud-music
 
     # berberman:
-    feeluown
+    # feeluown
 
     # my own overlay:
-    wemeet pebl
+    # wemeet pebl
   ];
 
   systemd.user.services.killWine = {

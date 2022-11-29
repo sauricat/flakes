@@ -65,10 +65,11 @@
                                                       home-manager.useGlobalPkgs = true;
                                                       home-manager.useUserPackages = true;
                                                       home-manager.users.shu = import ./home/home.nix;
-                                                      home-manager.users.oxa = {
-                                                        imports = [ (inputs.oxalica + "/home/modules/shell") ];
-                                                        xdg.stateHome = "/home/oxa";
-                                                        home.stateVersion = "21.05"; }; } ]
+                                                      # home-manager.users.oxa = {
+                                                      #   imports = [ (inputs.oxalica + "/home/modules/shell") ];
+                                                      #   xdg.stateHome = "/home/oxa";
+                                                      #   home.stateVersion = "21.05"; };
+                                                    } ]
                                              else [ ])
                     ++ (if enableUser then [ ./user.nix ]
                                       else [ ]);
@@ -78,6 +79,7 @@
     legacyPackages = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      config.permittedInsecurePackages = [ "qtwebkit-5.212.0-alpha4" ];
       overlays = builtins.attrValues self.overlays;
     };
   }) // {
