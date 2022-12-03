@@ -21,5 +21,5 @@
       Samsung C460 Series (SEC30CDA7AAB9A2) = http://192.168.2.100:8018/wsd/scan, WSD
   '';
 
-  environment.systemPackages = with pkgs; [ system-config-printer xsane ];
+  environment.systemPackages = with pkgs; [ system-config-printer xsane simple-scan ];
 }
