@@ -98,7 +98,7 @@
       emacs-overlay = inputs.emacs-overlay.overlay;
       nixos-cn = inputs.nixos-cn.overlay;
       rust-overlay = inputs.rust-overlay.overlays.default;
-      berberman = inputs.berberman.overlay;
+      berberman = inputs.berberman.overlays.default;
       lsp-nil = self: super: { inherit (inputs.lsp-nil.packages.${self.system}) nil; };
 
       # Many sddm themes requires lib qt-graphical-effects, while the sddm module in nixpkgs does not provide such an
