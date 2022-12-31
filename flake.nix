@@ -154,7 +154,7 @@
         enableUser = true;
         enableHomeManager = true;
       } {
-        host = "wlsn"; # "TTC Wilson".
+        host = "wlsn"; # In memorial of my first HOME in CA
         system = "x86_64-linux";
         extraModules = [ ];
         extraLocalModules = [ "localisation"
