@@ -11,6 +11,7 @@ in
     cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
     xsel xclip
     bash-completion cling racket rustc cargo elixir
+    github-cli
   ];
 
   programs.git = {
