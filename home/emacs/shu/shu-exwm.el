@@ -153,7 +153,7 @@
     (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"i3lock-shu --grace-mode 5\"")
     (start-process-shell-command "blueman" nil "blueman-applet")
     (start-process-shell-command "megasync" nil "megasync")
-    (shu-exwm-start-process-gui-command "dolphin --daemon")
+    (shu-exwm-start-process-gui-command "dolphin --daemon &")
     ;; (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
     (exwm-workspace-switch 0)))
 
