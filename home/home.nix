@@ -19,7 +19,7 @@
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
-    vlc /*syncplay*/ obs-studio hydroxide
+    vlc /*syncplay*/ obs-studio
 
     # work:
     libreoffice scribus gimp xournalpp krita calibre
@@ -52,21 +52,9 @@
     enable = true;
     pinentryFlavor = "curses";
   };
-  # programs.password-store = {
-  #   enable = true;
-  #   package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
-  # };
-  services.gnome-keyring.enable = true;
-
-  systemd.user.services.hydroxide = {
-    Unit.Description = "ProtonMail Bridge";
-    Service = {
-      ExecStart = "${pkgs.hydroxide}/bin/hydroxide serve";
-      Restart = "on-failure";
-      RestartSec = 10;
-      Slice = "background.slice";
-    };
-    Install.WantedBy = [ "graphical-session.target" ];
+  programs.password-store = {
+    enable = true;
+    package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
   };
 
   home.sessionVariables.MOZ_USE_XINPUT2 = "1";

@@ -150,7 +150,8 @@
                               # "guix"
                               "laptop-sleep"
                               "steam"
-                              "printer" ];
+                              "printer"
+                              "mailing" ];
         enableUser = true;
         enableHomeManager = true;
       } {
@@ -168,7 +169,8 @@
                               # "guix"
                               "desktop-server"
                               "steam"
-                              "printer" ];
+                              "printer"
+                              "mailing" ];
         enableUser = true;
         enableHomeManager = true;
       } {
