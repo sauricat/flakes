@@ -24,7 +24,7 @@
     # work:
     libreoffice scribus gimp xournalpp krita calibre
     okular pdftag ocrmypdf poppler_utils
-    goldendict zotero
+    goldendict zotero pandoc
 
     # non-oss:
     megasync zoom-us obsidian
