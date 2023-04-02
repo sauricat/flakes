@@ -8,7 +8,7 @@
 
   services.printing = {
     enable = true;
-    drivers = [ pkgs.samsung-unified-linux-driver ];
+    drivers = with pkgs; [ samsung-unified-linux-driver cnijfilter2 ];
   };
 
   hardware.sane = {
