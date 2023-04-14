@@ -110,6 +110,7 @@
   :config
   (define-key global-map (kbd "M-x") 'counsel-M-x)
   (define-key global-map (kbd "C-x C-f") 'counsel-find-file)
+  (define-key global-map (kbd "C-x M-f") 'counsel-find-file-extern)
   (define-key global-map (kbd "M-y") 'counsel-yank-pop)
   (define-key global-map (kbd "<f1> f") 'counsel-describe-function)
   (define-key global-map (kbd "<f1> v") 'counsel-describe-variable)
