@@ -15,8 +15,7 @@
                      inputs.nixpkgs.follows = "nixpkgs";
                      inputs.flake-utils.follows = "flake-utils"; };
     home-manager = { url = "github:nix-community/home-manager";
-                     inputs.nixpkgs.follows = "nixpkgs";
-                     inputs.utils.follows = "flake-utils"; };
+                     inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-cn = { url = "github:nixos-cn/flakes";
                  inputs.nixpkgs.follows = "nixpkgs";
                  inputs.flake-utils.follows = "flake-utils"; };

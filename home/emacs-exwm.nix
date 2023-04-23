@@ -1,6 +1,6 @@
 { inputs, pkgs, config, lib, host, ... }:
 let
-  emacsPackage = pkgs.emacsGitNativeComp;
+  emacsPackage = pkgs.emacsGit;
   emacsPackageWithPkgs =
     pkgs.emacsWithPackagesFromUsePackage {
       config =
@@ -23,14 +23,15 @@ let
                     ++ [ ./patch/vterm-mouse-support.patch ];
         });
       in {
-        tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
-          # Install all tree sitter grammars available from nixpkgs
-          (grammars: builtins.filter lib.isDerivation (lib.attrValues (grammars // {
-            tree-sitter-nix = grammars.tree-sitter-nix.overrideAttrs (old: {
-              version = "fixed";
-              src = inputs.tree-sitter-nix-oxa;
-            });
-          })));
+        # tree-sitter-langs = epkgs.tree-sitter-langs.withPlugins
+        #  # Install all tree sitter grammars available from nixpkgs
+        #  (grammars: builtins.filter lib.isDerivation ( grammars ++ (lib.attrValues {
+        #    tree-sitter-nix = grammars.tree-sitter-nix.overrideAttrs (old: {
+        #      version = "fixed";
+        #      src = inputs.tree-sitter-nix-oxa;
+        #    });
+        #  })));
+       
         # vterm = vterm-mouse-support;
         # multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
         #   buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];
@@ -185,3 +186,4 @@ rec {
       (lib.singleton (exwmExtraKeymap.${host} or "" + " map);MARK"))
       (builtins.readFile ./emacs/shu/shu-exwm.el));
 }
+
