@@ -38,6 +38,8 @@ My modules, including the overlay, are in `outputs.nixosModules.smallcat`.
 
 - [Vanilla’s Configuration](https://github.com/VergeDX/config-nixpkgs)
 
+- [Yuzukicat’s Configuration](https://github.com/yuzukicat/nixos-config)
+
 ## Commit Message Convention (Test, Effective 2023-04-23)
 - ア Update Modules, Components, or `flake.lock`
 - か Add Components or Modules, not only Files
