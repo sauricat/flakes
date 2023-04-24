@@ -32,7 +32,7 @@
 
 (global-set-key (kbd "C-z") 'undo)
 (global-unset-key (kbd "C-x C-z"))
-(global-set-key (kbd "C-M-z") 'linum-mode)
+(global-set-key (kbd "C-M-z") 'display-line-numbers-mode)
 (global-set-key (kbd "C-M-/") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-<tab>") 'find-file-at-point)
 (define-key global-map (kbd "<mouse-8>") (kbd "M-w"))
