@@ -11,43 +11,51 @@ Options:
   -h, --help: Open help page.
   -d, --default: Use default settings.
   -c, --custom: After that, type the value of each question, separate them with <SPC>, and press <RET>.
+  -r <hostname>, --remote <hostname>: Build configuration for <hostname> in your device and copy to it.
 "
 fi
 
 # ~~ Interaction ~~
 if [[ "$1" != "-d" && "$1" != "--default" ]]
 then
-    if [[ "$1" == "-c" || "$1" == "--custom" ]]
+    if [[ "$1" == "-r" || "$1" == "--remote" ]]
     then
-	flag="$2"
-	subcommand="$3"
-	hname="$4"
-	other=""
-	while [[ $# -ne 4 ]]
-	do
-	    other+=" $5"
-	    shift
-	done
+        hname="$2"
+        nix build path:.\#nixosConfigurations.$hname.config.system.build.toplevel
+        exec nix copy ./result --to ssh://$hname
     else
-	echo -e "\nWhich \033[1moperation\033[0m do you like to perform?
+        if [[ "$1" == "-c" || "$1" == "--custom" ]]
+        then
+	    flag="$2"
+	    subcommand="$3"
+	    hname="$4"
+	    other=""
+	    while [[ $# -ne 4 ]]
+	    do
+	        other+=" $5"
+	        shift
+	    done
+        else
+	    echo -e "\nWhich \033[1moperation\033[0m do you like to perform?
         \033[31m- build a LiveCD            \033[0m(b)
         \033[33m- install from a LiveCD     \033[0m(i)
         \033[1;32m- update your configuration \033[0m(\033[1;4mu\033[0m)"
-	read -p ">> " flag
+	    read -p ">> " flag
 
-	if [[ "$flag" != "b" && "$flag" != "B" ]]
-	then
-	    echo -e "\nWhich rebuild \033[1;34msubcommand\033[0m do you like to use? (\033[1;4mswitch\033[0m/boot/test/build/dry-build/...)"
-	    read -p ">> " subcommand
+	    if [[ "$flag" != "b" && "$flag" != "B" ]]
+	    then
+	        echo -e "\nWhich rebuild \033[1;34msubcommand\033[0m do you like to use? (\033[1;4mswitch\033[0m/boot/test/build/dry-build/...)"
+	        read -p ">> " subcommand
 
-	    echo -e "\nWhat will be your \033[1;35mideal hostname\033[0m? (\033[1;4m$(hostname)\033[0m/...)"
-	    read -p ">> " hname
+	        echo -e "\nWhat will be your \033[1;35mideal hostname\033[0m? (\033[1;4m$(hostname)\033[0m/...)"
+	        read -p ">> " hname
 
-	    echo -e "\nIf you have other option, such as '--no-build-nix', '--show-trace', '--verbose', please indicate here; or simply press <RET>."
-	    read -p ">> " other
+	        echo -e "\nIf you have other option, such as '--no-build-nix', '--show-trace', '--verbose', please indicate here; or simply press <RET>."
+	        read -p ">> " other
 
-	    echo
-	fi
+	        echo
+	    fi
+        fi
     fi
 fi
 
