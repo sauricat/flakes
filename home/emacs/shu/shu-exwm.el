@@ -18,12 +18,12 @@
 (defun shu-exwm-screenshot ()
   "Take a screenshot."
   (interactive)
-  (shu-exwm-start-process-gui-command "set a ~/Pictures/Screenshots/$(date +%s).png; maim $a; xclip -selection clipboard $a -t image/png"))
+  (shu-exwm-start-process-gui-command "spectacle"))
 
 (defun shu-exwm-screenshot-area ()
   "Take a screenshot of a mouse selected area."
   (interactive)
-  (shu-exwm-start-process-gui-command "set a ~/Pictures/Screenshots/$(date +%s).png; maim -s $a; xclip -selection clipboard $a -t image/png"))
+  (shu-exwm-start-process-gui-command "spectacle"))
 
 (defun shu-exwm-d-launcher ()
   "Open rofi desktop app launcher."
@@ -122,9 +122,10 @@
           ((string= exwm-class-name "thunderbird") workspace 2)
           ((string= exwm-class-name "TelegramDesktop") floating t border-width 2)
           ((string= exwm-class-name "Element") floating t border-width 2)
-          ((string= exwm-class-name ".blueman-manager-wrapped") floating t border-width 2 x 0 y 2)
+          ((string= exwm-class-name ".blueman-manager-wrapped") floating t border-width 2 x 0 y 0)
           ((string= exwm-class-name "Qemu-kvm") char-mode t)
-          ((string= exwm-class-name "MEGAsync") floating t x 0 y 0))))
+          ((string= exwm-class-name "MEGAsync") floating t x 0 y 0)
+          ((string= exwm-class-name "spectacle") floating t border-width 2))))
 
 (use-package exwm-ns)
 
