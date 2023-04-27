@@ -53,7 +53,7 @@
     enable = true;
     interval = "weekly";
   };
-  services.xserver.dpi = 120;
+  services.xserver.dpi = 96;
 
   services.xserver.displayManager.autoLogin = {
     enable = true;
