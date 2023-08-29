@@ -1,6 +1,6 @@
 { inputs, pkgs, config, lib, host, ... }:
 let
-  emacsPackage = pkgs.emacsGit;
+  emacsPackage = pkgs.emacs-git;
   emacsPackageWithPkgs =
     pkgs.emacsWithPackagesFromUsePackage {
       config =
@@ -31,7 +31,7 @@ let
         #      src = inputs.tree-sitter-nix-oxa;
         #    });
         #  })));
-       
+
         # vterm = vterm-mouse-support;
         # multi-vterm = epkgs.melpaPackages.multi-vterm.overrideAttrs (old: {
         #   buildInputs = [ emacsPackage pkgs.texinfo vterm-mouse-support ];
@@ -68,7 +68,7 @@ let
     yaml-language-server
     clang-tools
     elixir_ls
-    lua53Packages.digestif
+    # lua53Packages.digestif # Due to collision, 2023-08-29, with TeXLive
   ];
   exwmSessionVariables = {
     EDITOR = "emacsclient";

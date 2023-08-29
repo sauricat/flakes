@@ -38,8 +38,8 @@
   services.flatpak.enable             = lib.mkOverride 900 true;
 
   fonts = {
-    enableDefaultFonts = true;
-    fonts = with pkgs; [
+    enableDefaultPackages = true;
+    packages = with pkgs; [
       noto-fonts
       noto-fonts-emoji
       fira-code
