@@ -139,7 +139,7 @@
         system = "x86_64-linux";
         extraModules = [ ];
         extraLocalModules = [ "localisation"
-                              "nokde"
+                              "desktop-nokde"
                               "bluetooth"
                               "multitouch"
                               "network"
@@ -158,7 +158,8 @@
         system = "x86_64-linux";
         extraModules = [ ];
         extraLocalModules = [ "localisation"
-                              "nokde"
+                              "desktop-nokde"
+                              "desktop-server"
                               "bluetooth"
                               "multitouch"
                               "network"
@@ -166,7 +167,25 @@
                               "nix"
                               "console-l10n"
                               # "guix"
+                              "steam"
+                              "printer"
+                              "mailing" ];
+        enableUser = true;
+        enableHomeManager = true;
+      } {
+        host = "wlsnwl";
+        system = "x86_64-linux";
+        extraModules = [ ];
+        extraLocalModules = [ "localisation"
+                              "desktop-sway"
                               "desktop-server"
+                              "bluetooth"
+                              "multitouch"
+                              "network"
+                              "virtualisation"
+                              "nix"
+                              "console-l10n"
+                              # "guix"
                               "steam"
                               "printer"
                               "mailing" ];
@@ -180,7 +199,7 @@
       } {
         host = "livecd";
         system = "x86_64-linux";
-        extraLocalModules = [ "kde" "internationalisation" ];
+        extraLocalModules = [ "desktop-kde" "internationalisation" ];
       }
     ];
   };

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, libs, ... }:
 
 {
   networking.wireless.enable = false;  # Must be false for enabling networkmanager.
@@ -19,7 +19,7 @@
     };
   } else {};
 
-  networking.proxy.default = if config.networking.hostName != "wlsn" then "http://127.0.0.1:7890" else "";
+  # networking.proxy.default = "" + libs.lists.optional (config.networking.hostName == "iwkr") "http://127.0.0.1:7890";
   # networking.proxy.allProxy = "http://127.0.0.1:7890";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 

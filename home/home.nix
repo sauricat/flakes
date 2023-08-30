@@ -1,15 +1,23 @@
-{ inputs, config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, host, ... }:
 {
   imports = [
     ./mapping.nix
-    ./emacs-exwm.nix
-    ./wm-company.nix
     ./fish.nix
     ./firefox.nix
     ./compatibility.nix
     ./devel.nix
     ./tex.nix
-  ];
+  ]
+  ++ lib.lists.optionals (host == "wlsnwl") [ ./emacs-sway.nix
+                                              ./sway
+                                              ./wm-company.nix
+                                              ./wldpi.nix
+                                            ]
+  ++ lib.lists.optionals (host == "wlsn"
+                         || host == "iwkr" ) [ ./emacs-exwm.nix
+                                               ./wm-company.nix
+                                             ]
+  ;
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = with pkgs; [
