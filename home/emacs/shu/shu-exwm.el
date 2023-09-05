@@ -7,7 +7,7 @@
   "A temporary solution when `start-process-shell-command' doesn't work for X apps (marked as CMD)."
   (progn (multi-vterm-dedicated-open) ;; temporary solution
          (message cmd)
-         (vterm-send-string (format "%s\n" cmd))
+         (vterm-send-string (format "%s & \n" cmd))
          (multi-vterm-dedicated-close)))
 
 (defun shu-exwm-lock-screen ()
@@ -154,7 +154,7 @@
     (start-process-shell-command "autolock" nil "xautolock -time 5 -locker i3lock-shu -detectsleep -notify 5 -notifier \"i3lock-shu --grace-mode 5\"")
     (start-process-shell-command "blueman" nil "blueman-applet")
     (start-process-shell-command "megasync" nil "megasync")
-    (shu-exwm-start-process-gui-command "dolphin --daemon &")
+    (shu-exwm-start-process-gui-command "dolphin --daemon")
     ;; (start-process-shell-command "feh" nil "feh --bg-scale ~/clash-configuration/background-image")
     (exwm-workspace-switch 0)))
 
