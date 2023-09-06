@@ -40,7 +40,6 @@
 
   boot.loader.grub = {
     enable = true;
-    version = 2;
     efiSupport = true;
     efiInstallAsRemovable = true;
     device = "nodev"; # "nodev" for efi only
@@ -55,6 +54,10 @@
           search --fs-uuid --set=root $FS_UUID
           chainloader /EFI/Microsoft/Boot/bootmgfw.efi
         }
+
+        menuentry 'UEFI Firmware Settings' --id 'uefi-firmware' {
+          fwsetup
+	      }
       '';
   };
 
@@ -66,11 +69,6 @@
     interval = "weekly";
   };
   services.xserver.dpi = 96;
-
-  services.xserver.displayManager.autoLogin = {
-    enable = true;
-    user = "shu";
-  };
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
