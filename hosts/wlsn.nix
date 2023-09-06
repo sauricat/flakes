@@ -45,7 +45,19 @@
     efiInstallAsRemovable = true;
     device = "nodev"; # "nodev" for efi only
     theme = pkgs.nixos-grub2-theme;
+
+    extraEntries = ''
+        menuentry "Windows" {
+          insmod part_gpt
+          insmod fat
+          insmod search_fs_uuid
+          insmod chain
+          search --fs-uuid --set=root $FS_UUID
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+      '';
   };
+
   boot.loader.efi.efiSysMountPoint = "/boot";
 
   services.fwupd.enable = true;
