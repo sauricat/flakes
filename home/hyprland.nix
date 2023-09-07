@@ -52,12 +52,12 @@
       ];
 
       modules-right = [
-        "pulseaudio"
-        "network"
-        "cpu"
-        "memory"
-        "battery"
         "tray"
+        "network"
+        "pulseaudio"
+        # "cpu"
+        # "memory"
+        "battery"
       ];
 
       "hyprland/workspaces" = {
@@ -83,9 +83,9 @@
 
       clock = {
         interval = 1;
-        format = "{:%Y-%m-%d %H:%M}";
+        format = "{:%Y-%m-%d %H:%M %Z}";
         tooltip = true;
-        tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
+        tooltip-format = "<big>{:%Y-%m-%d %A}</big>\n<tt>{calendar}</tt>";
       };
 
       cpu = {
@@ -137,6 +137,8 @@
       tray = {
         spacing = 6;
       };
+
+      # Todo: Add Asus Suites
     };
   };
 }

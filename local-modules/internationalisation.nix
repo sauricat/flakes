@@ -3,7 +3,7 @@
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
-      LC_TIME = "lt_LT.UTF-8"; # Emmanuel Lévinas's hometown.
+      LC_TIME = "ja_JP.UTF-8";
       LC_CTYPE = "ja_JP.UTF-8";
     };
     inputMethod = {
