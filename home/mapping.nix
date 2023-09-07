@@ -21,9 +21,9 @@ let
 in
 {
   home.file =
-    mkHomeFile ./rime ".config/ibus/rime" //
+    mkHomeFile ./rime ".local/share/fcitx5/rime" //
     mkHomeFile ./emacs ".emacs.d" // {
-      ".config/ibus/rime/easy_en.custom.yaml".text = ''
+      ".local/share/fcitx5/rime/easy_en.custom.yaml".text = ''
         patch:
           easy_en/use_wordninja_rs: true
           easy_en/wordninja_rs_path: "${pkgs.wordninja-rs}/bin/wordninja"

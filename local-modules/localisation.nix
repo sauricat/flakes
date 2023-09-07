@@ -8,14 +8,11 @@
       LC_CTYPE = "ja_JP.UTF-8";
     };
     inputMethod = {
-      enabled = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [
-        typing-booster
-        anthy
-        rime
-        bamboo
-        libthai
-        uniemoji
+      enabled = "fcitx5";
+      fcitx5.addons = with pkgs; [
+        (fcitx5-rime.override { rimeDataPkgs = [ rime-data ]; })
+        fcitx5-anthy
+        fcitx5-configtool
       ];
     };
   };
@@ -53,6 +50,9 @@
       sarasa-gothic
       arphic-ukai arphic-uming
       unfonts-core
+
+      twemoji-color-font
+      font-awesome
     ];
     fontconfig = {
       defaultFonts = {

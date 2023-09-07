@@ -19,12 +19,13 @@
       height = 24; # * config.wayland.dpi / 96;
 
       modules-left = [
-        "sway/workspaces"
-        "sway/mode"
+        "hyprland/workspaces"
+        "hyprland/mode"
+        "hyprland/window"
       ];
 
       modules-center = [
-        "sway/window"
+        "clock"
       ];
 
       modules-right = [
@@ -34,28 +35,32 @@
         "memory"
         "battery"
         "tray"
-        "clock"
       ];
 
-      "sway/workspaces" = {
+      "hyprland/workspaces" = {
         all-outputs = true;
         format = "{icon}";
         format-icons = {
-          "1" = "";
-          "2" = "";
-          "3" = "";
-          "4" = "";
+          "1" = "1";
+          "2" = "2";
+          "3" = "3";
+          "4" = "4";
           "5" = "5";
           "6" = "6";
           "7" = "7";
-          "8" = "8";
-          "9" = "9";
         };
+        on-scroll-up = "hyprctl dispatch workspace e+1";
+        on-scroll-down = "hyprctl dispatch workspace e-1";
+      };
+
+      "hyprland/window" = {
+        max-length = 25;
+        separate-outputs = true;
       };
 
       clock = {
         interval = 1;
-        format = "{:%Y-%m-%d %H:%M:%S}";
+        format = "{:%Y-%m-%d %H:%M}";
         tooltip = true;
         tooltip-format = "<big>{:%Y-%m-%d %a}</big>\n<tt>{calendar}</tt>";
       };

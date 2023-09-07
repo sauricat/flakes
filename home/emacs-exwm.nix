@@ -71,12 +71,12 @@ let
     # lua53Packages.digestif # Due to collision, 2023-08-29, with TeXLive
   ];
   exwmSessionVariables = {
-    EDITOR = "emacsclient";
-    XMODIFIERS = "@im=ibus";
+    # EDITOR = "emacsclient";
+    # XMODIFIERS = "@im=ibus";
     LC_CTYPE = "ja_JP.UTF-8";
-    GTK_IM_MODULE = "ibus";
-    QT_IM_MODULE = "ibus";
-    CLUTTER_IM_MODULE = "ibus";
+    # GTK_IM_MODULE = "ibus";
+    # QT_IM_MODULE = "ibus";
+    # CLUTTER_IM_MODULE = "ibus";
   };
   cursorTheme = {
     package = pkgs.bibata-cursors;
@@ -122,7 +122,8 @@ rec {
     scriptPath = ".xsessions/exwm.xsession";
     profilePath = ".xsessions/exwm.xprofile";
     initExtra = ''
-      ibus-daemon -xrRd
+      fcitx5 -d
+      # ibus-daemon -xrRd
     '';
     windowManager.command = ''
       emacs --daemon
