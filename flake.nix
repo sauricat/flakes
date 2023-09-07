@@ -152,6 +152,7 @@
                               "nix"
                               "console-l10n"
                               # "guix"
+                              "hyprland"
                               "laptop-sleep"
                               "steam"
                               "printer"
