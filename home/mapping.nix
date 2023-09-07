@@ -22,6 +22,8 @@ in
 {
   home.file =
     mkHomeFile ./rime ".local/share/fcitx5/rime" //
+    mkHomeFile ./hypr ".config/hypr"//
+    mkHomeFile ./rofi ".local/share/rofi"//
     mkHomeFile ./emacs ".emacs.d" // {
       ".local/share/fcitx5/rime/easy_en.custom.yaml".text = ''
         patch:

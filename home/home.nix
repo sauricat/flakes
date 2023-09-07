@@ -2,8 +2,7 @@
 {
   imports = [
     ./mapping.nix
-    ./emacs-exwm.nix
-    ./wm-company.nix
+    ./emacs-pgtk.nix
     ./fish.nix
     ./firefox.nix
     ./compatibility.nix

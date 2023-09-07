@@ -6,7 +6,7 @@
     gwenview
     kitty
     okular
-    spectacle
+    # spectacle
     bibata-cursors
   ];
   services.xserver.displayManager.sddm = {

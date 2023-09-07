@@ -1,9 +1,31 @@
 # Reference: https://github.com/Egosummiki/dotfiles/tree/f6577e7c7b9474e05d62c0e6e0d38fee860ea4ea/waybar
 # Reference: https://github.com/oxalica/nixos-config/blob/main/home/modules/sway/waybar.nix
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
-  home.packages = with pkgs; [ wl-clipboard grim slurp dunst ];
-  xdg.configFile."hypr/hyprland.conf".source = ./hypr/hyprland.conf;
+  home.packages = with pkgs; [
+    wl-clipboard
+    grim slurp
+    dunst
+    hyprpaper
+    papirus-icon-theme
+    alsa-utils brightnessctl upower tlp playerctl
+  ];
+
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+    extraConfig = {
+      modi = "drun,run,window,filebrowser";
+      show-icons = true;
+      icon-theme = "Papirus-Light";
+    };
+  };
+
+  services.udiskie = {
+    enable = true;
+    automount = true;
+  };
+
 
   programs.waybar = {
     enable = true;
