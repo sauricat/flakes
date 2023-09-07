@@ -13,6 +13,7 @@
 
   programs.rofi = {
     enable = true;
+    theme = "awsi";
     package = pkgs.rofi-wayland;
     extraConfig = {
       modi = "drun,run,window,filebrowser";
