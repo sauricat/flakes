@@ -2,7 +2,7 @@
 # Reference: https://github.com/oxalica/nixos-config/blob/main/home/modules/sway/waybar.nix
 { pkgs, config, ... }:
 {
-  # home.packages = [ pkgs.eww ];
+  home.packages = with pkgs; [ wl-clipboard grim slurp dunst ];
   xdg.configFile."hypr/hyprland.conf".source = ./hypr/hyprland.conf;
 
   programs.waybar = {
