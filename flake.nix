@@ -167,6 +167,7 @@
                               "console-l10n"
                               # "guix"
                               "desktop-server"
+                              "hyprland"
                               "steam"
                               "printer"
                               "mailing" ];

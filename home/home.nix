@@ -9,6 +9,7 @@
     ./compatibility.nix
     ./devel.nix
     ./tex.nix
+    ./hyprland.nix
   ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
