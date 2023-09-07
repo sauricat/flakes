@@ -144,7 +144,7 @@
         system = "x86_64-linux";
         extraModules = [ ];
         extraLocalModules = [ "localisation"
-                              "nokde"
+                              "kde"
                               "bluetooth"
                               "multitouch"
                               "network"
