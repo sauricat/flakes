@@ -42,9 +42,14 @@
                 inputs.flake-utils.follows = "flake-utils";
                 inputs.nixpkgs.follows = "nixpkgs";
                 inputs.rust-overlay.follows = "rust-overlay"; };
+
+    lanzaboote = { url = "github:nix-community/lanzaboote";
+                   inputs.flake-utils.follows = "flake-utils";
+                   inputs.nixpkgs.follows = "nixpkgs";
+                   inputs.rust-overlay.follows = "rust-overlay"; };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, ... }: let
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, lanzaboote, ... }: let
     makeMyConfigurations = conflist: builtins.foldl' (a: b: a // b) { } (builtins.map
       ({ host, system, extraModules? [ ], extraLocalModules? [ ], enableUser? false, enableHomeManager? false }: {
         ${host} = let
@@ -156,7 +161,7 @@
       } {
         host = "wlsn"; # In memorial of my first HOME in CA
         system = "x86_64-linux";
-        extraModules = [ ];
+        extraModules = [ lanzaboote.nixosModules.lanzaboote ];
         extraLocalModules = [ "localisation"
                               "nokde"
                               "bluetooth"

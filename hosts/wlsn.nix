@@ -39,7 +39,7 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot.loader.grub = {
-    enable = true;
+    enable = false; # true;
     efiSupport = true;
     efiInstallAsRemovable = true;
     device = "nodev"; # "nodev" for efi only
@@ -59,6 +59,13 @@
           fwsetup
 	      }
       '';
+  };
+
+  #! Secure Boot !!
+  boot.bootspec.enable = true;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
   };
 
   boot.loader.efi.efiSysMountPoint = "/boot";
