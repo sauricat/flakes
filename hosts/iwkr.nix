@@ -96,7 +96,7 @@ in {
   };
   boot.loader.efi.efiSysMountPoint = "/boot";
 
-  services.xserver.dpi = 140;
+  services.xserver.dpi = 96;
 
   services.asusd.enable = true;
   services.fwupd.enable = true;
