@@ -10,6 +10,7 @@
     papirus-icon-theme
     alsa-utils brightnessctl upower tlp playerctl
     swayidle
+    squeekboard
   ];
 
   programs.rofi = {
@@ -67,6 +68,7 @@
 
       modules-right = [
         "tray"
+        "idle-inhibitor"
         "network"
         "pulseaudio"
         # "cpu"
@@ -100,8 +102,9 @@
         format = "{:%Y-%m-%d %H:%M %Z}";
         tooltip = true;
         tooltip-format = "<big>{:%Y-%m-%d %A}</big>\n<tt>{calendar}</tt>";
+        on-click = "busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b true";
+        on-click-right = "busctl call --user sm.puri.OSK0 /sm/puri/OSK0 sm.puri.OSK0 SetVisible b false";
       };
-
       cpu = {
         interval = 1;
         format = " {usage}%";
@@ -127,6 +130,7 @@
         format-wifi = " {essid} {signalStrength}%";
         format-linked = " {ifname}";
         format-disconnected = " ";
+        on-click = ''emacsclient -c -e "(progn (multi-vterm) (vterm-send-string \"nmtui\n\"))"'';
       };
 
       pulseaudio = {
@@ -146,6 +150,15 @@
         };
         scroll-step = 2.0;
         on-click = "pkill -f -x ${pkgs.pavucontrol}/bin/pavucontrol || ${pkgs.pavucontrol}/bin/pavucontrol";
+        on-click-right = ''emacsclient -e "(desktop-environment-toggle-mute)"'';
+      };
+
+      idle_inhibitor = {
+  	    format = "{icon}";
+  	    format-icons = {
+  		    activated = "";
+  		    deactivated = "";
+  	    };
       };
 
       tray = {
