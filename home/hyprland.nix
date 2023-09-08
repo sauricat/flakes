@@ -1,6 +1,6 @@
 # Reference: https://github.com/Egosummiki/dotfiles/tree/f6577e7c7b9474e05d62c0e6e0d38fee860ea4ea/waybar
-# Reference: https://github.com/oxalica/nixos-config/blob/main/home/modules/sway/waybar.nix
-{ pkgs, ... }:
+# Reference: https://github.com/oxalica/nixos-config/blob/main/home/modules/sway/
+{ pkgs, lib, config, ... }:
 {
   home.packages = with pkgs; [
     wl-clipboard
@@ -9,6 +9,7 @@
     hyprpaper
     papirus-icon-theme
     alsa-utils brightnessctl upower tlp playerctl
+    swayidle
   ];
 
   programs.rofi = {
@@ -27,6 +28,19 @@
     automount = true;
   };
 
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+    settings = {
+      daemonize = true;
+      image = "~/clash-configuration/lock-screen-picture";
+      scaling = "fill";
+      indicator-idle-visible = true;
+      clock = true;
+      datestr = "%Y-%m-%d %A";
+      show-failed-attempts = true;
+    };
+  };
 
   programs.waybar = {
     enable = true;
@@ -137,8 +151,6 @@
       tray = {
         spacing = 6;
       };
-
-      # Todo: Add Asus Suites
     };
   };
 }
