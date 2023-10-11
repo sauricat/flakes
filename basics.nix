@@ -5,7 +5,7 @@
   environment.systemPackages = with pkgs; [
     # emacs
     wget clash git
-    fd ripgrep lsof tree exa
+    fd ripgrep lsof tree eza
     fish
     gnupg
     home-manager

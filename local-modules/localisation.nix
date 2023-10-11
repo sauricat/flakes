@@ -27,7 +27,7 @@
     filelight
   ];
   programs.fish.enable = true;
-  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
+  # nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
   # Some defaults, override "basics.nix"
   programs.gnupg.agent.pinentryFlavor = lib.mkOverride 900 "qt";
