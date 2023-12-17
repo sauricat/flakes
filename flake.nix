@@ -188,7 +188,7 @@
         host = "hyvp"; # hyVPS
         system = "x86_64-linux";
         enableUser = true;
-        extraLocalModules = [ "nix" ];
+        extraLocalModules = [ "nix" "virtualisation" ];
       } {
         host = "livecd";
         system = "x86_64-linux";
