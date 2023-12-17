@@ -185,6 +185,11 @@
         enableUser = true;
         extraLocalModules = [ "nix" ];
       } {
+        host = "hyvp"; # hyVPS
+        system = "x86_64-linux";
+        enableUser = true;
+        extraLocalModules = [ "nix" ];
+      } {
         host = "livecd";
         system = "x86_64-linux";
         extraLocalModules = [ "kde" "internationalisation" ];
