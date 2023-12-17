@@ -67,8 +67,7 @@
   services.xserver.enable = true;
   services.xserver.displayManager = {
     sddm.enable = true;
-    hiddenUsers = [ "oxa" ];
-    defaultSession = "none+exwm";
+    hiddenUsers = [ "oxa" "kuniklo" ];
   };
 
   services.xserver.windowManager.session = lib.singleton {
@@ -90,7 +89,7 @@
   services.xserver.xkbVariant = "altgr-intl"; # included xkbOption "eurosign:5"
   services.xserver.xkbOptions = "caps:none"; # xkeyboard-config(7)
 
-  services.autorandr.enable = true;
+  # services.autorandr.enable = true;
 
   # Enable sound.
   sound.enable = true;

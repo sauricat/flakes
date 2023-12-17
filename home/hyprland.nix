@@ -11,6 +11,7 @@
     alsa-utils brightnessctl upower tlp playerctl
     swayidle
     squeekboard
+    bibata-cursors
   ];
 
   programs.rofi = {
