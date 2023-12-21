@@ -4,7 +4,7 @@
 {
   environment.systemPackages = with pkgs; [
     # emacs
-    wget clash git
+    wget clash-meta git
     fd ripgrep lsof tree eza
     fish
     gnupg

@@ -15,7 +15,7 @@
   home.packages = with pkgs; [
     # system:
     trash-cli bc cachix
-    man-pages tealdeer neofetch hyfetch plasma5Packages.kdeconnect-kde
+    man-pages tealdeer plasma5Packages.kdeconnect-kde
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
@@ -27,7 +27,7 @@
     goldendict zotero pandoc
 
     # non-oss:
-    megasync zoom-us obsidian
+    megasync zoom-us #obsidian
 
     # nur:
     # nur.repos.dukzcry.cockpit
