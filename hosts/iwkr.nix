@@ -2,38 +2,32 @@
   asusPatchesRepo = pkgs.fetchFromGitLab {
     owner = "dragonn";
     repo = "linux-g14";
-    rev = "de92b78ab64dfee61a69fc3c31f339c988ce1729"; # "5.15";
-    hash = "sha256-XPVmA/nDumBj+UUMKeHcLQB0if1dhE0xpOscmbDdTbs=";
+    rev = "6.6";
+    hash = "sha256-JHxkNYvD8dtw6kqHGVUEZBUdhYXAywfUoYWsGEChT6Q=";
   };
   asusPatches = map (name: { inherit name; patch = "${asusPatchesRepo}/${name}"; })
     [
-      "sys-kernel_arch-sources-g14_files-0004-5.15+--more-uarches-for-kernel.patch"
-      "sys-kernel_arch-sources-g14_files-0005-lru-multi-generational.patch"
-      "sys-kernel_arch-sources-g14_files-0006-zstd.patch"
-      # "sys-kernel_arch-sources-g14_files-0043-ALSA-hda-realtek-Fix-speakers-not-working-on-Asus-Fl.patch"
-      "sys-kernel_arch-sources-g14_files-0046-fan-curvers.patch"
-      # "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
-      # "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-Allow-configuring-SW_TABLET.patch"
+      "0001-acpi-proc-idle-skip-dummy-wait.patch"
+      "0001-ACPI-resource-Skip-IRQ-override-on-ASUS-TUF-Gaming-A.patch"
+      "0001-ALSA-hda-realtek-Add-quirk-for-ASUS-ROG-G814Jx.patch"
+      "0001-linux6.6.y-bore3.3.0.patch"
+      "0001-platform-x86-asus-wmi-Add-safety-checks-to-dgpu-egpu.patch"
+      "0001-platform-x86-asus-wmi-Support-2023-ROG-X16-tablet-mo.patch"
+      "0002-ACPI-resource-Skip-IRQ-override-on-ASUS-TUF-Gaming-A.patch"
+      "0005-platform-x86-asus-wmi-don-t-allow-eGPU-switching-if-.patch"
+      "0006-platform-x86-asus-wmi-add-safety-checks-to-gpu-switc.patch"
+      "0032-Bluetooth-btusb-Add-a-new-PID-VID-0489-e0f6-for-MT7922.patch"
+      "0035-Add_quirk_for_polling_the_KBD_port.patch"
+      "0038-mediatek-pci-reset.patch"
+      "0040-workaround_hardware_decoding_amdgpu.patch"
+      "amd-tablet-sfh.patch"
+      "sys-kernel_arch-sources-g14_files-0004-5.17+--more-uarches-for-kernel.patch"
+      "sys-kernel_arch-sources-g14_files-0047-asus-nb-wmi-Add-tablet_mode_sw-lid-flip.patch"
       "sys-kernel_arch-sources-g14_files-0048-asus-nb-wmi-fix-tablet_mode_sw_int.patch"
-      "sys-kernel_arch-sources-g14_files-8012-mt76-mt7915-send-EAPOL-frames-at-lowest-rate.patch"
-      "sys-kernel_arch-sources-g14_files-8013-mt76-mt7921-robustify-hardware-initialization-flow.patch"
-      # "sys-kernel_arch-sources-g14_files-8014-mt76-mt7921-fix-retrying-release-semaphore-without-end.patch"
-      "sys-kernel_arch-sources-g14_files-8015-mt76-mt7921-send-EAPOL-frames-at-lowest-rate.patch"
-      "sys-kernel_arch-sources-g14_files-8016-mt76-mt7921-Add-mt7922-support.patch"
-      "sys-kernel_arch-sources-g14_files-8017-mt76-mt7921-enable-VO-tx-aggregation.patch"
-      # "sys-kernel_arch-sources-g14_files-8024-mediatek-more-bt-patches.patch"
-      "sys-kernel_arch-sources-g14_files-8026-cfg80211-dont-WARN-if-a-self-managed-device.patch"
-      "sys-kernel_arch-sources-g14_files-8050-r8152-fix-spurious-wakeups-from-s0i3.patch"
-      # "sys-kernel_arch-sources-g14_files-9001-v5.15.8-s0ix-patch-2021-12-14.patch"
-      "sys-kernel_arch-sources-g14_files-9004-HID-asus-Reduce-object-size-by-consolidating-calls.patch"
-      "sys-kernel_arch-sources-g14_files-9005-acpi-battery-Always-read-fresh-battery-state-on-update.patch"
-      "sys-kernel_arch-sources-g14_files-9006-amd-c3-entry.patch"
-      # "sys-kernel_arch-sources-g14_files-9007-squashed-net-tcp_bbr-bbr2-for-5.14.y.patch"
-      "sys-kernel_arch-sources-g14_files-9008-fix-cpu-hotplug.patch"
-      # "sys-kernel_arch-sources-g14_files-9009-amd-pstate-sqashed-v7.patch"
-      "sys-kernel_arch-sources-g14_files-9010-ACPI-PM-s2idle-Don-t-report-missing-devices-as-faili.patch"
-      "sys-kernel_arch-sources-g14_files-9012-x86-change-default-to-spec_store_bypass_disable-prct.patch"
-      "sys-kernel_arch-sources-g14_files-9052-x86-csum-Rewrite-optimize-csum_partial.patch"
+      "v2-0002-ALSA-hda-cs35l41-Support-ASUS-2023-laptops-with-m.patch"
+      "v2-0005-platform-x86-asus-wmi-don-t-allow-eGPU-switching-.patch"
+      "v2-0006-platform-x86-asus-wmi-add-safety-checks-to-gpu-sw.patch"
+      "v6-0001-platform-x86-asus-wmi-add-support-for-ASUS-screen.patch"
     ];
 in {
   imports = [
@@ -57,7 +51,7 @@ in {
   # boot.initrd.kernelModules = [ "amd_pstate" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_5_15; # inputs.nixpkgs-master.legacyPackages.${system}.linuxPackages_testing;
+  boot.kernelPackages = pkgs.linuxPackages_6_6; # inputs.nixpkgs-master.legacyPackages.${system}.linuxPackages_testing;
   # Since there are rc kernel packages, we need to disable zfs support.
   boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
   boot.kernelPatches = asusPatches;

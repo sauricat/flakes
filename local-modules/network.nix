@@ -13,7 +13,7 @@
     wantedBy = [ "default.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.clash}/bin/clash -f %h/clash-configuration/clash.yaml";
+      ExecStart = "${pkgs.clash-meta}/bin/clash -f %h/clash-configuration/clash.yaml";
       Restart = "on-failure";
       RestartPreventExitStatus = "23";
     };
