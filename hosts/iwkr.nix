@@ -48,12 +48,11 @@ in {
   ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usbhid" "usb_storage" "sd_mod" ];
-  # boot.initrd.kernelModules = [ "amd_pstate" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = pkgs.linuxPackages_6_6; # inputs.nixpkgs-master.legacyPackages.${system}.linuxPackages_testing;
-  # Since there are rc kernel packages, we need to disable zfs support.
-  boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
+  # Since there are not rc kernel packages, we need not to disable zfs support.
+  # boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
   boot.kernelPatches = asusPatches;
 
   fileSystems."/" = {
@@ -71,7 +70,6 @@ in {
   ];
 
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -101,7 +99,7 @@ in {
   boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
 
   boot.kernelParams = [
-    # "mem_sleep_default=deep" # acpi override company
+    "mem_sleep_default=deep" # acpi override company
     "amd_iommu=off" "idle=nomwait" "amdgpu.gpu_recovery=1" # https://wiki.archlinux.org/title/Laptop/ASUS#Black_screen_after_sleep
   ];
 
