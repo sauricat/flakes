@@ -190,6 +190,11 @@
         enableUser = true;
         extraLocalModules = [ "nix" "virtualisation" ];
       } {
+        host = "ctvp";
+        system = "x86_64-linux";
+        enableUser = true;
+        extraLocalModules = [ "nix" "virtualisation" ];
+      } {
         host = "livecd";
         system = "x86_64-linux";
         extraLocalModules = [ "kde" "internationalisation" ];
