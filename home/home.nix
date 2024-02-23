@@ -8,8 +8,11 @@
     ./compatibility.nix
     ./devel.nix
     ./tex.nix
-    ./hyprland.nix
-  ];
+  ] ++ (
+    if config.networking.hostname == "wlsn"
+    then [ ./hyprland.nix ]
+    else []
+  );
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = with pkgs; [
