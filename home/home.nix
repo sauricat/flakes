@@ -7,10 +7,12 @@
     ./firefox.nix
     ./compatibility.nix
     ./devel.nix
-    ./tex.nix
   ] ++ (
     if host == "wlsn"
-    then [ ./hyprland.nix ]
+    then [
+      ./hyprland.nix
+      ./tex.nix
+    ]
     else []
   );
   home.username = "shu";
