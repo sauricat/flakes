@@ -10,11 +10,7 @@ patch:
     - schema: luna_pinyin
     - schema: double_pinyin_mspy
     - schema: wugniu
-    # - schema: combo_pinyin
-    # - schema: terra_pinyin
-    # - schema: langjin
     - schema: latex
-    - schema: easy_en
   key_binder:
     bindings:
       __patch:
