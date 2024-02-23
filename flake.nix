@@ -83,7 +83,10 @@
     legacyPackages = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      config.permittedInsecurePackages = [ "qtwebkit-5.212.0-alpha4" ];
+      config.permittedInsecurePackages = [
+        "qtwebkit-5.212.0-alpha4"
+        "freeimage-unstable-2021-11-01"
+      ];
       overlays = builtins.attrValues self.overlays;
     };
   }) // {
