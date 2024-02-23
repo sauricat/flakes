@@ -8,42 +8,39 @@
     # ethernet.macAddress = "random";
   };
 
-  systemd.user.services.clashClient = if config.networking.hostName != "wlsn" then {
-    description = "Clash client service";
-    wantedBy = [ "default.target" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.clash-meta}/bin/clash -f %h/clash-configuration/clash.yaml";
-      Restart = "on-failure";
-      RestartPreventExitStatus = "23";
-    };
-  } else {};
+  # systemd.user.services.clashClient = if config.networking.hostName != "wlsn" then {
+  #   description = "Clash client service";
+  #   wantedBy = [ "default.target" ];
+  #   serviceConfig = {
+  #     Type = "simple";
+  #     ExecStart = "${pkgs.clash-meta}/bin/clash -f %h/clash-configuration/clash.yaml";
+  #     Restart = "on-failure";
+  #     RestartPreventExitStatus = "23";
+  #   };
+  # } else {};
 
-  networking.proxy.default = if config.networking.hostName != "wlsn" then "http://127.0.0.1:7890" else "";
+  # networking.proxy.default = if config.networking.hostName != "wlsn" then "http://127.0.0.1:7890" else "";
   # networking.proxy.allProxy = "http://127.0.0.1:7890";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  programs.proxychains = {
-    enable = true;
-    proxies.clash = {
-      enable = true;
-      type = "http";
-      host = "127.0.0.1";
-      port = 7890;
-    };
-  };
+  # programs.proxychains = {
+  #   enable = true;
+  #   proxies.clash = {
+  #     enable = true;
+  #     type = "http";
+  #     host = "127.0.0.1";
+  #     port = 7890;
+  #   };
+  # };
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = [ ];
-  };
+  # services.zerotierone = {
+  #   enable = true;
+  #   joinNetworks = [ ];
+  # };
   programs.ssh = {
     extraConfig = ''
-      Host Pod042A
-          HostName 10.147.17.126
-          User kuniklo
       Host *
           PubkeyAcceptedAlgorithms +ssh-rsa
           HostkeyAlgorithms +ssh-rsa
