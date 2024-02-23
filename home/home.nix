@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, ... }:
+{ host, config, pkgs, lib, ... }:
 {
   imports = [
     ./mapping.nix
@@ -9,7 +9,7 @@
     ./devel.nix
     ./tex.nix
   ] ++ (
-    if config.networking.hostname == "wlsn"
+    if host == "wlsn"
     then [ ./hyprland.nix ]
     else []
   );
