@@ -10,7 +10,6 @@
   ] ++ (
     if host == "wlsn"
     then [
-      ./hyprland.nix
       ./tex.nix
     ]
     else [

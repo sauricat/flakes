@@ -155,7 +155,6 @@
                               "nix"
                               "console-l10n"
                               # "guix"
-                              # "hyprland"
                               "laptop-sleep"
                               "steam"
                               "printer"
@@ -167,7 +166,7 @@
         system = "x86_64-linux";
         extraModules = [ lanzaboote.nixosModules.lanzaboote ];
         extraLocalModules = [ "localisation"
-                              "nokde"
+                              "nokde" "kde"
                               "bluetooth"
                               "multitouch"
                               "network"
@@ -176,7 +175,6 @@
                               "console-l10n"
                               # "guix"
                               "desktop-server"
-                              "hyprland"
                               "steam"
                               "printer"
                               "mailing" ];
