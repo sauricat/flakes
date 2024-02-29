@@ -22,7 +22,7 @@
   home.packages = with pkgs; [
     # system:
     trash-cli bc cachix
-    man-pages tealdeer plasma5Packages.kdeconnect-kde
+    man-pages tealdeer kdeconnect
 
     # internet:
     tdesktop aria2 element-desktop thunderbird

@@ -110,21 +110,21 @@
 
       # Many sddm themes requires lib qt-graphical-effects, while the sddm module in nixpkgs does not provide such an
       # option. Therefore I have to override sddm package myself.
-      sddm-enable-themes = self: super: {
-        sddm = super.sddm.overrideAttrs (old: {
-          buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
-        });
-        libsForQt5 = super.libsForQt5 // {
-          sddm = super.libsForQt5.sddm.overrideAttrs (old: {
-            buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
-          });
-        };
-        plasma5Packages = super.plasma5Packages // {
-          sddm = super.plasma5Packages.sddm.overrideAttrs (old: {
-            buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
-          });
-        };
-      };
+      # sddm-enable-themes = self: super: {
+      #   sddm = super.sddm.overrideAttrs (old: {
+      #     buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
+      #   });
+      #   libsForQt5 = super.libsForQt5 // {
+      #     sddm = super.libsForQt5.sddm.overrideAttrs (old: {
+      #       buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
+      #     });
+      #   };
+      #   plasma5Packages = super.plasma5Packages // {
+      #     sddm = super.plasma5Packages.sddm.overrideAttrs (old: {
+      #       buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
+      #     });
+      #   };
+      # };
 
       # rime-with-plugin = self: super: {
       #   librime = (super.librime.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ super.luajit ]; })).override { plugins = [ self.librime-lua ]; };
