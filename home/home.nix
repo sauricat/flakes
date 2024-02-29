@@ -13,7 +13,9 @@
       ./hyprland.nix
       ./tex.nix
     ]
-    else []
+    else [
+      ./virtual-keyboard.nix
+    ]
   );
   home.username = "shu";
   home.homeDirectory = "/home/shu";
