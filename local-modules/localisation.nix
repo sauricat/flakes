@@ -58,9 +58,10 @@
     ];
     fontconfig = {
       enable = true;
-      defaultFonts = {
+      defaultFonts = rec {
         serif = [ "Noto Serif" "源ノ明朝" "Noto Emoji" ];
-        sansSerif = [ "Noto Sans" "源ノ角ゴシック" "Noto Emoji" ];
+        sansSerif = serif;
+        # sansSerif = [ "Noto Sans" "源ノ角ゴシック" "Noto Emoji" ];
         monospace = [ "更紗等幅ゴシック J" ];
         emoji = [ "Noto Emoji" ];
       };
