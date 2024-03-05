@@ -43,9 +43,11 @@
       fira-code-symbols
 
       # CJKV
-      noto-fonts-cjk
+      noto-fonts-cjk-serif
+      noto-fonts-cjk-sans
       hanazono
       source-han-sans source-han-serif source-han-mono
+      source-han-sans-japanese source-han-serif-japanese source-han-code-jp
       wqy_microhei wqy_zenhei
       sarasa-gothic
       arphic-ukai arphic-uming
@@ -55,12 +57,47 @@
       font-awesome
     ];
     fontconfig = {
-      defaultFonts = {
-        serif = [ "Source Han Serif SC" ];
-        sansSerif = [ "Source Han Sans SC" ];
-        monospace = [ "Sarasa Mono SC" ];
+      enable = true;
+      defaultFonts = rec {
+        serif = [ "Noto Serif" "源ノ明朝" "Noto Emoji" ];
+        sansSerif = serif;
+        # sansSerif = [ "Noto Sans" "源ノ角ゴシック" "Noto Emoji" ];
+        monospace = [ "更紗等幅ゴシック J" ];
         emoji = [ "Noto Emoji" ];
       };
+
+      # localConf = ''
+      #   <?xml version="1.0" encoding="UTF-8"?>
+      #   <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+      #   <fontconfig>
+      #     <!-- Use language-specific font variants. -->
+      #     ${lib.concatMapStringsSep "\n" ({ lang, variant }:
+      #       let
+      #         replace = from: to: ''
+      #           <match target="pattern">
+      #             <test name="lang" compare="contains">
+      #               <string>${lang}</string>
+      #             </test>
+      #             <test name="family">
+      #               <string>${from}</string>
+      #             </test>
+      #             <edit name="family" binding="strong" mode="prepend_first">
+      #               <string>${to}</string>
+      #             </edit>
+      #           </match>
+      #         '';
+      #       in
+      #       replace "sans-serif" "Noto Sans CJK ${variant}" +
+      #       replace "serif" "Noto Serif CJK ${variant}"
+      #     ) [
+      #       { lang = "zh";    variant = "SC"; }
+      #       { lang = "zh-TW"; variant = "TC"; }
+      #       { lang = "zh-HK"; variant = "HK"; }
+      #       { lang = "ja";    variant = "JP"; }
+      #       { lang = "ko";    variant = "KR";  }
+      #     ]}
+      #   </fontconfig>
+      # '';
     };
   };
 
