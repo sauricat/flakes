@@ -10,7 +10,7 @@
   ] ++ (
     if host == "wlsn"
     then [
-      ./tex.nix
+      # ./tex.nix
     ]
     else [
       ./virtual-keyboard.nix
