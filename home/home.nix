@@ -56,7 +56,7 @@
   };
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "curses";
+    # pinentryFlavor = "curses";
   };
   programs.password-store = {
     enable = true;
