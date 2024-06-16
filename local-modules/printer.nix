@@ -22,4 +22,6 @@
   '';
 
   environment.systemPackages = with pkgs; [ system-config-printer xsane simple-scan ];
+
+  services.printing.cups-pdf.enable = true;
 }
