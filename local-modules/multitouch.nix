@@ -4,7 +4,7 @@
   # Enable touchpad and touchscreen support (enabled default in most desktopManager).
 
   environment.systemPackages = with pkgs; [ libwacom ];
-  services.xserver.libinput = {
+  services.libinput = {
     enable = true;
     touchpad = {
       naturalScrolling = true;

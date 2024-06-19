@@ -12,8 +12,7 @@
                       inputs.nixpkgs.follows = "nixpkgs";
                       inputs.flake-utils.follows = "flake-utils"; };
     rust-overlay = { url = "github:oxalica/rust-overlay";
-                     inputs.nixpkgs.follows = "nixpkgs";
-                     inputs.flake-utils.follows = "flake-utils"; };
+                     inputs.nixpkgs.follows = "nixpkgs"; };
     home-manager = { url = "github:nix-community/home-manager";
                      inputs.nixpkgs.follows = "nixpkgs"; };
     nixos-cn = { url = "github:nixos-cn/flakes";
@@ -68,6 +67,7 @@
                                                     { home-manager.extraSpecialArgs = specialArgs;
                                                       home-manager.useGlobalPkgs = true;
                                                       home-manager.useUserPackages = true;
+                                                      home-manager.backupFileExtension = "backup";
                                                       home-manager.users.shu = import ./home/home.nix;
                                                       # home-manager.users.oxa = {
                                                       #   imports = [ (inputs.oxalica + "/home/modules/shell") ];
