@@ -32,6 +32,8 @@
     okular pdftag ocrmypdf poppler_utils
     zotero pandoc
 
+    typst typstfmt typst-lsp typst-live
+
     # non-oss:
     megasync zoom-us obsidian
 

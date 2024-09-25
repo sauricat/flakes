@@ -37,6 +37,12 @@ let
           version = "git";
           src = inputs.epkgs-ligature;
         };
+        typst-ts-mode = epkgs.trivialBuild rec {
+          pname = "typst-ts-mode";
+          ename = pname;
+          version = "git";
+          src = inputs.epkgs-typst-ts-mode;
+        };
       });
     };
   lspPackages = with pkgs; [
@@ -48,6 +54,7 @@ let
     yaml-language-server
     clang-tools
     elixir_ls
+    typst-lsp
     # lua53Packages.digestif # Due to collision, 2023-08-29, with TeXLive
   ];
 in {

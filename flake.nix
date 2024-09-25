@@ -37,6 +37,8 @@
                                 flake = false; };
     epkgs-exwm-ns = { url = "github:timor/exwm-ns";
                       flake = false; };
+    epkgs-typst-ts-mode = { url = "github:kaction-emacs/typst-ts-mode";
+                            flake = false; };
 
     lsp-nil = { url = "github:oxalica/nil";
                 inputs.flake-utils.follows = "flake-utils";

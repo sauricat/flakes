@@ -10,6 +10,7 @@
       (add-to-list 'eglot-server-programs '(python-mode . ("pyright")))
       (add-to-list 'eglot-server-programs '(elixir-mode . ("elixir-ls")))
       (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
+      (add-to-list 'eglot-server-programs '(typst-ts-mode . ("typst-lsp")))
       :hook
       ((c-mode c++-mode ;; -> see ./shu-c.el
 	python-mode
@@ -20,6 +21,7 @@
 	yaml-mode
 	elixir-mode
         tex-mode context-mode texinfo-mode bibtex-mode ;; -> see ./shu-tex.el
+        typst-ts-mode
         ) . eglot-ensure)))
 
 (provide 'shu-langserver-eglot)

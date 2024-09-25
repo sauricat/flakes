@@ -114,6 +114,22 @@
         "type": "github"
       }
     },
+    "epkgs-typst-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710645290,
+        "narHash": "sha256-HUOsb5aUj2Kb5E0HaZENp9pqQIAOF4t2SEIKH7cFspo=",
+        "owner": "kaction-emacs",
+        "repo": "typst-ts-mode",
+        "rev": "a5f094dd1d1ce992e9ad290e4838779b2dd5809a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kaction-emacs",
+        "repo": "typst-ts-mode",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -528,6 +544,7 @@
         "epkgs-exwm-ns": "epkgs-exwm-ns",
         "epkgs-ligature": "epkgs-ligature",
         "epkgs-toggle-one-window": "epkgs-toggle-one-window",
+        "epkgs-typst-ts-mode": "epkgs-typst-ts-mode",
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
