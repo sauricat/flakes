@@ -24,6 +24,7 @@
           (const :tag "lsp-mode" lsp-mode)
           (const :tag "eglot" eglot)))
 (setq shu-lsp 'eglot)
+(setq-default indent-tabs-mode nil)
 (require 'shu-langserver-lsp)
 (require 'shu-langserver-eglot)
 (require 'shu-c)
@@ -201,10 +202,6 @@
 (use-package fish-mode)
 (use-package rust-mode)
 (use-package elixir-mode)
-
-(add-to-list 'treesit-language-source-alist
-             '(typst "https://github.com/uben0/tree-sitter-typst"))
-(treesit-install-language-grammar 'typst)
 (use-package typst-ts-mode)
 (use-package cargo)
 
@@ -247,6 +244,9 @@
   :config
   (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown))
   (add-to-list 'tree-sitter-major-mode-language-alist '(yaml-mode . yaml)))
+(add-to-list 'treesit-language-source-alist
+             '(typst "https://github.com/uben0/tree-sitter-typst"))
+(treesit-install-language-grammar 'typst)
 
 ;; Undo tree
 (use-package undo-tree
