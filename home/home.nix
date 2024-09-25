@@ -30,7 +30,7 @@
     # work:
     libreoffice scribus gimp xournalpp krita calibre
     okular pdftag ocrmypdf poppler_utils
-    goldendict zotero pandoc
+    zotero pandoc
 
     # non-oss:
     megasync zoom-us obsidian
