@@ -8,7 +8,8 @@
       LC_CTYPE = "ja_JP.UTF-8";
     };
     inputMethod = {
-      enabled = "fcitx5";
+      enable = true;
+      type = "fcitx5";
       fcitx5.addons = with pkgs; [
         (fcitx5-rime.override { rimeDataPkgs = [ rime-data ]; })
         fcitx5-anthy
@@ -105,9 +106,11 @@
 
   # services.autorandr.enable = true;
 
-  # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
-  hardware.pulseaudio.extraConfig = "load-module module-switch-on-connect";
+  # sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+  };
 }

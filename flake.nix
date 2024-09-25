@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nur.url = "github:nix-community/NUR";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = { url = "github:edolstra/flake-compat";
                      flake = false; };
@@ -43,12 +44,12 @@
                 inputs.rust-overlay.follows = "rust-overlay"; };
 
     lanzaboote = { url = "github:nix-community/lanzaboote";
-                   inputs.flake-utils.follows = "flake-utils";
                    inputs.nixpkgs.follows = "nixpkgs";
                    inputs.rust-overlay.follows = "rust-overlay"; };
+
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, lanzaboote, ... }: let
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, home-manager, flake-utils, lanzaboote, nur, ... }: let
     makeMyConfigurations = conflist: builtins.foldl' (a: b: a // b) { } (builtins.map
       ({ host, system, extraModules? [ ], extraLocalModules? [ ], enableUser? false, enableHomeManager? false }: {
         ${host} = let
@@ -69,10 +70,6 @@
                                                       home-manager.useUserPackages = true;
                                                       home-manager.backupFileExtension = "backup";
                                                       home-manager.users.shu = import ./home/home.nix;
-                                                      # home-manager.users.oxa = {
-                                                      #   imports = [ (inputs.oxalica + "/home/modules/shell") ];
-                                                      #   xdg.stateHome = "/home/oxa";
-                                                      #   home.stateVersion = "21.05"; };
                                                     } ]
                                              else [ ])
                     ++ (if enableUser then [ ./user.nix ]
@@ -84,9 +81,8 @@
       inherit system;
       config.allowUnfree = true;
       config.permittedInsecurePackages = [
-        "qtwebkit-5.212.0-alpha4"
-        "freeimage-unstable-2021-11-01"
-      ];
+         "qtwebkit-5.212.0-alpha4"
+       ];
       overlays = builtins.attrValues self.overlays;
     };
   }) // {
@@ -107,28 +103,8 @@
       rust-overlay = inputs.rust-overlay.overlays.default;
       berberman = inputs.berberman.overlays.default;
       lsp-nil = self: super: { inherit (inputs.lsp-nil.packages.${self.system}) nil; };
+      nur = self: super: { nur = import inputs.nur { nurpkgs = self; pkgs = self; }; };
 
-      # Many sddm themes requires lib qt-graphical-effects, while the sddm module in nixpkgs does not provide such an
-      # option. Therefore I have to override sddm package myself.
-      # sddm-enable-themes = self: super: {
-      #   sddm = super.sddm.overrideAttrs (old: {
-      #     buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
-      #   });
-      #   libsForQt5 = super.libsForQt5 // {
-      #     sddm = super.libsForQt5.sddm.overrideAttrs (old: {
-      #       buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
-      #     });
-      #   };
-      #   plasma5Packages = super.plasma5Packages // {
-      #     sddm = super.plasma5Packages.sddm.overrideAttrs (old: {
-      #       buildInputs = old.buildInputs ++ [ super.qt5.qtgraphicaleffects ];
-      #     });
-      #   };
-      # };
-
-      # rime-with-plugin = self: super: {
-      #   librime = (super.librime.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ super.luajit ]; })).override { plugins = [ self.librime-lua ]; };
-      # };
     };
     nixosModules = rec {
       default = smallcat;
@@ -145,7 +121,7 @@
       {
         host = "iwkr"; # "Iwakura Lain".
         system = "x86_64-linux";
-        extraModules = [ ];
+        extraModules = [ nur.nixosModules.nur ];
         extraLocalModules = [ "localisation"
                               "kde" "nokde" # awkward
                               "bluetooth"
@@ -164,7 +140,7 @@
       } {
         host = "wlsn"; # In memorial of my first HOME in CA
         system = "x86_64-linux";
-        extraModules = [ lanzaboote.nixosModules.lanzaboote ];
+        extraModules = [ lanzaboote.nixosModules.lanzaboote nur.nixosModules.nur ];
         extraLocalModules = [ "localisation"
                               "nokde" "kde"
                               "bluetooth"

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.protonmail-bridge pkgs.gnome.gnome-keyring ];
+  environment.systemPackages = [ pkgs.protonmail-bridge pkgs.gnome-keyring ];
   services.gnome.gnome-keyring.enable = true;
   systemd.user.services.protonmail-bridge = {
     description = "Protonmail Bridge";

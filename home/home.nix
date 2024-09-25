@@ -1,4 +1,4 @@
-{ host, config, pkgs, lib, ... }:
+{ host, config, pkgs, ... }:
 {
   imports = [
     ./mapping.nix
@@ -21,7 +21,7 @@
   home.packages = with pkgs; [
     # system:
     trash-cli bc cachix
-    man-pages tealdeer kdeconnect
+    man-pages tealdeer
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
@@ -33,10 +33,10 @@
     goldendict zotero pandoc
 
     # non-oss:
-    megasync zoom-us #obsidian
+    megasync zoom-us obsidian
 
     # nur:
-    # nur.repos.dukzcry.cockpit
+    nur.repos.xyenon.kazv
   ];
   programs.home-manager.enable = true;
 

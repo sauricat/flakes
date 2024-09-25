@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, ... }:
 
 {
   networking.wireless.enable = false;  # Must be false for enabling networkmanager.
@@ -35,10 +35,6 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # services.zerotierone = {
-  #   enable = true;
-  #   joinNetworks = [ ];
-  # };
   programs.ssh = {
     extraConfig = ''
       Host *
@@ -48,11 +44,14 @@
   };
 
   services.tailscale.enable = true;
-  networking.firewall.checkReversePath = "loose";
 
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall = rec {
+    enable = lib.mkDefault true;
+    checkReversePath = lib.mkDefault "loose";
+    allowedTCPPorts = [ 1714 1764 ]; #KDEConnect
+    allowedUDPPorts = allowedTCPPorts;
+  };
+
+  programs.kdeconnect.enable = true;
 
 }
