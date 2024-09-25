@@ -36,7 +36,7 @@
     megasync zoom-us obsidian
 
     # nur:
-    nur.repos.xyenon.kazv
+    # nur.repos.xyenon.kazv
   ];
   programs.home-manager.enable = true;
 
