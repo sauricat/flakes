@@ -10,8 +10,7 @@
     flake-compat = { url = "github:edolstra/flake-compat";
                      flake = false; };
     emacs-overlay = { url = "github:nix-community/emacs-overlay";
-                      inputs.nixpkgs.follows = "nixpkgs";
-                      inputs.flake-utils.follows = "flake-utils"; };
+                      inputs.nixpkgs.follows = "nixpkgs"; };
     rust-overlay = { url = "github:oxalica/rust-overlay";
                      inputs.nixpkgs.follows = "nixpkgs"; };
     home-manager = { url = "github:nix-community/home-manager";
