@@ -139,6 +139,13 @@
 ;; Spell check and auto fill
 (use-package flycheck
   :config (global-flycheck-mode))
+(use-package grammarly
+  :hook (after-init . grammarly-load-from-authinfo))
+
+(use-package flycheck-grammarly
+  :config (add-to-list 'flycheck-grammarly-active-modes 'typst-ts-mode)
+  :hook (after-init . flycheck-grammarly-setup))
+
 (use-package company
   :diminish company-mode
   :hook (after-init . global-company-mode)
@@ -202,7 +209,11 @@
 (use-package fish-mode)
 (use-package rust-mode)
 (use-package elixir-mode)
-(use-package typst-ts-mode)
+(use-package typst-ts-mode
+  :hook (typst-ts-mode . (lambda () (flycheck-define-generic-checker 'grammarly
+             "Grammarly flycheck definition."
+             :start #'flycheck-grammarly--start
+             :modes flycheck-grammarly-active-modes))))
 (use-package cargo)
 
 ;; Dired
@@ -271,6 +282,5 @@
 ;; (require 'lsp-bridge)
 ;; (yas-global-mode 1)
 ;; (global-lsp-bridge-mode)
-
 (provide 'init)
 ;;; init.el ends here
