@@ -1,6 +1,6 @@
 ﻿;;; init --- Init file of emacs
 ;;; Commentary:
-"The shu init file of emacs and exwm."
+"The shu init file of emacs."
 ;;; Code:
 
 (package-initialize)
@@ -8,7 +8,6 @@
 (setq backup-directory-alist '(("." . "~/.backups")))
 (add-to-list 'load-path (expand-file-name "shu" user-emacs-directory))
 
-(require 'shu-exwm)
 (require 'shu-term)
 (defgroup shu ()
   "Shu EMACS config."

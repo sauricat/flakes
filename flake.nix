@@ -34,8 +34,6 @@
                        flake = false; };
     epkgs-toggle-one-window = { url = "github:manateelazycat/toggle-one-window";
                                 flake = false; };
-    epkgs-exwm-ns = { url = "github:timor/exwm-ns";
-                      flake = false; };
     epkgs-typst-ts-mode = { url = "github:kaction-emacs/typst-ts-mode";
                             flake = false; };
 

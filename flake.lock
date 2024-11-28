@@ -57,22 +57,6 @@
         "type": "github"
       }
     },
-    "epkgs-exwm-ns": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1730623168,
-        "narHash": "sha256-iB3nqOnhLAu+Nz1EFu+4TRgIveonllZinzbDTZxgfFg=",
-        "owner": "timor",
-        "repo": "exwm-ns",
-        "rev": "9b5ca12c5079e0afc6545241fb7a1c208673675a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "timor",
-        "repo": "exwm-ns",
-        "type": "github"
-      }
-    },
     "epkgs-ligature": {
       "flake": false,
       "locked": {
@@ -401,11 +385,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1732832104,
-        "narHash": "sha256-V+2uq4ziEDhUkfYZoxO9gofEeXvo/cVhHOJ51bSfBhk=",
+        "lastModified": 1732835391,
+        "narHash": "sha256-NBV+/EfG1/c5J8ycGIB42RYEuRpN/sTheHBq476MziY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "02fe29395df8e5571291ebcc6114f94dd33f722b",
+        "rev": "522d5d85db83d3c9960edbedf1ba5a1b2001707d",
         "type": "github"
       },
       "original": {
@@ -532,7 +516,6 @@
       "inputs": {
         "berberman": "berberman",
         "emacs-overlay": "emacs-overlay",
-        "epkgs-exwm-ns": "epkgs-exwm-ns",
         "epkgs-ligature": "epkgs-ligature",
         "epkgs-toggle-one-window": "epkgs-toggle-one-window",
         "epkgs-typst-ts-mode": "epkgs-typst-ts-mode",
