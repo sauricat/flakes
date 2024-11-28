@@ -48,6 +48,7 @@
       noto-fonts-cjk-sans
       hanazono
       source-han-sans source-han-serif source-han-mono
+      source-han-sans-simplified-chinese source-han-serif-simplified-chinese
       source-han-sans-japanese source-han-serif-japanese source-han-code-jp
       wqy_microhei wqy_zenhei
       sarasa-gothic
