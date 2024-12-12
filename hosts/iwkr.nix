@@ -56,19 +56,35 @@
   # boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
   # boot.kernelPatches = asusPatches;
 
+  boot.initrd = {
+    systemd.enable = true;
+    luks.devices."iwkr-luks" = {
+      device = "/dev/disk/by-uuid/a755f2f5-9198-4d9f-b3b7-554cf74b4578";
+      allowDiscards = true;
+    };
+  };
+
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/2e8935cb-c1e6-4c77-b183-96d46b7978d0";
+    device = "/dev/disk/by-uuid/3482cb46-5fcf-4a45-93fe-663fa70c8f9d";
     fsType = "btrfs";
+    options = [ "compress=zstd" ];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/785A-D7D5";
+    device = "/dev/disk/by-uuid/CCCC-5F08";
     fsType = "vfat";
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/5df5da95-bac5-498d-bff9-94b2014fbf57"; }
+    {
+      device = "/var/swap/swapfile";
+      size = 16 * 1024;
+    }
   ];
+  systemd.tmpfiles.settings."zswap" = {
+    "/sys/module/zswap/parameters/enabled"."w-".argument = "1";
+    "/sys/module/zswap/parameters/zpool"."w-".argument = "zsmalloc";
+  };
 
   networking.useDHCP = lib.mkDefault true;
 
@@ -76,7 +92,6 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   powerManagement.enable = true;
-  powerManagement.cpuFreqGovernor = "schedutil";
 
   boot.loader.grub = {
     enable = true;
@@ -86,16 +101,11 @@
     theme = pkgs.nixos-grub2-theme;
     # extraFiles."acpi_override" = ./iwkr/acpi_override;
   };
-  boot.loader.efi.efiSysMountPoint = "/boot";
 
   services.xserver.dpi = 96;
 
   services.asusd.enable = true;
   services.fwupd.enable = true;
-  services.fstrim = {
-    enable = true;
-    interval = "weekly";
-  };
   # boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
 
   boot.kernelParams = [
