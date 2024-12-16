@@ -13,18 +13,17 @@
   ''; # fix keyboard fn keys dysfunction
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f59df329-504c-418b-a7d4-8c2f2cfa4175";
+    { device = "/dev/disk/by-uuid/1b241f02-b9b5-4667-8d7a-9dc1b12b18b3";
       fsType = "btrfs";
+      options = [ "compress=zstd" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/25EC-ADD7";
+    { device = "/dev/disk/by-uuid/5A55-F4D7";
       fsType = "vfat";
     };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/ec9d9383-e096-40e2-a191-3845fe0039e2"; }
-    ];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -39,7 +38,7 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   boot.loader.grub = {
-    enable = false; # true;
+    enable = true;
     efiSupport = true;
     efiInstallAsRemovable = true;
     device = "nodev"; # "nodev" for efi only
@@ -63,10 +62,10 @@
 
   #! Secure Boot !!
   boot.bootspec.enable = true;
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
+  # boot.lanzaboote = {
+  #   enable = true;
+  #   pkiBundle = "/etc/secureboot";
+  # };
 
   boot.loader.efi.efiSysMountPoint = "/boot";
 
