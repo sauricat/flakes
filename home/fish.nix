@@ -10,7 +10,7 @@ in
     enable = true;
     shellAbbrs = {
       # Pride commands
-      l = "eza -Fabl"; ls = "eza -F"; lt = "eza -Fabls modified";
+      l = "eza -F -abl"; ls = "eza -F"; lt = "eza -F -abl -s modified";
       g = "git";
       b = "bsdtar";
       t = "trash";
