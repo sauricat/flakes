@@ -25,18 +25,17 @@
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
-    vlc /*syncplay*/ obs-studio
+    vlc kazv obs-studio
 
     # work:
     libreoffice scribus gimp xournalpp krita calibre
-    okular pdftag ocrmypdf poppler_utils
+    tesseract poppler_utils
     zotero pandoc
 
     typst typstfmt typst-lsp typst-live
 
     # non-oss:
-    megasync zoom-us obsidian
-
+    megasync zoom-us
     # nur:
     # nur.repos.xyenon.kazv
   ];
