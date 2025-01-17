@@ -7,15 +7,8 @@
     ./firefox.nix
     ./compatibility.nix
     ./devel.nix
-  ] ++ (
-    if host == "wlsn"
-    then [
-      # ./tex.nix
-    ]
-    else [
-      ./virtual-keyboard.nix
-    ]
-  );
+    ./tex.nix
+  ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
   home.packages = with pkgs; [
