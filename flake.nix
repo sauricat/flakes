@@ -109,7 +109,7 @@
       {
         host = "iwkr"; # "Iwakura Lain".
         system = "x86_64-linux";
-        extraModules = [ nur.nixosModules.nur ];
+        extraModules = [ nur.modules.nixos.default ];
         extraLocalModules = [ "localisation"
                               "kde" "nokde" # awkward
                               "bluetooth"
