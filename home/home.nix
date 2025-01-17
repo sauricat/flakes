@@ -25,7 +25,8 @@
 
     # internet:
     tdesktop aria2 element-desktop thunderbird
-    vlc kazv obs-studio
+    vlc # kazv
+    obs-studio
 
     # work:
     libreoffice scribus gimp xournalpp krita calibre
@@ -66,15 +67,5 @@
 
   home.sessionVariables.MOZ_USE_XINPUT2 = "1";
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "application/pdf" = "org.kde.okular.desktop";
-      "image/*" = "org.kde.gwenview.desktop";
-      "video/*" = "vlc.desktop";
-      "text/html" = "firefox.desktop";
-      "text/plain" = "emacsclient.desktop";
-    };
-  };
   home.stateVersion = "21.11";
 }
