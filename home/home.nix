@@ -7,7 +7,7 @@
     ./firefox.nix
     ./compatibility.nix
     ./devel.nix
-    ./tex.nix
+    # ./tex.nix
   ];
   home.username = "shu";
   home.homeDirectory = "/home/shu";
