@@ -3,9 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    # nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
-    nur.url = "github:nix-community/NUR";
+    nur = { url = "github:nix-community/NUR";
+            inputs.nixpkgs.follows = "nixpkgs"; };
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = { url = "github:edolstra/flake-compat";
                      flake = false; };
@@ -15,17 +16,7 @@
                      inputs.nixpkgs.follows = "nixpkgs"; };
     home-manager = { url = "github:nix-community/home-manager";
                      inputs.nixpkgs.follows = "nixpkgs"; };
-    nixos-cn = { url = "github:nixos-cn/flakes";
-                 inputs.nixpkgs.follows = "nixpkgs";
-                 inputs.flake-utils.follows = "flake-utils"; };
-    berberman = { url = "github:berberman/flakes";
-                  inputs.nixpkgs.follows = "nixpkgs"; };
-    nixos-guix = { url = "github:sauricat/nguix";
-                   inputs.nixpkgs.follows = "nixpkgs";
-                   inputs.flake-compat.follows = "flake-compat"; };
-
     oxalica = { url = "github:oxalica/nixos-config";
-                # inputs.secrets.follows = "blank";
                 flake = false; };
     tree-sitter-nix-oxa = { url = "github:oxalica/tree-sitter-nix";
                             flake = false; };
@@ -98,9 +89,7 @@
 
       # My inputs.
       emacs-overlay = inputs.emacs-overlay.overlay;
-      nixos-cn = inputs.nixos-cn.overlay;
       rust-overlay = inputs.rust-overlay.overlays.default;
-      berberman = inputs.berberman.overlays.default;
       lsp-nil = self: super: { inherit (inputs.lsp-nil.packages.${self.system}) nil; };
       nur = self: super: { nur = import inputs.nur { nurpkgs = self; pkgs = self; }; };
 
@@ -139,7 +128,7 @@
       } {
         host = "wlsn"; # In memorial of my first HOME in CA
         system = "x86_64-linux";
-        extraModules = [ lanzaboote.nixosModules.lanzaboote nur.nixosModules.nur ];
+        extraModules = [ lanzaboote.nixosModules.lanzaboote nur.modules.nixos.default ];
         extraLocalModules = [ "localisation"
                               "nokde" "kde"
                               "bluetooth"
