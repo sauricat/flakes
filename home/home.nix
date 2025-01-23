@@ -53,6 +53,7 @@
     enable = true;
     # pinentryFlavor = "curses";
   };
+  services.megasync.enable = true;
   programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions (ps: [ ps.pass-otp ]);
