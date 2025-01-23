@@ -5,7 +5,8 @@
   services.desktopManager.plasma6.enable = true;
 
   environment.systemPackages = with pkgs; [
-    plasma5Packages.bismuth
+    krfb
+    plasma5Packages.kdeconnect-kde
     squeekboard
   ];
 }
