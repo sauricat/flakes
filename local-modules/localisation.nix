@@ -22,7 +22,7 @@
     useXkbConfig = true;
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with kdePackages; [
     firefox
     ark
     filelight

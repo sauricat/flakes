@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with kdePackages; [
     ark
     dolphin
     gwenview
-    kitty
     okular
     # spectacle
     bibata-cursors
+    kitty
   ];
   services.displayManager.sddm = {
     # theme = pkgs.sddm-sugar-candy + "/share/sddm/themes/sugar-candy";
