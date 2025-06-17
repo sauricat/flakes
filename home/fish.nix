@@ -30,6 +30,7 @@ in
       setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
       hash = "nix-hash --flat --base32 --type sha256 $argv";
       nshp = "nix shell nixpkgs#$argv";
+      nr = "nix run nixpkgs#$argv";
       e = ''
         if test -z "$argv"
             set args "-c"
