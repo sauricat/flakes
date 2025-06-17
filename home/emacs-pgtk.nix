@@ -47,7 +47,7 @@ let
     yaml-language-server
     clang-tools
     elixir_ls
-    typst-lsp
+    tinymist
     # lua53Packages.digestif # Due to collision, 2023-08-29, with TeXLive
   ];
 in {

@@ -26,7 +26,7 @@
     tesseract poppler_utils
     zotero pandoc
 
-    typst typstfmt typst-lsp typst-live
+    typst typstfmt typst-live
 
     # non-oss:
     megasync zoom-us
