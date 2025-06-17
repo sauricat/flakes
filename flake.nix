@@ -29,9 +29,7 @@
                             flake = false; };
 
     lsp-nil = { url = "github:oxalica/nil";
-                inputs.flake-utils.follows = "flake-utils";
-                inputs.nixpkgs.follows = "nixpkgs";
-                inputs.rust-overlay.follows = "rust-overlay"; };
+                inputs.nixpkgs.follows = "nixpkgs"; };
 
     lanzaboote = { url = "github:nix-community/lanzaboote";
                    inputs.nixpkgs.follows = "nixpkgs";
