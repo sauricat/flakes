@@ -1,4 +1,9 @@
-{ host, config, pkgs, ... }:
+{
+  host,
+  config,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./mapping.nix
@@ -13,23 +18,39 @@
   home.homeDirectory = "/home/shu";
   home.packages = with pkgs; [
     # system:
-    trash-cli bc cachix
-    man-pages tealdeer
+    trash-cli
+    bc
+    cachix
+    man-pages
+    tealdeer
 
     # internet:
-    tdesktop aria2 element-desktop thunderbird
+    tdesktop
+    aria2
+    element-desktop
+    thunderbird
     vlc # kazv
     obs-studio
 
     # work:
-    libreoffice scribus gimp xournalpp krita calibre
-    tesseract poppler_utils
-    zotero pandoc
+    libreoffice
+    scribus
+    gimp
+    xournalpp
+    krita
+    calibre
+    tesseract
+    poppler_utils
+    zotero
+    pandoc
 
-    typst typstfmt typst-live
+    typst
+    typstfmt
+    typst-live
 
     # non-oss:
-    megasync zoom-us
+    megasync
+    zoom-us
     # nur:
     # nur.repos.xyenon.kazv
   ];

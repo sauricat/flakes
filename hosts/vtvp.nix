@@ -1,21 +1,33 @@
-{ config, pkgs, lib, modulesPath, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sr_mod" "virtio_blk" ];
+  boot.initrd.availableKernelModules = [
+    "ahci"
+    "xhci_pci"
+    "virtio_pci"
+    "sr_mod"
+    "virtio_blk"
+  ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/67d96826-c543-41c8-97bb-2d242bb93471";
-      fsType = "btrfs";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/67d96826-c543-41c8-97bb-2d242bb93471";
+    fsType = "btrfs";
+  };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/520c486e-2255-42f7-bcbc-0b00872cf38b"; }
-    ];
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/520c486e-2255-42f7-bcbc-0b00872cf38b"; }
+  ];
 
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
@@ -28,7 +40,7 @@
   boot.loader.grub.device = "/dev/vda"; # or "nodev" for efi only
 
   networking.hostName = "vtvp"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   time.timeZone = "Europe/Amsterdam";
 

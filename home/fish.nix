@@ -3,20 +3,25 @@ let
   myinit = lib.strings.concatStringsSep "\n" [
     "set fish_prompt_pwd_dir_length 0" # make prompt show full path
     (builtins.readFile ./fish/guix_integration.fish)
-    (builtins.readFile ./fish/vterm_integration.fish) ];
+    (builtins.readFile ./fish/vterm_integration.fish)
+  ];
 in
 {
   programs.fish = {
     enable = true;
     shellAbbrs = {
       # Pride commands
-      l = "eza -F -abl"; ls = "eza -F"; lt = "eza -F -abl -s modified";
+      l = "eza -F -abl";
+      ls = "eza -F";
+      lt = "eza -F -abl -s modified";
       g = "git";
       b = "bsdtar";
       t = "trash";
 
       # Other commands
-      n = "nix"; nre = "nix repl '<nixpkgs>'"; nse = "nix search nixpkgs";
+      n = "nix";
+      nre = "nix repl '<nixpkgs>'";
+      nse = "nix search nixpkgs";
       ptree = "procs --tree";
       tree = "exa -TF";
 
@@ -46,16 +51,21 @@ in
 
       # Prompt
       fish_greeting = "";
-      fish_prompt = lib.strings.removePrefix "function fish_prompt"
-        (lib.strings.removeSuffix "end\n" # stubborn, need further improvement
-          (builtins.readFile ./fish/fish_prompt.fish));
+      fish_prompt = lib.strings.removePrefix "function fish_prompt" (
+        lib.strings.removeSuffix "end\n" # stubborn, need further improvement
+          (builtins.readFile ./fish/fish_prompt.fish)
+      );
     };
 
     shellInit = myinit;
   };
 
-  programs.zoxide = { enable = true;
-                      enableFishIntegration = true; };
-  programs.fzf    = { enable = true;
-                      enableFishIntegration = true; };
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+  programs.fzf = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 }

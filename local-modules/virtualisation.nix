@@ -9,7 +9,8 @@
 
   environment.systemPackages = with pkgs; [
     virt-manager
-    wl-clipboard python3Packages.pyclip # for waydroid
+    wl-clipboard
+    python3Packages.pyclip # for waydroid
   ];
 
   virtualisation.docker.enable = true;

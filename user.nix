@@ -5,7 +5,14 @@
   users.users = {
     shu = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "docker" "libvirtd" "lp" "scanner" ];
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+        "docker"
+        "libvirtd"
+        "lp"
+        "scanner"
+      ];
       shell = pkgs.fish;
       homeMode = "755";
       openssh.authorizedKeys.keys = [
@@ -32,8 +39,9 @@
   nix.settings.trusted-users = [ "@wheel" ];
   nix.sshServe = {
     enable = if config.networking.hostName == "wlsn" then true else false;
-    keys = config.users.users.shu.openssh.authorizedKeys.keys
-           ++ config.users.users.oxa.openssh.authorizedKeys.keys
-           ++ config.users.users.kuniklo.openssh.authorizedKeys.keys;
+    keys =
+      config.users.users.shu.openssh.authorizedKeys.keys
+      ++ config.users.users.oxa.openssh.authorizedKeys.keys
+      ++ config.users.users.kuniklo.openssh.authorizedKeys.keys;
   };
 }

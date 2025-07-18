@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  networking.wireless.enable = false;  # Must be false for enabling networkmanager.
+  networking.wireless.enable = false; # Must be false for enabling networkmanager.
   networking.networkmanager = {
     enable = true;
     plugins = with pkgs; [ networkmanager-openconnect ];
@@ -49,7 +49,10 @@
   networking.firewall = rec {
     enable = lib.mkDefault true;
     checkReversePath = lib.mkDefault "loose";
-    allowedTCPPorts = [ 1714 1764 ]; #KDEConnect
+    allowedTCPPorts = [
+      1714
+      1764
+    ]; # KDEConnect
     allowedUDPPorts = allowedTCPPorts;
   };
 

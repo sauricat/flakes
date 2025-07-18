@@ -1,16 +1,30 @@
 { pkgs, ... }:
 let
-  pythonWithPkgs = pkgs.python3.withPackages
-    (ppkgs: with ppkgs; [
+  pythonWithPkgs = pkgs.python3.withPackages (
+    ppkgs: with ppkgs; [
       epc
-    ]);
+    ]
+  );
 in
 {
   home.packages = with pkgs; [
     pythonWithPkgs
-    cabal-install ghc gcc gnumake yarn hugo binutils ruby_3_1
-    xsel xclip
-    bash-completion cling racket rustc cargo elixir
+    cabal-install
+    ghc
+    gcc
+    gnumake
+    yarn
+    hugo
+    binutils
+    ruby_3_1
+    xsel
+    xclip
+    bash-completion
+    cling
+    racket
+    rustc
+    cargo
+    elixir
     github-cli
   ];
 
@@ -23,7 +37,11 @@ in
       diff.renameLimit = 10000;
       pull.ff = "only";
     };
-    ignores = [ "*~" "\\#*\\#" ".\\#*" ]; # emacs
+    ignores = [
+      "*~"
+      "\\#*\\#"
+      ".\\#*"
+    ]; # emacs
   };
 
   programs.direnv = {

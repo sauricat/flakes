@@ -10,7 +10,7 @@
         "browser.quitShortcut.disabled" = true;
 
         "font.cjk_pref_fallback_order" = "ja,zh-cn,zh-hk,zh-tw,ko";
-        
+
         "font.name.monospace.zh-CN" = "Sarasa Mono SC";
         "font.name.serif.zh-CN" = "Source Han Serif SC";
         "font.name.sans-serif.zh-CN" = "Source Han Sans SC";

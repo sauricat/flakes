@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchsvn
-, SDL
-, SDL_image
-, SDL_net
-, SDL_ttf
-, SDL_gfx
-, libpng12
-, bison
-, flex
-, dos2unix
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  SDL,
+  SDL_image,
+  SDL_net,
+  SDL_ttf,
+  SDL_gfx,
+  libpng12,
+  bison,
+  flex,
+  dos2unix,
 }:
 
 stdenv.mkDerivation {
@@ -22,7 +23,16 @@ stdenv.mkDerivation {
   };
   patches = [ ./patch.patch ];
   nativeBuildInputs = [ dos2unix ];
-  buildInputs = [ SDL SDL_image SDL_net SDL_ttf SDL_gfx bison flex libpng12 ];
+  buildInputs = [
+    SDL
+    SDL_image
+    SDL_net
+    SDL_ttf
+    SDL_gfx
+    bison
+    flex
+    libpng12
+  ];
   buildFlags = [ "USE_DEBUG=" ];
   installFlags = [ "PREFIX=${placeholder "out"}/" ];
 

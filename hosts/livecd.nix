@@ -1,4 +1,10 @@
-{ inputs, lib, pkgs, modulesPath, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
   imports = [
@@ -7,7 +13,15 @@
   ];
   boot.kernelPackages = pkgs.linuxPackages_testing;
   # Since there are rc kernel packages, we need to disable zfs support.
-  boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
+  boot.supportedFilesystems = lib.mkForce [
+    "btrfs"
+    "reiserfs"
+    "vfat"
+    "f2fs"
+    "xfs"
+    "ntfs"
+    "cifs"
+  ];
 
   isoImage = {
     isoBaseName = "livecd";
@@ -23,9 +37,10 @@
   ];
 
   home-manager.users.nixos = {
-    home.file.clash-configuration.source = ../clash-configuration-temp; # the source does not exist until the flake
-                                                                        # compilation is called by `build.sh', see
-                                                                        # lines 69-71 of it.
+    home.file.clash-configuration.source = ../clash-configuration-temp;
+    # the source does not exist until the flake
+    # compilation is called by `build.sh', see
+    # lines 69-71 of it.
     home.file.configuration.source = ../.;
     home.stateVersion = "21.11";
   };

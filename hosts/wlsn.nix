@@ -1,27 +1,51 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
-  boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
+  boot.supportedFilesystems = lib.mkForce [
+    "btrfs"
+    "reiserfs"
+    "vfat"
+    "f2fs"
+    "xfs"
+    "ntfs"
+    "cifs"
+  ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+  ];
   boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelModules = [ "kvm-intel" "hid-apple" ];
+  boot.kernelModules = [
+    "kvm-intel"
+    "hid-apple"
+  ];
   boot.extraModprobeConfig = ''
-      options hid_apple fnmode=2
+    options hid_apple fnmode=2
   ''; # fix keyboard fn keys dysfunction
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/1b241f02-b9b5-4667-8d7a-9dc1b12b18b3";
-      fsType = "btrfs";
-      options = [ "compress=zstd" ];
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/1b241f02-b9b5-4667-8d7a-9dc1b12b18b3";
+    fsType = "btrfs";
+    options = [ "compress=zstd" ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/5A55-F4D7";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/5A55-F4D7";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
@@ -45,19 +69,19 @@
     theme = pkgs.nixos-grub2-theme;
 
     extraEntries = ''
-        menuentry "Windows" {
-          insmod part_gpt
-          insmod fat
-          insmod search_fs_uuid
-          insmod chain
-          search --fs-uuid --set=root $FS_UUID
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
+              menuentry "Windows" {
+                insmod part_gpt
+                insmod fat
+                insmod search_fs_uuid
+                insmod chain
+                search --fs-uuid --set=root $FS_UUID
+                chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+              }
 
-        menuentry 'UEFI Firmware Settings' --id 'uefi-firmware' {
-          fwsetup
-	      }
-      '';
+              menuentry 'UEFI Firmware Settings' --id 'uefi-firmware' {
+                fwsetup
+      	      }
+    '';
   };
 
   #! Secure Boot !!

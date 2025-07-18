@@ -1,11 +1,13 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, runtimeShell
-, networkmanager
-, rofi
-, dunst
-, qrencode }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  runtimeShell,
+  networkmanager,
+  rofi,
+  dunst,
+  qrencode,
+}:
 let
   runtimeInputs = [
     networkmanager
@@ -13,7 +15,8 @@ let
     dunst
     qrencode
   ];
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "rofi-network-manager";
   version = "git";
   src = fetchFromGitHub {

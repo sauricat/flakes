@@ -2,8 +2,10 @@
 {
   home.packages = with pkgs; [
     # compatibility:
-    wine winetricks samba
-    steam-run #dpkg apt rpm
+    wine
+    winetricks
+    samba
+    steam-run # dpkg apt rpm
 
     # nixos-cn:
     # nixos-cn.wine-wechat
@@ -24,10 +26,10 @@
     Service = {
       Type = "oneshot";
       ExecStart = "${pkgs.writeScript "killwine.sh" ''
-          #!${pkgs.runtimeShell}
-          ${pkgs.procps}/bin/pkill -9 WeChat
-          ${pkgs.procps}/bin/ps -ef | ${pkgs.ripgrep}/bin/rg "C:\\\\" | ${pkgs.ripgrep}/bin/rg -v ${pkgs.ripgrep} | ${pkgs.gawk}/bin/gawk '{ print $2 }' | ${pkgs.findutils}/bin/xargs ${pkgs.util-linux}/bin/kill -9
-        ''}";
+        #!${pkgs.runtimeShell}
+        ${pkgs.procps}/bin/pkill -9 WeChat
+        ${pkgs.procps}/bin/ps -ef | ${pkgs.ripgrep}/bin/rg "C:\\\\" | ${pkgs.ripgrep}/bin/rg -v ${pkgs.ripgrep} | ${pkgs.gawk}/bin/gawk '{ print $2 }' | ${pkgs.findutils}/bin/xargs ${pkgs.util-linux}/bin/kill -9
+      ''}";
     };
     Install.WantedBy = [ "shutdown.target" ];
   };

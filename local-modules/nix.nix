@@ -12,7 +12,10 @@
 
     registry = {
       nixpkgs = {
-        from = { id = "nixpkgs"; type = "indirect"; };
+        from = {
+          id = "nixpkgs";
+          type = "indirect";
+        };
         flake = inputs.nixpkgs;
       };
     };

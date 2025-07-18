@@ -22,18 +22,21 @@
     useXkbConfig = true;
   };
 
-  environment.systemPackages = with pkgs; with kdePackages; [
-    firefox
-    ark
-    filelight
-  ];
+  environment.systemPackages =
+    with pkgs;
+    with kdePackages;
+    [
+      firefox
+      ark
+      filelight
+    ];
   programs.fish.enable = true;
   # nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
 
   # Some defaults, override "basics.nix"
   # programs.gnupg.agent.pinentryFlavor = lib.mkOverride 900 "qt";
-  programs.command-not-found.enable   = lib.mkOverride 900 true;
-  services.flatpak.enable             = lib.mkOverride 900 true;
+  programs.command-not-found.enable = lib.mkOverride 900 true;
+  services.flatpak.enable = lib.mkOverride 900 true;
 
   fonts = {
     enableDefaultPackages = true;
@@ -47,12 +50,19 @@
       noto-fonts-cjk-serif
       noto-fonts-cjk-sans
       hanazono
-      source-han-sans source-han-serif source-han-mono
-      source-han-sans-simplified-chinese source-han-serif-simplified-chinese
-      source-han-sans-japanese source-han-serif-japanese source-han-code-jp
-      wqy_microhei wqy_zenhei
+      source-han-sans
+      source-han-serif
+      source-han-mono
+      source-han-sans-simplified-chinese
+      source-han-serif-simplified-chinese
+      source-han-sans-japanese
+      source-han-serif-japanese
+      source-han-code-jp
+      wqy_microhei
+      wqy_zenhei
       sarasa-gothic
-      arphic-ukai arphic-uming
+      arphic-ukai
+      arphic-uming
       unfonts-core
 
       twemoji-color-font
@@ -61,7 +71,11 @@
     fontconfig = {
       enable = true;
       defaultFonts = rec {
-        serif = [ "Noto Serif" "源ノ明朝" "Noto Emoji" ];
+        serif = [
+          "Noto Serif"
+          "源ノ明朝"
+          "Noto Emoji"
+        ];
         sansSerif = serif;
         # sansSerif = [ "Noto Sans" "源ノ角ゴシック" "Noto Emoji" ];
         monospace = [ "更紗等幅ゴシック J" ];

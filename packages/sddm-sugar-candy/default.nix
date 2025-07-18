@@ -1,10 +1,13 @@
 # reference: github:Shados/nixos-config
 #            rev 0db53dbaa1fce37ca56c091bfdaf8f189e5c8956
 #            /apps/sddm/sddm-sugar-dark.nix
-{ stdenv, lib, fetchgit
-, qt5
-, crudini
-, configOverrides ? null
+{
+  stdenv,
+  lib,
+  fetchgit,
+  qt5,
+  crudini,
+  configOverrides ? null,
 }:
 let
   configOverridden = configOverrides != null;
@@ -24,18 +27,20 @@ stdenv.mkDerivation rec {
     qt5.qtgraphicaleffects
   ];
 
-  installPhase = ''
-    mkdir -p "$out/share/sddm/themes/"
-    cp -r "$src" "$out/share/sddm/themes/sugar-candy"
-  '' + lib.optionalString configOverridden ''
-    chmod -R u+w "$out/share/sddm/themes/"
-    crudini --merge "$out/share/sddm/themes/"*/theme.conf < "${configOverrides}"
-  '';
+  installPhase =
+    ''
+      mkdir -p "$out/share/sddm/themes/"
+      cp -r "$src" "$out/share/sddm/themes/sugar-candy"
+    ''
+    + lib.optionalString configOverridden ''
+      chmod -R u+w "$out/share/sddm/themes/"
+      crudini --merge "$out/share/sddm/themes/"*/theme.conf < "${configOverrides}"
+    '';
 
   meta = with lib; {
     description = "Sweeten the login experience for your users, your family and yourself.";
-    homepage    = "https://framagit.org/MarianArlt/sddm-sugar-candy";
+    homepage = "https://framagit.org/MarianArlt/sddm-sugar-candy";
     maintainers = [ maintainers.sauricat ];
-    license     = licenses.gpl3;
+    license = licenses.gpl3;
   };
 }
