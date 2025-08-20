@@ -11,6 +11,7 @@ patch:
     - schema: double_pinyin_mspy
     - schema: wugniu
     - schema: latex
+    - schema: double_pinyin_mspy_ice
   key_binder:
     bindings:
       __patch:

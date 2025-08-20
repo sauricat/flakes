@@ -14,6 +14,7 @@
         (fcitx5-rime.override { rimeDataPkgs = [ rime-data ]; })
         fcitx5-anthy
         fcitx5-configtool
+        librime-lua
       ];
     };
   };
