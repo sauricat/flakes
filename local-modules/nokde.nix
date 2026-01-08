@@ -7,7 +7,7 @@
       ark
       dolphin
       gwenview
-      okular
+      # okular
       # spectacle
       bibata-cursors
       kitty

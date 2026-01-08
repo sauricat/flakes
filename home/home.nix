@@ -31,6 +31,7 @@
     thunderbird
     vlc # kazv
     obs-studio
+    protonmail-bridge-gui
 
     # work:
     libreoffice
