@@ -57,7 +57,7 @@ let
     solargraph
     yaml-language-server
     clang-tools
-    elixir_ls
+    elixir-ls
     tinymist
     # lua53Packages.digestif # Due to collision, 2023-08-29, with TeXLive
   ];

@@ -1,13 +1,13 @@
 { ... }:
 {
-  services.logind.extraConfig = ''
-    HandlePowerKey=suspend
-    HandleLidSwitch=suspend
-    HandleLidSwitchExternalPower=ignore
-    HandleLidSwitchDocked=ignore
-    IdleAction=suspend
-    IdleActionSec=600
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "suspend";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    IdleAction = "hibernate";
+    IdleActionSec = 600;
+  };
   systemd.user.services.beforeSleep = {
     description = "Lock screen before sleep";
     before = [ "sleep.target" ];

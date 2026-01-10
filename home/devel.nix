@@ -16,7 +16,6 @@ in
     yarn
     hugo
     binutils
-    ruby_3_1
     xsel
     xclip
     bash-completion

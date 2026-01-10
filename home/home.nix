@@ -25,7 +25,7 @@
     tealdeer
 
     # internet:
-    tdesktop
+    telegram-desktop
     aria2
     element-desktop
     thunderbird
@@ -35,18 +35,18 @@
 
     # work:
     libreoffice
-    scribus
+    # scribus
     gimp
     xournalpp
     krita
     calibre
     tesseract
-    poppler_utils
+    poppler-utils
     zotero
     pandoc
 
     typst
-    typstfmt
+    typstyle
     typst-live
 
     # non-oss:

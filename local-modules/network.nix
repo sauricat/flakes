@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  networking.wireless.enable = false; # Must be false for enabling networkmanager.
+  # networking.wireless.enable = false; # Must be false for enabling networkmanager.
   networking.networkmanager = {
     enable = true;
     plugins = with pkgs; [ networkmanager-openconnect ];

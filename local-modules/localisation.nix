@@ -13,7 +13,7 @@
       fcitx5.addons = with pkgs; [
         (fcitx5-rime.override { rimeDataPkgs = [ rime-data ]; })
         fcitx5-anthy
-        fcitx5-configtool
+        qt6Packages.fcitx5-configtool
         librime-lua
       ];
     };
@@ -43,7 +43,7 @@
     enableDefaultPackages = true;
     packages = with pkgs; [
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       fira-code
       fira-code-symbols
 
@@ -54,10 +54,6 @@
       source-han-sans
       source-han-serif
       source-han-mono
-      source-han-sans-simplified-chinese
-      source-han-serif-simplified-chinese
-      source-han-sans-japanese
-      source-han-serif-japanese
       source-han-code-jp
       wqy_microhei
       wqy_zenhei
@@ -123,7 +119,7 @@
   # services.autorandr.enable = true;
 
   # sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
