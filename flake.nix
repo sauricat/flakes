@@ -193,7 +193,6 @@
             "nix"
             "console-l10n"
             # "guix"
-            "laptop-sleep"
             "steam"
             "printer"
             "mailing"

@@ -16,5 +16,5 @@
   virtualisation.docker.enable = true;
   users.groups."docker".members = [ "shu" ];
 
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
 }

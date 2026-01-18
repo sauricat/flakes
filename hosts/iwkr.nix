@@ -19,6 +19,7 @@
   ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.initrd = {
     systemd.enable = true;
@@ -67,16 +68,11 @@
 
   services.xserver.dpi = 96;
 
+  services.supergfxd.enable = true;
   services.asusd.enable = true;
+  services.asusd.enableUserService = true;
   services.fwupd.enable = true;
-  # boot.initrd.prepend = [ "${./iwkr/acpi_override}" ];
 
-  boot.kernelParams = [
-    # "mem_sleep_default=deep" # acpi override company
-    "amd_iommu=off"
-    "idle=nomwait"
-    "amdgpu.gpu_recovery=1" # https://wiki.archlinux.org/title/Laptop/ASUS#Black_screen_after_sleep
-  ];
 
   services.fprintd.enable = true;
 
