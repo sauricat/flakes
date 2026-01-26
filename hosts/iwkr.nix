@@ -73,7 +73,11 @@
   services.asusd.enableUserService = true;
   services.fwupd.enable = true;
 
-
+  boot.kernelParams = [
+    "amd_iommu=off"
+    "idle=nomwait"
+    "amdgpu.gpu_recovery=1" # https://wiki.archlinux.org/title/Laptop/ASUS#Black_screen_after_sleep
+  ];
   services.fprintd.enable = true;
 
   time.timeZone = "America/Toronto";
