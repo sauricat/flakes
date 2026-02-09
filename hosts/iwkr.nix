@@ -78,6 +78,8 @@
   ];
   services.fprintd.enable = true;
 
+  networking.networkmanager.wifi.powersave = true;
+
   time.timeZone = "America/Toronto";
   # Don't change this version.
   system.stateVersion = "21.11";
