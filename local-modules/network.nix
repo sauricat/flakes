@@ -1,13 +1,16 @@
 { lib, pkgs, ... }:
 
 {
-  # networking.wireless.enable = false; # Must be false for enabling networkmanager.
   networking.networkmanager = {
     enable = true;
     plugins = with pkgs; [ networkmanager-openconnect ];
+    dns = "systemd-resolved";
     # wifi.macAddress = "random";
     # ethernet.macAddress = "random";
   };
+  services.resolved.enable = true;
+  networking.useDHCP = false; # let NM take charge
+
 
   # systemd.user.services.clashClient = if config.networking.hostName != "wlsn" then {
   #   description = "Clash client service";
