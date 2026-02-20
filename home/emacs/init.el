@@ -28,6 +28,7 @@
 (require 'shu-langserver-eglot)
 (require 'shu-c)
 (require 'shu-tex)
+(require 'shu-llm)
 
 
 (global-set-key (kbd "C-z") 'undo)
