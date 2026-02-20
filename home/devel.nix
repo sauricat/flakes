@@ -32,9 +32,11 @@ in
 
   programs.git = {
     enable = true;
-    userEmail = "saurica@kazv.moe";
-    userName = "sauricat";
-    extraConfig = {
+    settings = {
+      user = {
+        email = "linshu1729@protonmail.com";
+        name = "sauricat";
+      };
       init.defaultBranch = "main";
       diff.renameLimit = 10000;
       pull.ff = "only";
