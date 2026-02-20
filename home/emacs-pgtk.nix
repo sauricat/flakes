@@ -24,7 +24,9 @@ let
       readRecursively ./emacs;
     alwaysEnsure = true;
     package = emacsPackage;
-    extraEmacsPackages = epkgs: [ ];
+    extraEmacsPackages = epkgs: [
+      epkgs.treesit-grammars.with-all-grammars
+    ];
     override =
       epkgs:
       epkgs
