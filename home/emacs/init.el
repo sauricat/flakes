@@ -215,6 +215,8 @@
              :start #'flycheck-grammarly--start
              :modes flycheck-grammarly-active-modes))))
 (use-package cargo)
+(use-package gleam-ts-mode
+  :mode (rx ".gleam" eos))
 
 ;; Dired
 (use-package dired-single

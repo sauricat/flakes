@@ -25,6 +25,9 @@ in
     cargo
     elixir
     github-cli
+    gleam
+    erlang
+    nodejs
   ];
 
   programs.git = {
