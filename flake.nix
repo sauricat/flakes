@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs-master.url = "github:nixos/nixpkgs/master";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
     nur = {
       url = "github:nix-community/NUR";
@@ -160,6 +160,10 @@
             pkgs = self;
           };
         };
+        hotfix20260228 = self: super: {
+          lager = inputs.nixpkgs-master.legacyPackages.${self.system}.lager;
+          calibre = self.pkgs.emptyDirectory;
+        }; # expected to be moved in next update
 
       };
       nixosModules = rec {
