@@ -4,6 +4,7 @@ let
     "set fish_prompt_pwd_dir_length 0" # make prompt show full path
     (builtins.readFile ./fish/guix_integration.fish)
     (builtins.readFile ./fish/vterm_integration.fish)
+    (builtins.readFile ./fish/nixhash.fish)
   ];
 in
 {
@@ -15,13 +16,26 @@ in
       ls = "eza -F";
       lt = "eza -F -abl -s modified";
       g = "git";
-      b = "bsdtar";
       t = "trash";
 
       # Other commands
       n = "nix";
-      nre = "nix repl '<nixpkgs>'";
-      nse = "nix search nixpkgs";
+      nb = "nix build";
+      nr = "nix run";
+      nd = "nix develop";
+      ns = "nix shell";
+
+      nbp = "nix build path:.";
+      nrp = "nix run path:.";
+      ndp = "nix develop path:.";
+      nsp = "nix shell path:.";
+
+
+      nbn = "nix build nixpkgs";
+      nrn = "nix run nixpkgs";
+      ndn = "nix develop nixpkgs";
+      nsn = "nix shell nixpkgs";
+
       ptree = "procs --tree";
       tree = "exa -TF";
 
@@ -34,8 +48,6 @@ in
       # Shortcuts
       setvmdrv = "sudo vmhgfs-fuse .host:/ /mnt -o allow_other";
       hash = "nix-hash --flat --base32 --type sha256 $argv";
-      nshp = "nix shell nixpkgs#$argv";
-      nr = "nix run nixpkgs#$argv";
       e = ''
         if test -z "$argv"
             set args "-c"
