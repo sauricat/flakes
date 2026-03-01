@@ -1,0 +1,3 @@
+[submodule "home/rime"]
+	path = home/rime
+	url = git@github.com:sauricat/rime-config
