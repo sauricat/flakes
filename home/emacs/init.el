@@ -239,12 +239,12 @@
   (add-to-list 'tree-sitter-major-mode-language-alist '(markdown-mode . markdown))
   (add-to-list 'tree-sitter-major-mode-language-alist '(yaml-mode . yaml))
   (add-to-list 'tree-sitter-major-mode-language-alist '(gleam-ts-mode . gleam)))
-(add-to-list 'treesit-language-source-alist
-             '(typst "https://github.com/uben0/tree-sitter-typst"))
-(add-to-list 'treesit-language-source-alist
-             '(typst "https://github.com/gleam-lang/tree-sitter-gleam"))
-(treesit-install-language-grammar 'typst)
-(treesit-install-language-grammar 'gleam)
+;; (add-to-list 'treesit-language-source-alist
+;;              '(typst "https://github.com/uben0/tree-sitter-typst"))
+;; (add-to-list 'treesit-language-source-alist
+;;              '(typst "https://github.com/gleam-lang/tree-sitter-gleam"))
+;; (treesit-install-language-grammar 'typst)
+;; (treesit-install-language-grammar 'gleam)
 
 
 ;; Undo tree
