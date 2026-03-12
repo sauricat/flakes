@@ -80,7 +80,7 @@
 
   networking.networkmanager.wifi.powersave = true;
 
-  time.timeZone = "America/Toronto";
+  time.timeZone = "America/Vancouver";
   # Don't change this version.
   system.stateVersion = "21.11";
 
