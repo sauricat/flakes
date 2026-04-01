@@ -223,6 +223,7 @@
             "console-l10n"
             # "guix"
             "desktop-server"
+            "desktop-integration-workspace-server"
             "steam"
             "printer"
             "mailing"
