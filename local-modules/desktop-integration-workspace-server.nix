@@ -2,7 +2,6 @@
 {
   services.xrdp = {
     enable = true;
-    defaultWindowManager = "startplasma-wayland";
-    openFirewall = false;
+    defaultWindowManager = "startplasma-x11";
   };
 }
