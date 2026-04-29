@@ -102,14 +102,7 @@
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
-  # Former 1070 Graphics Card Config
-  # services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.opengl.enable = true;
-  # services.picom = {
-  #   vSync = true;
-  #   backend = "xrender";
-  #   settings.unredir-if-possible = false;
-  # };
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
 
   time.timeZone = "America/Toronto";
   # Don't change this version.
