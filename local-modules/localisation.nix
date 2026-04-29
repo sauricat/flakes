@@ -39,6 +39,11 @@
   programs.command-not-found.enable = lib.mkOverride 900 true;
   services.flatpak.enable = lib.mkOverride 900 true;
 
+  programs.obs-studio = {
+    enable = true;
+    enableVirtualCamera = true;
+  };
+
   fonts = {
     enableDefaultPackages = true;
     packages = with pkgs; [
