@@ -36,9 +36,9 @@ My modules, including the overlay, are in `outputs.nixosModules.smallcat`.
 
 - [Dram’s Configuration](https://github.com/dramforever/config/)
 
-- [Vanilla’s Configuration](https://github.com/VergeDX/config-nixpkgs)
+- [Vanilla’s Configuration](https://github.com/VergeDX/flakes) (currently archived)
 
-- [Yuzukicat’s Configuration](https://github.com/yuzukicat/nixos-config)
+- [Yuzukicat’s Configuration](https://github.com/yuzukicat/nixos-config) (not actively updating)
 
 ## Commit Message Convention (Test, Effective 2023-04-23)
 - ア Update Modules, Components, or `flake.lock`
