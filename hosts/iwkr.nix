@@ -70,7 +70,6 @@
 
   services.supergfxd.enable = true;
   services.asusd.enable = true;
-  services.asusd.enableUserService = true;
   services.fwupd.enable = true;
 
   boot.kernelParams = [
