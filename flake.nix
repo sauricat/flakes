@@ -212,6 +212,7 @@
             nur.modules.nixos.default
           ];
           extraLocalModules = [
+            "celeste"
             "localisation"
             "nokde"
             "kde"
