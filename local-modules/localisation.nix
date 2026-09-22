@@ -36,7 +36,7 @@
 
   # Some defaults, override "basics.nix"
   # programs.gnupg.agent.pinentryFlavor = lib.mkOverride 900 "qt";
-  programs.command-not-found.enable = lib.mkOverride 900 true;
+  programs.command-not-found.enable = lib.mkOverride 900 false;
   services.flatpak.enable = lib.mkOverride 900 true;
 
   programs.obs-studio = {
@@ -67,20 +67,28 @@
       arphic-uming
       unfonts-core
 
+      lxgw-wenkai
+      lxgw-wenkai-screen
+
       twemoji-color-font
       font-awesome
     ];
     fontconfig = {
       enable = true;
-      defaultFonts = rec {
+      defaultFonts = {
         serif = [
+          "LXGW WenKai Screen"
           "Noto Serif"
           "源ノ明朝"
           "Noto Emoji"
         ];
-        sansSerif = serif;
-        # sansSerif = [ "Noto Sans" "源ノ角ゴシック" "Noto Emoji" ];
-        monospace = [ "更紗等幅ゴシック J" ];
+        sansSerif = [
+          "LXGW WenKai Screen"
+          "Noto Sans"
+          "源ノ角ゴシック"
+          "Noto Emoji"
+        ];
+        monospace = [ "LXGW WenKai Mono" "更紗等幅ゴシック J" ];
         emoji = [ "Noto Emoji" ];
       };
 
