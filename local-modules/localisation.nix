@@ -77,18 +77,16 @@
       enable = true;
       defaultFonts = {
         serif = [
-          "LXGW WenKai Screen"
           "Noto Serif"
           "源ノ明朝"
           "Noto Emoji"
         ];
         sansSerif = [
-          "LXGW WenKai Screen"
           "Noto Sans"
           "源ノ角ゴシック"
           "Noto Emoji"
         ];
-        monospace = [ "LXGW WenKai Mono" "更紗等幅ゴシック J" ];
+        monospace = [ "更紗等幅ゴシック J" ];
         emoji = [ "Noto Emoji" ];
       };
 
